@@ -85,9 +85,7 @@ const Three = () => {
                 minPolarAngle={angleToRadians(20)} 
                 maxPolarAngle={angleToRadians(88)} 
                 minDistance={60} 
-                maxDistance={120}
-                // enablePan={false}
-                // enableZoom={false} 
+                maxDistance={100}
                 rotateSpeed={0.6}
                 enabled={controlEnabled}
                 enableZoom={zoomEnabled}

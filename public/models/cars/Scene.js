@@ -95,63 +95,63 @@ export function Model(props) {
         <mesh name="rearLightTarget1" castShadow receiveShadow geometry={nodes.rearLightTarget1.geometry} material={nodes.rearLightTarget1.material} position={[-32.59, 7.01, -18.44]} scale={0.23} />
         <mesh name="rearLightTarget3" castShadow receiveShadow geometry={nodes.rearLightTarget3.geometry} material={nodes.rearLightTarget3.material} position={[-12.08, 5.92, 3.86]} scale={0.23} />
         <mesh name="rearLightTarget2" castShadow receiveShadow geometry={nodes.rearLightTarget2.geometry} material={nodes.rearLightTarget2.material} position={[-52.88, 5.97, 3.29]} scale={0.23} />
-        <group name="cart" position={[28.58, 1.67, 16.12]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
+        <group name="cart" position={[28.58, 1.67, 3.86]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
           <mesh name="Cube022" castShadow receiveShadow geometry={nodes.Cube022.geometry} material={materials['headlights.004']} />
           <mesh name="Cube022_1" castShadow receiveShadow geometry={nodes.Cube022_1.geometry} material={materials['black.006']} />
           <mesh name="Cube022_2" castShadow receiveShadow geometry={nodes.Cube022_2.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube022_3" castShadow receiveShadow geometry={nodes.Cube022_3.geometry} material={materials.DARK_BLUE} />
           <mesh name="Cube022_4" castShadow receiveShadow geometry={nodes.Cube022_4.geometry} material={materials.grey} />
         </group>
-        <group name="cart001" position={[28.58, 1.67, 16.53]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
+        <group name="cart001" position={[28.58, 1.67, 4.28]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
           <mesh name="Cube022" castShadow receiveShadow geometry={nodes.Cube022.geometry} material={materials['headlights.004']} />
           <mesh name="Cube022_1" castShadow receiveShadow geometry={nodes.Cube022_1.geometry} material={materials['black.006']} />
           <mesh name="Cube022_2" castShadow receiveShadow geometry={nodes.Cube022_2.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube022_3" castShadow receiveShadow geometry={nodes.Cube022_3.geometry} material={materials.DARK_BLUE} />
           <mesh name="Cube022_4" castShadow receiveShadow geometry={nodes.Cube022_4.geometry} material={materials.grey} />
         </group>
-        <group name="cart002" position={[28.58, 1.67, 16.89]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
+        <group name="cart002" position={[28.58, 1.67, 4.64]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
           <mesh name="Cube022" castShadow receiveShadow geometry={nodes.Cube022.geometry} material={materials['headlights.004']} />
           <mesh name="Cube022_1" castShadow receiveShadow geometry={nodes.Cube022_1.geometry} material={materials['black.006']} />
           <mesh name="Cube022_2" castShadow receiveShadow geometry={nodes.Cube022_2.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube022_3" castShadow receiveShadow geometry={nodes.Cube022_3.geometry} material={materials.DARK_BLUE} />
           <mesh name="Cube022_4" castShadow receiveShadow geometry={nodes.Cube022_4.geometry} material={materials.grey} />
         </group>
-        <group name="cart003" position={[28.58, 1.67, 17.29]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
+        <group name="cart003" position={[28.58, 1.67, 5.03]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
           <mesh name="Cube022" castShadow receiveShadow geometry={nodes.Cube022.geometry} material={materials['headlights.004']} />
           <mesh name="Cube022_1" castShadow receiveShadow geometry={nodes.Cube022_1.geometry} material={materials['black.006']} />
           <mesh name="Cube022_2" castShadow receiveShadow geometry={nodes.Cube022_2.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube022_3" castShadow receiveShadow geometry={nodes.Cube022_3.geometry} material={materials.DARK_BLUE} />
           <mesh name="Cube022_4" castShadow receiveShadow geometry={nodes.Cube022_4.geometry} material={materials.grey} />
         </group>
-        <group name="cart004" position={[28.58, 1.67, 17.69]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
+        <group name="cart004" position={[28.58, 1.67, 5.44]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
           <mesh name="Cube022" castShadow receiveShadow geometry={nodes.Cube022.geometry} material={materials['headlights.004']} />
           <mesh name="Cube022_1" castShadow receiveShadow geometry={nodes.Cube022_1.geometry} material={materials['black.006']} />
           <mesh name="Cube022_2" castShadow receiveShadow geometry={nodes.Cube022_2.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube022_3" castShadow receiveShadow geometry={nodes.Cube022_3.geometry} material={materials.DARK_BLUE} />
           <mesh name="Cube022_4" castShadow receiveShadow geometry={nodes.Cube022_4.geometry} material={materials.grey} />
         </group>
-        <group name="cart005" position={[28.58, 1.67, 18.06]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
+        <group name="cart005" position={[28.58, 1.67, 5.8]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
           <mesh name="Cube022" castShadow receiveShadow geometry={nodes.Cube022.geometry} material={materials['headlights.004']} />
           <mesh name="Cube022_1" castShadow receiveShadow geometry={nodes.Cube022_1.geometry} material={materials['black.006']} />
           <mesh name="Cube022_2" castShadow receiveShadow geometry={nodes.Cube022_2.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube022_3" castShadow receiveShadow geometry={nodes.Cube022_3.geometry} material={materials.DARK_BLUE} />
           <mesh name="Cube022_4" castShadow receiveShadow geometry={nodes.Cube022_4.geometry} material={materials.grey} />
         </group>
-        <group name="cart006" position={[28.58, 1.67, 18.45]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
+        <group name="cart006" position={[28.58, 1.67, 6.2]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
           <mesh name="Cube022" castShadow receiveShadow geometry={nodes.Cube022.geometry} material={materials['headlights.004']} />
           <mesh name="Cube022_1" castShadow receiveShadow geometry={nodes.Cube022_1.geometry} material={materials['black.006']} />
           <mesh name="Cube022_2" castShadow receiveShadow geometry={nodes.Cube022_2.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube022_3" castShadow receiveShadow geometry={nodes.Cube022_3.geometry} material={materials.DARK_BLUE} />
           <mesh name="Cube022_4" castShadow receiveShadow geometry={nodes.Cube022_4.geometry} material={materials.grey} />
         </group>
-        <group name="cart007" position={[28.58, 1.67, 18.84]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
+        <group name="cart007" position={[28.58, 1.67, 6.58]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
           <mesh name="Cube022" castShadow receiveShadow geometry={nodes.Cube022.geometry} material={materials['headlights.004']} />
           <mesh name="Cube022_1" castShadow receiveShadow geometry={nodes.Cube022_1.geometry} material={materials['black.006']} />
           <mesh name="Cube022_2" castShadow receiveShadow geometry={nodes.Cube022_2.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube022_3" castShadow receiveShadow geometry={nodes.Cube022_3.geometry} material={materials.DARK_BLUE} />
           <mesh name="Cube022_4" castShadow receiveShadow geometry={nodes.Cube022_4.geometry} material={materials.grey} />
         </group>
-        <group name="cart008" position={[28.58, 1.67, 19.21]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
+        <group name="cart008" position={[28.58, 1.67, 6.96]} rotation={[0.09, 0, 0]} scale={[8.39, 10.86, 9.64]}>
           <mesh name="Cube022" castShadow receiveShadow geometry={nodes.Cube022.geometry} material={materials['headlights.004']} />
           <mesh name="Cube022_1" castShadow receiveShadow geometry={nodes.Cube022_1.geometry} material={materials['black.006']} />
           <mesh name="Cube022_2" castShadow receiveShadow geometry={nodes.Cube022_2.geometry} material={materials['metal_frame.002']} />
@@ -174,8 +174,6 @@ export function Model(props) {
           <mesh name="Cube034_4" castShadow receiveShadow geometry={nodes.Cube034_4.geometry} material={materials['black.006']} />
           <mesh name="Cube034_5" castShadow receiveShadow geometry={nodes.Cube034_5.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube034_6" castShadow receiveShadow geometry={nodes.Cube034_6.geometry} material={materials['headlights.004']} />
-          <mesh name="Cube034_7" castShadow receiveShadow geometry={nodes.Cube034_7.geometry} material={materials['1280px-Iran_Air_logo.svg']} />
-          <mesh name="Cube034_8" castShadow receiveShadow geometry={nodes.Cube034_8.geometry} material={materials['Material.009']} />
         </group>
         <group name="orangeRunwayCar2" position={[-52.85, 1.12, -14.27]} rotation={[Math.PI, -0.72, Math.PI]} scale={[0.87, 0.35, 1.41]}>
           <mesh name="Cube185" castShadow receiveShadow geometry={nodes.Cube185.geometry} material={materials.window} />
@@ -199,7 +197,7 @@ export function Model(props) {
           <mesh name="Cube199" castShadow receiveShadow geometry={nodes.Cube199.geometry} material={materials['Material.009']} />
           <mesh name="Cube199_1" castShadow receiveShadow geometry={nodes.Cube199_1.geometry} material={materials.siren_orange} />
         </group>
-        <group name="police_car" position={[58.08, 1.55, 50.8]} rotation={[Math.PI, 0, Math.PI]} scale={0.93}>
+        <group name="police_car" position={[58.08, 200, 46.56]} rotation={[Math.PI, 0, Math.PI]} scale={0.93}>
           <mesh name="Cube001" castShadow receiveShadow geometry={nodes.Cube001.geometry} material={materials['black.006']} />
           <mesh name="Cube001_1" castShadow receiveShadow geometry={nodes.Cube001_1.geometry} material={materials['Material.002']} />
           <mesh name="Cube001_2" castShadow receiveShadow geometry={nodes.Cube001_2.geometry} material={materials.window} />
@@ -208,12 +206,6 @@ export function Model(props) {
           <mesh name="Cube001_5" castShadow receiveShadow geometry={nodes.Cube001_5.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube001_6" castShadow receiveShadow geometry={nodes.Cube001_6.geometry} material={materials.siren_blue} />
           <mesh name="Cube001_7" castShadow receiveShadow geometry={nodes.Cube001_7.geometry} material={materials.siren_red} />
-          <mesh name="Cube001_8" castShadow receiveShadow geometry={nodes.Cube001_8.geometry} material={materials['taxi_yellow.002']} />
-          <mesh name="Cube001_9" castShadow receiveShadow geometry={nodes.Cube001_9.geometry} material={materials['Material.002']} />
-          <mesh name="Cube001_10" castShadow receiveShadow geometry={nodes.Cube001_10.geometry} material={materials['black.006']} />
-          <mesh name="Cube001_11" castShadow receiveShadow geometry={nodes.Cube001_11.geometry} material={materials.metal} />
-          <mesh name="Cube001_12" castShadow receiveShadow geometry={nodes.Cube001_12.geometry} material={materials.taillights} />
-          <mesh name="Cube001_13" castShadow receiveShadow geometry={nodes.Cube001_13.geometry} material={materials.taxi_sign} />
         </group>
         <group name="runwayPolice" position={[-46.7, 2.49, 6.09]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.93}>
           <mesh name="Cube002" castShadow receiveShadow geometry={nodes.Cube002.geometry} material={materials['black.006']} />
@@ -264,7 +256,7 @@ export function Model(props) {
           <mesh name="Plane001_12" castShadow receiveShadow geometry={nodes.Plane001_12.geometry} material={materials.emissive_white} />
           <mesh name="Plane001_13" castShadow receiveShadow geometry={nodes.Plane001_13.geometry} material={materials.metal} />
         </group>
-        <group name="turningTaxi" position={[54.24, 1.47, -38.11]} scale={0.93}>
+        <group name="turningTaxi" position={[54.24, 1.47, -34.57]} scale={0.93}>
           <mesh name="Cube039" castShadow receiveShadow geometry={nodes.Cube039.geometry} material={materials['taxi_yellow.002']} />
           <mesh name="Cube039_1" castShadow receiveShadow geometry={nodes.Cube039_1.geometry} material={materials['Material.002']} />
           <mesh name="Cube039_2" castShadow receiveShadow geometry={nodes.Cube039_2.geometry} material={materials.window} />
@@ -292,6 +284,14 @@ export function Model(props) {
           <mesh name="Cube041_4" castShadow receiveShadow geometry={nodes.Cube041_4.geometry} material={materials['black.006']} />
           <mesh name="Cube041_5" castShadow receiveShadow geometry={nodes.Cube041_5.geometry} material={materials.metal} />
         </group>
+        <group name="redMovingCar" position={[54.49, 200, -34.77]} rotation={[0, 0.01, 0]} scale={[0.74, 0.3, 1.2]}>
+          <mesh name="Cube041" castShadow receiveShadow geometry={nodes.Cube041.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube041_1" castShadow receiveShadow geometry={nodes.Cube041_1.geometry} material={materials.firefighter_red} />
+          <mesh name="Cube041_2" castShadow receiveShadow geometry={nodes.Cube041_2.geometry} material={materials.window} />
+          <mesh name="Cube041_3" castShadow receiveShadow geometry={nodes.Cube041_3.geometry} material={materials.taillights} />
+          <mesh name="Cube041_4" castShadow receiveShadow geometry={nodes.Cube041_4.geometry} material={materials['black.006']} />
+          <mesh name="Cube041_5" castShadow receiveShadow geometry={nodes.Cube041_5.geometry} material={materials.metal} />
+        </group>
         <group name="blueParkingCar" position={[49.79, 1.44, 8.31]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.93}>
           <mesh name="Cube043" castShadow receiveShadow geometry={nodes.Cube043.geometry} material={materials['headlights.004']} />
           <mesh name="Cube043_1" castShadow receiveShadow geometry={nodes.Cube043_1.geometry} material={materials['black.006']} />
@@ -300,7 +300,7 @@ export function Model(props) {
           <mesh name="Cube043_4" castShadow receiveShadow geometry={nodes.Cube043_4.geometry} material={materials.DARK_BLUE} />
           <mesh name="Cube043_5" castShadow receiveShadow geometry={nodes.Cube043_5.geometry} material={materials.window} />
         </group>
-        <group name="blueMovingCar" position={[57.93, 1.44, 50.8]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.93}>
+        <group name="blueMovingCar" position={[54.27, 200, -34.58]} scale={0.93}>
           <mesh name="Cube043" castShadow receiveShadow geometry={nodes.Cube043.geometry} material={materials['headlights.004']} />
           <mesh name="Cube043_1" castShadow receiveShadow geometry={nodes.Cube043_1.geometry} material={materials['black.006']} />
           <mesh name="Cube043_2" castShadow receiveShadow geometry={nodes.Cube043_2.geometry} material={materials['metal_frame.002']} />
@@ -322,14 +322,6 @@ export function Model(props) {
         <mesh name="iranair" castShadow receiveShadow geometry={nodes.iranair.geometry} material={materials.iranair} position={[-31.79, 10.82, -15.67]} rotation={[1.42, 0, Math.PI / 2]} scale={5.23} />
         <mesh name="iranair001" castShadow receiveShadow geometry={nodes.iranair001.geometry} material={materials.iranair} position={[-33.69, 10.82, -15.67]} rotation={[1.42, 0, Math.PI / 2]} scale={5.23} />
         <group name="Bus" position={[-15.95, 2.06, 38.39]} rotation={[0, -Math.PI / 2, 0]} scale={[1.17, 1.35, 1.23]}>
-          <mesh name="Cube160" castShadow receiveShadow geometry={nodes.Cube160.geometry} material={materials['black.006']} />
-          <mesh name="Cube160_1" castShadow receiveShadow geometry={nodes.Cube160_1.geometry} material={materials.light_blue} />
-          <mesh name="Cube160_2" castShadow receiveShadow geometry={nodes.Cube160_2.geometry} material={materials.window} />
-          <mesh name="Cube160_3" castShadow receiveShadow geometry={nodes.Cube160_3.geometry} material={materials['headlights.004']} />
-          <mesh name="Cube160_4" castShadow receiveShadow geometry={nodes.Cube160_4.geometry} material={materials.taillights} />
-          <mesh name="Cube160_5" castShadow receiveShadow geometry={nodes.Cube160_5.geometry} material={materials.metal} />
-        </group>
-        <group name="Bus_animated" position={[54.1, 2.06, -42.43]} scale={[1.17, 1.35, 1.23]}>
           <mesh name="Cube160" castShadow receiveShadow geometry={nodes.Cube160.geometry} material={materials['black.006']} />
           <mesh name="Cube160_1" castShadow receiveShadow geometry={nodes.Cube160_1.geometry} material={materials.light_blue} />
           <mesh name="Cube160_2" castShadow receiveShadow geometry={nodes.Cube160_2.geometry} material={materials.window} />
@@ -373,11 +365,6 @@ export function Model(props) {
           <mesh name="Cube171_8" castShadow receiveShadow geometry={nodes.Cube171_8.geometry} material={materials.siren_orange} />
         </group>
         <mesh name="Plane005" castShadow receiveShadow geometry={nodes.Plane005.geometry} material={materials['Material.009']} position={[-30.47, 5.39, -5.7]} rotation={[0, 0, -Math.PI / 2]} scale={[0.13, 0.58, 0.21]} />
-        <group name="police_car007" position={[-33.76, 2.98, 0.66]} rotation={[0, 1.57, 0]} scale={0.39}>
-          <mesh name="Cube038" castShadow receiveShadow geometry={nodes.Cube038.geometry} material={materials['black.006']} />
-          <mesh name="Cube038_1" castShadow receiveShadow geometry={nodes.Cube038_1.geometry} material={materials['metal_frame.002']} />
-          <mesh name="Cube038_2" castShadow receiveShadow geometry={nodes.Cube038_2.geometry} material={materials.siren_orange} />
-        </group>
         <group name="tree5" position={[47.48, 3.62, -21.15]} rotation={[-Math.PI, 1.44, -Math.PI]}>
           <mesh name="Cube175" castShadow receiveShadow geometry={nodes.Cube175.geometry} material={materials.tree_branch} />
           <mesh name="Cube175_1" castShadow receiveShadow geometry={nodes.Cube175_1.geometry} material={materials.tree_green} />
@@ -414,10 +401,18 @@ export function Model(props) {
           <mesh name="Icosphere018_2" castShadow receiveShadow geometry={nodes.Icosphere018_2.geometry} material={materials.tree_branch} />
         </group>
         <mesh name="billboard" castShadow receiveShadow geometry={nodes.billboard.geometry} material={materials.dark_metal_frame} position={[52.25, 4.43, 10.49]} scale={[0.11, 1.78, 3.03]} />
+        <group name="Bus_animated" position={[58.17, 2.06, 45.89]} rotation={[-Math.PI, 0, -Math.PI]} scale={[1.17, 1.35, 1.23]}>
+          <mesh name="Cube006" castShadow receiveShadow geometry={nodes.Cube006.geometry} material={materials['black.006']} />
+          <mesh name="Cube006_1" castShadow receiveShadow geometry={nodes.Cube006_1.geometry} material={materials.light_blue} />
+          <mesh name="Cube006_2" castShadow receiveShadow geometry={nodes.Cube006_2.geometry} material={materials.window} />
+          <mesh name="Cube006_3" castShadow receiveShadow geometry={nodes.Cube006_3.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube006_4" castShadow receiveShadow geometry={nodes.Cube006_4.geometry} material={materials.taillights} />
+          <mesh name="Cube006_5" castShadow receiveShadow geometry={nodes.Cube006_5.geometry} material={materials.metal} />
+        </group>
         <mesh name="runway_lights_white" castShadow receiveShadow geometry={nodes.runway_lights_white.geometry} material={materials.emissive_white} position={[-62.03, 0.99, 4.94]} scale={[67.28, 48.07, 48.07]} />
         <mesh name="billboardLCD" castShadow receiveShadow geometry={nodes.billboardLCD.geometry} material={materials.brightScreen} position={[52.43, 4.43, 10.43]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={3.32} />
         <mesh name="infoLCD2" castShadow receiveShadow geometry={nodes.infoLCD2.geometry} material={materials.brightScreen} position={[29.53, 4.43, -0.36]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[3.32, 3.32, 1.78]} />
-        <mesh name="infoLCD1" castShadow receiveShadow geometry={nodes.infoLCD1.geometry} material={materials['rgbScreenMain.001']} position={[29.53, 4.43, 21.15]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[3.32, 3.32, 1.78]} />
+        <mesh name="infoLCD1" castShadow receiveShadow geometry={nodes.infoLCD1.geometry} material={materials['rgbScreenMain.001']} position={[29.41, 3.69, 20.57]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[1.6, 2.83, 3.02]} />
         <group name="sign_post" position={[51.59, 3.25, -2.9]} scale={[0.33, 0.1, 0.33]}>
           <mesh name="Cube011" castShadow receiveShadow geometry={nodes.Cube011.geometry} material={materials.metal} />
           <mesh name="Cube011_1" castShadow receiveShadow geometry={nodes.Cube011_1.geometry} material={materials.airplane_dark_blue} />
@@ -453,8 +448,11 @@ export function Model(props) {
           <mesh name="Cube009_4" castShadow receiveShadow geometry={nodes.Cube009_4.geometry} material={materials.taillights} />
           <mesh name="Cube009_5" castShadow receiveShadow geometry={nodes.Cube009_5.geometry} material={materials['black.006']} />
           <mesh name="Cube009_6" castShadow receiveShadow geometry={nodes.Cube009_6.geometry} material={materials['metal_frame.002']} />
+          <mesh name="Cube009_7" castShadow receiveShadow geometry={nodes.Cube009_7.geometry} material={materials['black.006']} />
+          <mesh name="Cube009_8" castShadow receiveShadow geometry={nodes.Cube009_8.geometry} material={materials['metal_frame.002']} />
+          <mesh name="Cube009_9" castShadow receiveShadow geometry={nodes.Cube009_9.geometry} material={materials.siren_orange} />
         </group>
-        <mesh name="cplusplus" castShadow receiveShadow geometry={nodes.cplusplus.geometry} material={materials['cplusblue.001']} position={[-40.76, 2000, 1.47]} rotation={[0, 0, -Math.PI / 2]} scale={[0.28, 0.61, 0.28]} />
+        <mesh name="cplusplus" castShadow receiveShadow geometry={nodes.cplusplus.geometry} material={materials['cplusblue.001']} position={[-40.76, 200, 1.47]} rotation={[0, 0, -Math.PI / 2]} scale={[0.28, 0.61, 0.28]} />
         <group name="python" position={[-40.78, 1500, 1.5]} rotation={[Math.PI / 2, 0, 0]} scale={[51.58, 111.2, 51.58]}>
           <mesh name="Curve001" castShadow receiveShadow geometry={nodes.Curve001.geometry} material={materials['SVGMat.002']} />
           <mesh name="Curve001_1" castShadow receiveShadow geometry={nodes.Curve001_1.geometry} material={materials['SVGMat.001']} />
@@ -483,8 +481,17 @@ export function Model(props) {
           <mesh name="Plane003_1" castShadow receiveShadow geometry={nodes.Plane003_1.geometry} material={materials.dark_glass} />
         </group>
         <mesh name="infoDisplay2" castShadow receiveShadow geometry={nodes.infoDisplay2.geometry} material={materials.dark_metal_frame} position={[29.35, 4.43, -0.29]} scale={[0.11, 0.96, 3.03]} />
-        <mesh name="infoDisplay1" castShadow receiveShadow geometry={nodes.infoDisplay1.geometry} material={materials.dark_metal_frame} position={[29.35, 4.43, 21.22]} scale={[0.11, 0.96, 3.03]} />
-        <mesh name="projectsAreaPlane" castShadow receiveShadow geometry={nodes.projectsAreaPlane.geometry} material={nodes.projectsAreaPlane.material} position={[-38.5, 3.02, 17.06]} rotation={[Math.PI / 2, 0, 0]} />
+        <mesh name="infoDisplay1" castShadow receiveShadow geometry={nodes.infoDisplay1.geometry} material={materials.dark_metal_frame} position={[29.25, 3.69, 20.61]} scale={[0.08, 1.62, 1.51]} />
+        <group name="straight_taxi" position={[58.15, 200, 46.47]} rotation={[Math.PI, 0, Math.PI]} scale={0.93}>
+          <mesh name="Cube003" castShadow receiveShadow geometry={nodes.Cube003.geometry} material={materials.window} />
+          <mesh name="Cube003_1" castShadow receiveShadow geometry={nodes.Cube003_1.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube003_2" castShadow receiveShadow geometry={nodes.Cube003_2.geometry} material={materials['taxi_yellow.002']} />
+          <mesh name="Cube003_3" castShadow receiveShadow geometry={nodes.Cube003_3.geometry} material={materials['Material.002']} />
+          <mesh name="Cube003_4" castShadow receiveShadow geometry={nodes.Cube003_4.geometry} material={materials['black.006']} />
+          <mesh name="Cube003_5" castShadow receiveShadow geometry={nodes.Cube003_5.geometry} material={materials.metal} />
+          <mesh name="Cube003_6" castShadow receiveShadow geometry={nodes.Cube003_6.geometry} material={materials.taillights} />
+          <mesh name="Cube003_7" castShadow receiveShadow geometry={nodes.Cube003_7.geometry} material={materials.taxi_sign} />
+        </group>
       </group>
     </group>
   )

@@ -25,7 +25,7 @@ function App() {
         <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={0.3} height={500} />
 
         <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.5} height={500} />
-        {/* <Noise opacity={0.03} /> */}
+        <Noise opacity={0.03} />
         <Vignette eskil={false} offset={0.1} darkness={0.6} />
         {/* <ToneMapping exposure={2} middleGrey={1} /> */}
         
