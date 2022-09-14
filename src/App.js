@@ -5,7 +5,7 @@ import './App.css'
 import * as THREE from 'three'
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ToneMapping,GodRays } from '@react-three/postprocessing'
 import { Color } from 'three';
-import InfoScreen from './components/info-screen/InfoScreen.component';
+
 
 function App() {
   return (
@@ -22,22 +22,22 @@ function App() {
       
     >
       <EffectComposer>
-        <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={0.3} height={500} />
+        {/* <DepthOfField focusDistance={0} focalLength={1} bokehScale={0.6} height={500} /> */}
 
-        <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.5} height={500} />
-        <Noise opacity={0.03} />
-        <Vignette eskil={false} offset={0.1} darkness={0.6} />
+        {/* <Bloom luminanceThreshold={0.4} luminanceSmoothing={0.5} height={500} /> */}
+        <Noise opacity={0.04} />
+        <Vignette eskil={true} offset={0.1} darkness={0.6} />
+        
         {/* <ToneMapping exposure={2} middleGrey={1} /> */}
         
       </EffectComposer>
-      <Suspense fallback={null}>
+      <Suspense fallback={"loading"}>
         <Three />
 
       </Suspense>
     </Canvas>
 
 
-    // <InfoScreen title={'MAHYAR AIRPORT PROJECTS'} />
   );
 }
 

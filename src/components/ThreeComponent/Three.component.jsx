@@ -18,7 +18,7 @@ import venice from '../../HDRI/venice_sunset_2k.hdr'
 
 import { useState } from 'react'
 
-const Three = () => {
+const Three = ({navigate}) => {
 
     const angleToRadians = (ang) => (Math.PI / 180) * ang
     const orbitControlRef = useRef(null)
@@ -70,6 +70,7 @@ const Three = () => {
     const [focus, setFocus] = useState({})
     const [controlEnabled,setOrbitControl] = useState(true)
     const [zoomEnabled,setZoomEnabled] = useState(false)
+    const [minDist, setminDist] = useState(60)
 
     return (
         <>
@@ -84,7 +85,7 @@ const Three = () => {
                 ref={orbitControlRef} 
                 minPolarAngle={angleToRadians(20)} 
                 maxPolarAngle={angleToRadians(88)} 
-                minDistance={60} 
+                minDistance={minDist} 
                 maxDistance={100}
                 rotateSpeed={0.6}
                 enabled={controlEnabled}
@@ -108,7 +109,7 @@ const Three = () => {
             >
                 <Text fontSize={1}>I'm a billboard</Text>
             </Billboard> */}
-            <Cars setOrbitControl={setOrbitControl} camRef={camRef} setZoomEnabled={setZoomEnabled}/>
+            <Cars setOrbitControl={setOrbitControl} camRef={camRef} setZoomEnabled={setZoomEnabled} setminDist={setminDist} navigate={navigate}/>
             {/* <ConveyorBelt /> */}
             <Environment files={satara} />
 
