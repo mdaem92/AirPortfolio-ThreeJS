@@ -458,7 +458,7 @@ export function Model(props) {
           <mesh name="Cube009_8" castShadow receiveShadow geometry={nodes.Cube009_8.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube009_9" castShadow receiveShadow geometry={nodes.Cube009_9.geometry} material={materials.siren_orange} />
         </group>
-        <mesh name="cplusplus" castShadow receiveShadow geometry={nodes.cplusplus.geometry} material={materials['cplusblue.001']} position={[-40.78, 200, 1.42]} rotation={[1.57, -1.55, 0]} scale={[0.2, 0.45, 0.2]} />
+        <mesh name="cplusplus" castShadow receiveShadow geometry={nodes.cplusplus.geometry} material={materials.css_blue2} position={[-40.78, 200, 1.42]} rotation={[1.57, -1.55, 0]} scale={[0.2, 0.45, 0.2]} />
         <group name="python" position={[-40.78, 1500, 1.5]} rotation={[Math.PI / 2, 0, 0]} scale={[51.58, 111.2, 51.58]}>
           <mesh name="Curve001" castShadow receiveShadow geometry={nodes.Curve001.geometry} material={materials['SVGMat.002']} />
           <mesh name="Curve001_1" castShadow receiveShadow geometry={nodes.Curve001_1.geometry} material={materials['SVGMat.001']} />

@@ -6,9 +6,10 @@ import React, { useRef, useEffect, useState } from 'react'
 import { useGLTF, useAnimations, useHelper, Html, PerspectiveCamera, Billboard, Text } from '@react-three/drei'
 import { extend, useFrame, useThree } from '@react-three/fiber';
 
-import {  SpotLightHelper, CameraHelper, Vector3 } from 'three';
+import { SpotLightHelper, CameraHelper, Vector3 } from 'three';
 import { useKeyState } from 'use-key-state'
-import Overlay from '../overlay/Skills.component';
+import Skills from '../overlay/skills/Skills.component';
+import Projects from '../overlay/projects/Projects.component';
 // import SplitFlapDisplay from 'react-split-flap-display';
 
 
@@ -51,35 +52,36 @@ export function Cars(props) {
   const { nodes, materials, animations } = useGLTF('./models/cars/scene-transformed.glb')
   const { actions } = useAnimations(animations, group)
   const { esc } = useKeyState({ esc: "esc" })
-  const animationsList = ['threeJsAnimation','pythonAnimation','cssAnimaton','cppAnimation','javascriptAnimation','htmlAnimation']
-  const [skillsAnimPlaying,setSkillsAnimPlaying] = useState(false)
- 
+  const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate']
+  const [skillsAnimPlaying, setSkillsAnimPlaying] = useState(false)
+
   useEffect(() => {
-    console.log(actions);
-
-    // actions.animateBus.play()
-    // actions.animateBlueMovingCar.play()
-    // actions.taxiGoingStraight.play()
-
 
     Object.keys(actions).forEach((key) => {
-      if(!animationsList.includes(key)){
+      if (!animationsList.includes(key)) {
+        console.log(key);
         actions[key].play()
       }
     })
   })
 
-  useEffect(()=>{
-    if (skillsAnimPlaying){
-      // animationsList.forEach(key=>{
-      //   setTimeout(() => {
-      //     actions[key].play()
-      //   }, 300);
-        
-      // })
+  useEffect(() => {
+    console.log('running');
+    if (skillsAnimPlaying) {
+      animationsList.forEach(key => {
+        actions[key].play()
+
+      })
+    }else{
+      animationsList.forEach(key => {
+        actions[key].stop()
+
+      })
     }
-  },[skillsAnimPlaying])
+  }, [skillsAnimPlaying])
+
   const showHelpers = false
+
   const angleToRadians = (ang) => (Math.PI / 180) * ang
 
 
@@ -139,9 +141,9 @@ export function Cars(props) {
     if (aboutMeclicked) {
       camera.lookAt(aboutMeScreenRef.current.position)
       camera.position.lerp(new Vector3(32.7, 3.97, 20.6), 0.05)
- 
+
       props.setOrbitControl(false)
-      
+
 
       // camera.updateProjectionMatrix()
     }
@@ -159,19 +161,23 @@ export function Cars(props) {
   useFrame(({ camera }) => {
     if (projectsScreenRef.current) {
       if (projectsClicked) {
-        props.setOrbitControl(true)
-        // props.setZoomEnabled(false)
         camera.lookAt(projectsScreenRef.current.position)
-        camera.position.lerp(new Vector3(-43.58, 6.88, 25.66), 0.05)
+        const projectArea = new Vector3(-27.58, 4.88, 25.66)
+        camera.position.lerp(projectArea, 0.05)
         // props.setOrbitControl(false)
+
+
       }
     }
 
   })
 
-  useEffect(() => {
+  useFrame(() => {
     if (esc.down) {
+      setSkillsAnimPlaying(false)
+
       if (!mainScreenFocus) {
+
         setMainScreenFocus(true)
         setProjectsClicked(false)
         setSkillsClicked(false)
@@ -214,19 +220,19 @@ export function Cars(props) {
 
   const handleClickArea = ({ eventObject: { name } }) => {
     console.log(name);
-    if (name === 'aboutmeArea' || name ==='infoLCD1') {
+    if (name === 'aboutmeArea' || name === 'infoLCD1') {
       setMainScreenFocus(false)
       return setAboutMeClicked(true)
     }
-    if (name === 'projectsArea' || name==="projectsArea2") {
+    if (name === 'projectsArea' || name === "projectsArea2") {
       setMainScreenFocus(false)
       return setProjectsClicked(true)
     }
-    if (name === 'skillsArea' || name==="skillsArea2") {
+    if (name === 'skillsArea' || name === "skillsArea2") {
       setMainScreenFocus(false)
       return setSkillsClicked(true)
     }
-    if(name==='linkedinArea'){
+    if (name === 'linkedinArea') {
       // props.navigate('www.linkedin.com/in/mahyardaem')
       window.open('https://www.linkedin.com/in/mahyardaem', '_blank');
     }
@@ -308,11 +314,24 @@ export function Cars(props) {
         <mesh name="lightPost3" castShadow receiveShadow geometry={nodes.lightPost3.geometry} material={materials['black.006']} position={[60.23, 4.65, 4.56]} rotation={[Math.PI, -1.53, Math.PI]} scale={0.15} />
         <mesh name="lightPost4" castShadow receiveShadow geometry={nodes.lightPost4.geometry} material={materials['black.006']} position={[60.23, 4.65, -14.83]} rotation={[Math.PI, -1.53, Math.PI]} scale={0.15} />
         <mesh name="lightPost5" castShadow receiveShadow geometry={nodes.lightPost5.geometry} material={materials['black.006']} position={[60.23, 4.65, -33.8]} rotation={[Math.PI, -1.53, Math.PI]} scale={0.15} />
-        
-        
+
+
         <mesh name="linkedinArea" castShadow receiveShadow geometry={nodes.linkedinArea.geometry} material={nodes.linkedinArea.material} position={[52.35, 4.26, 8.5]} scale={[0.1, 0.6, 0.4]} visible={false} onClick={handleClickArea} />
         <mesh name="aboutmeArea" castShadow receiveShadow geometry={nodes.aboutmeArea.geometry} material={nodes.aboutmeArea.material} position={[52.35, 4.26, 12.32]} scale={[0.09, 0.54, 0.36]} visible={false} onClick={handleClickArea} />
-        <mesh name="projectsArea" castShadow receiveShadow geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]} scale={[0.1, 0.59, 0.4]} visible={false} onClick={handleClickArea} />
+        <mesh name="projectsArea" castShadow receiveShadow geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]} scale={[0.1, 0.59, 0.4]} visible={false} onClick={handleClickArea}>
+          {/* {projectsClicked && 
+          <Billboard
+            follow={false}
+            lockX={false}
+            lockY={false}
+            lockZ={false}
+          >
+            <Html style={{pointerEvents:'None'}}  >
+              <Projects/>
+            </Html>
+          </Billboard>
+          } */}
+        </mesh>
         <mesh name="skillsArea" castShadow receiveShadow geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]} scale={[0.1, 0.6, 0.4]} visible={false} onClick={handleClickArea}>
           {skillsClicked && <Billboard
             follow={false}
@@ -320,12 +339,12 @@ export function Cars(props) {
             lockY
             lockZ
           >
-            <Html style={{pointerEvents:'None'}}  >
-              <Overlay />
+            <Html style={{ pointerEvents: 'None', top: '-100px', right: '100px' }}  >
+              <Skills />
             </Html>
           </Billboard>}
-        </mesh>
 
+        </mesh>
 
 
         <mesh name="spotlightTarget3" castShadow receiveShadow geometry={nodes.spotlightTarget3.geometry} material={nodes.spotlightTarget3.material} position={[56.81, 1.05, 4.66]} scale={0.84} ref={targetRef3} visible={false} />
@@ -410,13 +429,27 @@ export function Cars(props) {
           <mesh name="Cone" castShadow receiveShadow geometry={nodes.Cone.geometry} material={materials['black.006']} />
           <mesh name="Cone_1" castShadow receiveShadow geometry={nodes.Cone_1.geometry} material={materials.metal} />
         </group>
-        
-        
-        
+
+
+
         <group name="engine2" position={[-38.5, 3.02, 14.62]} rotation={[Math.PI / 2, 0, 0]} scale={0.41} ref={projectsScreenRef}>
           <mesh name="Cone003" castShadow receiveShadow geometry={nodes.Cone003.geometry} material={materials['black.006']} />
           <mesh name="Cone003_1" castShadow receiveShadow geometry={nodes.Cone003_1.geometry} material={materials.metal} />
-
+          {projectsClicked  &&
+            <Billboard
+              follow={false}
+              lockX
+              lockY
+              lockZ
+            >
+              <Html style={{left:'0px',top:'-400px'}}  >
+                <Projects/>
+              </Html>
+            </Billboard>
+            // <Html style={{ pointerEvents: 'None', left: '0px', top: '-400px' }}  >
+            //   <Projects />
+            // </Html>
+          }
         </group>
 
 
@@ -660,20 +693,20 @@ export function Cars(props) {
           <mesh name="Cube006_5" castShadow receiveShadow geometry={nodes.Cube006_5.geometry} material={materials.metal} />
         </group>
         <mesh name="runway_lights_white" castShadow receiveShadow geometry={nodes.runway_lights_white.geometry} material={materials.emissive_white} position={[-62.03, 0.99, 4.94]} scale={[67.28, 48.07, 48.07]} />
-        
-        
-        
-        
+
+
+
+
         <mesh name="billboardLCD" castShadow receiveShadow geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={3.32} ref={billboardLCDRef} />
         <mesh name="infoLCD2" castShadow receiveShadow geometry={nodes.infoLCD2.geometry} material={nodes.infoLCD2.material} position={[29.53, 4.43, -0.36]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[3.32, 3.32, 1.78]} />
-        <mesh name="infoLCD1" castShadow receiveShadow geometry={nodes.infoLCD1.geometry} material={materials.aboutMePage} position={[29.41, 3.94, 20.57]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[1.6, 2.83, 3.02]} onClick={handleClickArea}  />
-        
-        
-        
-        
-        
-        
-        
+        <mesh name="infoLCD1" castShadow receiveShadow geometry={nodes.infoLCD1.geometry} material={materials.aboutMePage} position={[29.41, 3.94, 20.57]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[1.6, 2.83, 3.02]} onClick={handleClickArea} />
+
+
+
+
+
+
+
         <group name="sign_post" position={[51.59, 3.25, -2.9]} scale={[0.33, 0.1, 0.33]}>
           <mesh name="Cube011" castShadow receiveShadow geometry={nodes.Cube011.geometry} material={materials.metal} />
           <mesh name="Cube011_1" castShadow receiveShadow geometry={nodes.Cube011_1.geometry} material={materials.airplane_dark_blue} />
@@ -722,9 +755,10 @@ export function Cars(props) {
           <mesh name="Cube009_4" castShadow receiveShadow geometry={nodes.Cube009_4.geometry} material={materials.taillights} />
           <mesh name="Cube009_5" castShadow receiveShadow geometry={nodes.Cube009_5.geometry} material={materials['black.006']} />
           <mesh name="Cube009_6" castShadow receiveShadow geometry={nodes.Cube009_6.geometry} material={materials['metal_frame.002']} />
+
         </group>
 
-        <mesh name="cplusplus" castShadow receiveShadow geometry={nodes.cplusplus.geometry} material={materials['cplusblue.001']} position={[-40.76, 200, 1.42]} rotation={[-Math.PI / 2, -1.37, 0]} scale={[0.2, 0.45, 0.2]} />
+        <mesh name="cplusplus" castShadow receiveShadow geometry={nodes.cplusplus.geometry} material={materials.css_blue2} position={[-40.76, 200, 1.42]} rotation={[-Math.PI / 2, -1.37, 0]} scale={[0.2, 0.45, 0.2]} />
         <group name="python" position={[-40.78, 1500, 1.5]} rotation={[Math.PI / 2, 0, 0]} scale={[51.58, 111.2, 51.58]}>
           <mesh name="Curve001" castShadow receiveShadow geometry={nodes.Curve001.geometry} material={materials['SVGMat.002']} />
           <mesh name="Curve001_1" castShadow receiveShadow geometry={nodes.Curve001_1.geometry} material={materials['SVGMat.001']} />
@@ -786,9 +820,9 @@ export function Cars(props) {
           <mesh name="Plane003_1" castShadow receiveShadow geometry={nodes.Plane003_1.geometry} material={materials.dark_glass} />
         </group>
         <mesh name="infoDisplay2" castShadow receiveShadow geometry={nodes.infoDisplay2.geometry} material={materials.dark_metal_frame} position={[29.35, 4.43, -0.29]} scale={[0.11, 0.96, 3.03]} />
-        
-        
-        
+
+
+
         <mesh name="infoDisplay1" castShadow receiveShadow geometry={nodes.infoDisplay1.geometry} material={materials.dark_metal_frame} position={[29.25, 3.69, 20.61]} scale={[0.08, 1.62, 1.51]} ref={aboutMeScreenRef} />
 
 

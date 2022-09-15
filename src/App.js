@@ -5,6 +5,7 @@ import './App.css'
 import * as THREE from 'three'
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ToneMapping,GodRays } from '@react-three/postprocessing'
 import { Color } from 'three';
+import Projects from './components/overlay/projects/Projects.component';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
 
       </Suspense>
     </Canvas>
+    // <Projects/>
 
 
   );
