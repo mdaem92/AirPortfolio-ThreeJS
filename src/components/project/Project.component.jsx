@@ -8,10 +8,8 @@ const Project = ({title,description,url,images}) => {
   return (
     <ProjectContainer>
       <TitleContainer>
-        <LogoContainer>
-
-        </LogoContainer>
-        {title}
+        <LogoContainer src={images[3]}/>
+        <div>{title}</div>
       </TitleContainer>
       {images.length>0 && <ImagesContainer>
         <Image1 src={images[0]}/>

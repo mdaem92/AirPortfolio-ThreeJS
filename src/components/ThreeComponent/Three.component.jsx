@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { BakeShadows, ContactShadows, Environment, OrbitControls, PresentationControls, PerspectiveCamera, Sky, useHelper, FlyControls, Billboard, Text } from '@react-three/drei'
+import { BakeShadows, ContactShadows, Environment, OrbitControls, PresentationControls, PerspectiveCamera, Sky, useHelper, FlyControls, Billboard, Text, Stars } from '@react-three/drei'
 import ArrowHelper from '../Arrow-helper/ArrowHelper.component'
 import { HemisphereLight, Vector3, BackSide, DirectionalLightHelper, PointLightHelper, SpotLightHelper } from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
@@ -18,7 +18,7 @@ import venice from '../../HDRI/venice_sunset_2k.hdr'
 
 import { useState } from 'react'
 
-const Three = ({navigate}) => {
+const Three = ({navigate,started}) => {
 
     const angleToRadians = (ang) => (Math.PI / 180) * ang
     const orbitControlRef = useRef(null)
@@ -83,10 +83,10 @@ const Three = ({navigate}) => {
             {/* <Controls zoom={zoom} focus={focus} /> */}
             <OrbitControls 
                 ref={orbitControlRef} 
-                minPolarAngle={angleToRadians(20)} 
+                minPolarAngle={angleToRadians(30)} 
                 maxPolarAngle={angleToRadians(88)} 
                 minDistance={minDist} 
-                maxDistance={100}
+                maxDistance={90}
                 rotateSpeed={0.6}
                 enabled={controlEnabled}
                 enableZoom={zoomEnabled}
@@ -100,7 +100,7 @@ const Three = ({navigate}) => {
             <ArrowHelper x={5} y={0} z={0} color={0x0000FF} />
             <ArrowHelper x={5} y={0} z={0} color={0xff0000} dir={new Vector3(2, 0, 0)} />
             <ambientLight args={['#ffffff', 0.2]} />
-
+            <Stars radius={100} depth={200} count={5000} factor={4} saturation={0} fade speed={2} />
             {/* <Billboard
                 follow={true}
                 lockX={false}
@@ -109,9 +109,9 @@ const Three = ({navigate}) => {
             >
                 <Text fontSize={1}>I'm a billboard</Text>
             </Billboard> */}
-            <Cars setOrbitControl={setOrbitControl} camRef={camRef} setZoomEnabled={setZoomEnabled} setminDist={setminDist} navigate={navigate}/>
+            <Cars setOrbitControl={setOrbitControl} camRef={camRef} setZoomEnabled={setZoomEnabled} setminDist={setminDist} navigate={navigate}  audioPlaying={started}/>
             {/* <ConveyorBelt /> */}
-            <Environment files={satara} />
+            {/* <Environment files={satara} /> */}
 
         </>
     )

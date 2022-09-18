@@ -23,7 +23,7 @@ export const OverlayContainer = styled.div`
     background-color:white;
     width:35rem;
     height:40rem;
-    opacity:0.7;
+    opacity:0.8;
     border-radius:10px ;
     padding:20px ;
     /* pointer-events:none ;

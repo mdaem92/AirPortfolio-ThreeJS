@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { Carousel } from 'antd';
-import Projects from './components/overlay/projects/Projects.component';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <AppRouter/> */}
     <App/>
-    
-
 
   </React.StrictMode>
 );

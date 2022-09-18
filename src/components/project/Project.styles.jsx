@@ -9,10 +9,10 @@ export const ProjectContainer = styled.div`
     flex-direction:column ;
     row-gap:10px ;
 `
-export const LogoContainer = styled.div`
+export const LogoContainer = styled.img`
     width:50px ;
     height:50px;
-    border:1px solid black ;
+    /* border:1px solid black ; */
     /* align-self:center ; */
 
 `
@@ -21,7 +21,7 @@ export const TitleContainer = styled.div`
     flex-direction:row ;
     font-size:40px ;
     color:#1890ff;
-    /* justify-content:space-between ; */
+    justify-content:space-between ;
 `
 export const DescriptionContainer = styled.p`
     font-size:larger ;
