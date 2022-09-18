@@ -1,10 +1,12 @@
 import React from 'react'
+import useDelayedMount from '../../../hooks/useDelayedMount'
 import { OverlayContainer, TitleContainer, ItemsContainer, RowContainer,Item } from './Skills.styles'
 const Skills = () => {
 
+    const isShown = useDelayedMount(2000)
 
 
-    return (
+    return isShown && (
         <OverlayContainer>
             <RowContainer>
                 <TitleContainer>
