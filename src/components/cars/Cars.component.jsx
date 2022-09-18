@@ -12,6 +12,7 @@ import { useKeyState } from 'use-key-state'
 import Skills from '../overlay/skills/Skills.component';
 import AudioToggleButton from '../audio-toggle-button/AudioToggleButton.component';
 import Projects from '../overlay/projects/Projects.component';
+import { HtmlContainer } from '../audio-toggle-button/AudioToggleButton.styles';
 
 // import SplitFlapDisplay from 'react-split-flap-display';
 
@@ -60,9 +61,10 @@ export function Cars(props) {
   const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
   const [skillsAnimPlaying, setSkillsAnimPlaying] = useState(true)
   const infoLCD2Video = useVideoTexture("/videos/videoplayback.mp4")
-  const [audioPlaying,setAudioPlaying]=useState(true)
+  const [audioPlaying, setAudioPlaying] = useState(true)
 
-  const toggleAudio = ()=>{
+
+  const toggleAudio = () => {
     setAudioPlaying(!audioPlaying)
   }
   useEffect(() => {
@@ -75,7 +77,7 @@ export function Cars(props) {
         actions[key].play()
       }
     })
-    
+
   })
 
   useEffect(() => {
@@ -173,8 +175,10 @@ export function Cars(props) {
   useFrame(({ camera }) => {
     if (skillsClicked) {
       camera.lookAt(skillsScreenRef.current.position)
-      camera.position.lerp(new Vector3(-25.69, 2.78, -4.08), 0.08)
+      const skillsArea = new Vector3(-25.69, 3.78, -4.08)
+      camera.position.lerp(skillsArea, 0.08)
       setSkillsAnimPlaying(true)
+      // camera.updateWorldMatrix()
       // props.setOrbitControl(false)
     }
   })
@@ -186,15 +190,7 @@ export function Cars(props) {
         const projectArea = new Vector3(-27.58, 4.88, 25.66)
         camera.position.lerp(projectArea, 0.05)
         // props.setOrbitControl(false)
-        const frustum = new Frustum()
-        if (frustum.containsPoint(projectArea)) {
-          // setShowProjects(true)
-          console.log('frustum in view');
-        } else {
-          // setShowProjects(false)
-        }
-
-
+       
       }
     }
 
@@ -224,15 +220,9 @@ export function Cars(props) {
 
   useFrame(({ camera }) => {
     if (mainScreenFocus) {
-      // props.setZoomEnabled(true)
 
       camera.lookAt(billboardLCDRef.current.position)
-      // 57.6,5.12,10.16
       camera.position.lerp(new Vector3(64.6, 7.12, 10.46), 0.05)
-      // props.setOrbitControl(false)
-
-
-      // 61.59806932296928, y: 7.121070154066518, z: 10.157665695780864
 
     }
 
@@ -347,31 +337,8 @@ export function Cars(props) {
         <mesh name="linkedinArea" castShadow receiveShadow geometry={nodes.linkedinArea.geometry} material={nodes.linkedinArea.material} position={[52.35, 4.26, 8.5]} scale={[0.1, 0.6, 0.4]} visible={false} onClick={handleClickArea} />
         <mesh name="aboutmeArea" castShadow receiveShadow geometry={nodes.aboutmeArea.geometry} material={nodes.aboutmeArea.material} position={[52.35, 4.26, 12.32]} scale={[0.09, 0.54, 0.36]} visible={false} onClick={handleClickArea} />
         <mesh name="projectsArea" castShadow receiveShadow geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]} scale={[0.1, 0.59, 0.4]} visible={false} onClick={handleClickArea}>
-          {/* {projectsClicked && 
-          <Billboard
-            follow={false}
-            lockX={false}
-            lockY={false}
-            lockZ={false}
-          >
-            <Html style={{pointerEvents:'None'}}  >
-              <Projects/>
-            </Html>
-          </Billboard>
-          } */}
         </mesh>
         <mesh name="skillsArea" castShadow receiveShadow geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]} scale={[0.1, 0.6, 0.4]} visible={false} onClick={handleClickArea}>
-          {skillsClicked && <Billboard
-            follow={false}
-            lockX
-            lockY
-            lockZ
-          >
-            <Html style={{ pointerEvents: 'None', top: '-100px', right: '100px' }}  >
-              <Skills />
-            </Html>
-          </Billboard>}
-
         </mesh>
 
 
@@ -464,19 +431,12 @@ export function Cars(props) {
           <mesh name="Cone003" castShadow receiveShadow geometry={nodes.Cone003.geometry} material={materials['black.006']} />
           <mesh name="Cone003_1" castShadow receiveShadow geometry={nodes.Cone003_1.geometry} material={materials.metal} />
           {projectsClicked &&
-            <Billboard
-              follow={false}
-              lockX
-              lockY
-              lockZ
+            <HtmlContainer 
+              center
             >
-              <Html style={{ left: '0px', top: '-400px' }}  >
-                <Projects />
-              </Html>
-            </Billboard>
-            // <Html style={{ pointerEvents: 'None', left: '0px', top: '-400px' }}  >
-            //   <Projects />
-            // </Html>
+              <Projects />
+            </HtmlContainer>
+
           }
         </group>
 
@@ -484,7 +444,7 @@ export function Cars(props) {
 
 
 
-        <group name="airplane" position={[-32.6, 5.02, 8.14]} scale={2.26}>
+        <group name="airplane" position={[-32.6, 5.02, 8.14]} scale={2.26} >
           <mesh name="Cube034" castShadow receiveShadow geometry={nodes.Cube034.geometry} material={materials.airplane_white} />
           <mesh name="Cube034_1" castShadow receiveShadow geometry={nodes.Cube034_1.geometry} material={materials.airplane_dark_blue} />
           <mesh name="Cube034_2" castShadow receiveShadow geometry={nodes.Cube034_2.geometry} material={materials.metal} />
@@ -788,7 +748,7 @@ export function Cars(props) {
 
 
 
-        <mesh name="billboardLCD" castShadow receiveShadow geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={3.32} ref={billboardLCDRef} onClick={handleClickArea} />
+        <mesh name="billboardLCD" castShadow receiveShadow geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={3.32} ref={billboardLCDRef} />
         <mesh name="infoLCD2" castShadow receiveShadow geometry={nodes.infoLCD2.geometry} material={nodes.infoLCD2.material}  >
           <meshBasicMaterial map={infoLCD2Video} toneMapped={false} rotation />
         </mesh>
@@ -848,7 +808,7 @@ export function Cars(props) {
 
 
 
-        <group name="conveyor-truck" position={[-37.06, 2.21, 1.08]} scale={[3.69, 0.8, 1]} ref={skillsScreenRef}>
+        <group name="conveyor-truck" position={[-37.06, 2.21, 1.08]} scale={[3.69, 0.8, 1]} ref={skillsScreenRef} >
           <mesh name="Cube009" castShadow receiveShadow geometry={nodes.Cube009.geometry} material={materials['airplane_white.001']} />
           <mesh name="Cube009_1" castShadow receiveShadow geometry={nodes.Cube009_1.geometry} material={materials.window} />
           <mesh name="Cube009_2" castShadow receiveShadow geometry={nodes.Cube009_2.geometry} material={materials['headlights.004']} />
@@ -856,6 +816,12 @@ export function Cars(props) {
           <mesh name="Cube009_4" castShadow receiveShadow geometry={nodes.Cube009_4.geometry} material={materials.taillights} />
           <mesh name="Cube009_5" castShadow receiveShadow geometry={nodes.Cube009_5.geometry} material={materials['black.006']} />
           <mesh name="Cube009_6" castShadow receiveShadow geometry={nodes.Cube009_6.geometry} material={materials['metal_frame.002']} />
+          {skillsClicked &&
+            <HtmlContainer center >
+              <Skills />
+            </HtmlContainer>
+
+          }
 
         </group>
 

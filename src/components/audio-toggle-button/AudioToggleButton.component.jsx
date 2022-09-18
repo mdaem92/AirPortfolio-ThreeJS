@@ -3,19 +3,14 @@ import React from 'react'
 import Projects from '../overlay/projects/Projects.component';
 import { Button } from 'antd';
 import { SoundOutlined } from '@ant-design/icons';
+import { HtmlContainer, BillboardContainer } from './AudioToggleButton.styles';
 
-const AudioToggleButton = ({toggleAudio,audioPlaying}) => {
+const AudioToggleButton = ({ toggleAudio, audioPlaying }) => {
   return (
-    <Billboard
-    follow={false}
-    lockX
-    lockY
-    lockZ
-  >
-    <Html>
-    <SoundOutlined onClick={toggleAudio} />
-    </Html>
-  </Billboard>
+
+    <HtmlContainer audioPlaying={audioPlaying} fullscreen >
+      <SoundOutlined onClick={toggleAudio} />
+    </HtmlContainer>
   )
 }
 
