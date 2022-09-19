@@ -107,7 +107,7 @@ const Three = ({started}) => {
             </Billboard> */}
             <Cars setOrbitControl={setOrbitControl} camRef={camRef} orbitControlRef={orbitControlRef}/>
             {/* <ConveyorBelt /> */}
-            {/* <Environment files={satara} /> */}
+            <Environment files={satara} />
 
         </>
     )

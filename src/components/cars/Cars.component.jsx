@@ -13,6 +13,9 @@ import Skills from '../overlay/skills/Skills.component';
 import AudioToggleButton from '../audio-toggle-button/AudioToggleButton.component';
 import Projects from '../overlay/projects/Projects.component';
 import { HtmlContainer } from '../audio-toggle-button/AudioToggleButton.styles';
+import ButtonSoundEffect from '../button-sound-effect/ButtonSoundEffect.component';
+import useTabInUse from '../../hooks/useTabInUse';
+
 
 // import SplitFlapDisplay from 'react-split-flap-display';
 
@@ -155,6 +158,7 @@ export function Cars(props) {
   const [projectsClicked, setProjectsClicked] = useState(false)
   const [skillsClicked, setSkillsClicked] = useState(false)
   const [mainScreenFocus, setMainScreenFocus] = useState(true)
+  const [bingPlaying,setBingPlaying] = useState(false)
 
 
   // const [showProjects,setShowProjects] = useState()
@@ -248,11 +252,23 @@ export function Cars(props) {
 
   })
 
+  const tabInUse = useTabInUse()
+  
+  useEffect(()=>{
+    if (!tabInUse){
+      setAudioPlaying(false)
+    }else{
+      setAudioPlaying(true)
+    }
+  },[tabInUse])
+
 
   const handleClickArea = ({ eventObject: { name } }) => {
-    console.log(name);
+    setBingPlaying(true)
+    
     if (name === 'aboutmeArea' || name === 'infoLCD1') {
       setMainScreenFocus(false)
+      
       return setAboutMeClicked(true)
     }
     if (name === 'projectsArea' || name === "projectsArea2") {
@@ -261,6 +277,8 @@ export function Cars(props) {
     }
     if (name === 'skillsArea' || name === "skillsArea2") {
       setMainScreenFocus(false)
+      
+
       return setSkillsClicked(true)
     }
     if (name === 'linkedinArea') {
@@ -271,11 +289,14 @@ export function Cars(props) {
       return setMainScreenFocus(true)
 
     }
+    
+
 
   }
 
   return (
     <group ref={group} {...props} dispose={null}>
+      <ButtonSoundEffect playing={bingPlaying}/>
       <group name="Scene">
         <AudioToggleButton toggleAudio={toggleAudio} audioPlaying={audioPlaying} />
         <group name="backLight" position={[-75.87, 20.41, -34.92]} rotation={[0.29, -0.22, 1.45]}>
@@ -508,7 +529,7 @@ export function Cars(props) {
             <group>
               <PositionalAudio
                 url='/audio/police-siren.mp3'
-                distance={2}
+                distance={1.5}
                 autoplay
                 loop
               />
