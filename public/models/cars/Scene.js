@@ -86,6 +86,8 @@ export function Model(props) {
         <mesh name="projectsArea" castShadow receiveShadow geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]} scale={[0.1, 0.59, 0.4]} />
         <mesh name="skillsArea" castShadow receiveShadow geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]} scale={[0.1, 0.6, 0.4]} />
         <mesh name="linkedinArea" castShadow receiveShadow geometry={nodes.linkedinArea.geometry} material={nodes.linkedinArea.material} position={[52.35, 4.26, 8.5]} scale={[0.1, 0.6, 0.4]} />
+        <mesh name="returnArea" castShadow receiveShadow geometry={nodes.returnArea.geometry} material={nodes.returnArea.material} position={[52.46, 3.08, 12.78]} scale={[0.05, 0.12, 0.18]} />
+        <mesh name="returnArea2" castShadow receiveShadow geometry={nodes.returnArea2.geometry} material={nodes.returnArea2.material} position={[29.4, 2.79, 19.54]} scale={[0.05, 0.12, 0.11]} />
         <mesh name="spotlightTarget3" castShadow receiveShadow geometry={nodes.spotlightTarget3.geometry} material={nodes.spotlightTarget3.material} position={[56.81, 1.05, 4.66]} scale={0.84} />
         <mesh name="spotlightTarget2" castShadow receiveShadow geometry={nodes.spotlightTarget2.geometry} material={nodes.spotlightTarget2.material} position={[56.81, 1.05, -14.44]} scale={0.84} />
         <mesh name="spotLightTarget1" castShadow receiveShadow geometry={nodes.spotLightTarget1.geometry} material={nodes.spotLightTarget1.material} position={[56.81, 1.05, -33.64]} scale={0.84} />

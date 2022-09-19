@@ -8,6 +8,18 @@ export const ProjectContainer = styled.div`
     justify-content:space-between ;
     flex-direction:column ;
     row-gap:10px ;
+    .anticon{
+        
+        svg{
+            width:20px ;
+            height:20px ;
+            :hover {
+	            /* background: rgba(0,0,0,0); */
+	            fill: #7dc0ff;
+	            /* box-shadow: inset 0 0 0 3px #3a7999; */
+}
+        }
+    }
 `
 export const LogoContainer = styled.img`
     width:50px ;
@@ -73,4 +85,9 @@ export const Image3 = styled.img`
 export const CustomButton = styled((props)=><Button {...props}/>)`
     /* width:30% ; */
     align-self: center;
+`
+export const LogoAndTitleContainer = styled.div`
+    display:flex ;
+    flex-direction: row ;
+    justify-content:space-between ;
 `

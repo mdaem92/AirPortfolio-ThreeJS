@@ -8,7 +8,7 @@ import useDelayedMount from "../../../hooks/useDelayedMount";
 
 
 
-const Projects = () => {
+const Projects = ({exitFocus}) => {
 
     const isShown = useDelayedMount(1800)
 
@@ -20,7 +20,7 @@ const Projects = () => {
         <OverlayContainer >
             <Carousel afterChange={onChange} style={{ height: '37rem' }} >
                 {
-                    projects.map((props, index) => <Project key={index} {...props} />)
+                    projects.map((props, index) => <Project key={index} {...props} exitFocus={exitFocus} />)
                 }
 
             </Carousel>

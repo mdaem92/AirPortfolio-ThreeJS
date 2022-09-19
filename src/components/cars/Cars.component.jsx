@@ -70,21 +70,21 @@ export function Cars(props) {
   const toggleAudio = () => {
     setAudioPlaying(!audioPlaying)
   }
+  // play main animations 
   useEffect(() => {
     // setAudioPlaying(true)
 
 
     Object.keys(actions).forEach((key) => {
       if (!animationsList.includes(key)) {
-        console.log(key);
         actions[key].play()
       }
     })
 
   })
 
+  // play skills animations
   useEffect(() => {
-    console.log('running');
     if (skillsAnimPlaying) {
       animationsList.forEach(key => {
         actions[key].play()
@@ -103,12 +103,9 @@ export function Cars(props) {
   const angleToRadians = (ang) => (Math.PI / 180) * ang
 
 
-  useEffect(() => {
-    if (jetEngineSoundRef.current) {
-      console.log(jetEngineSoundRef.current);
-    }
-  })
 
+
+  // set the light references
   useEffect(() => {
     scene.add(lightRef1.current.target)
     scene.add(lightRef2.current.target)
@@ -158,92 +155,88 @@ export function Cars(props) {
   const [projectsClicked, setProjectsClicked] = useState(false)
   const [skillsClicked, setSkillsClicked] = useState(false)
   const [mainScreenFocus, setMainScreenFocus] = useState(true)
-  const [bingPlaying,setBingPlaying] = useState(false)
+  const [exitFocusClicked, setExitFocusClicked] = useState(false)
+  const [bingPlaying, setBingPlaying] = useState(false)
 
-
-  // const [showProjects,setShowProjects] = useState()
-
-
+  // when about me is clicked
   useFrame(({ camera }) => {
     if (aboutMeclicked) {
-      // props.orbitControlRef.current.enabled = false
-
       camera.lookAt(aboutMeScreenRef.current.position)
       camera.position.lerp(new Vector3(32.7, 3.97, 20.6), 0.05)
       props.orbitControlRef.current.minDistance = 20
-      // props.orbitControlRef.current.enableZoom = false
-
-      // props.setOrbitControl(false)
-      console.log('orbit control: ',props.orbitControlRef.current)
-
     }
-    else{
-      if(props.orbitControlRef.current.minDistance < 60){
+    else {
+      if (props.orbitControlRef.current.minDistance < 60) {
         return props.orbitControlRef.current.minDistance = 60
 
       }
 
     }
   })
-
+  // when skills is clicked
   useFrame(({ camera }) => {
     if (skillsClicked) {
 
       camera.lookAt(skillsScreenRef.current.position)
       const skillsArea = new Vector3(-25.69, 3.78, -4.08)
       camera.position.lerp(skillsArea, 0.08)
-      // props.orbitControlRef.current.enableZoom = false
       setSkillsAnimPlaying(true)
-      // camera.updateWorldMatrix()
-      // props.setOrbitControl(false)
+
     }
   })
 
+  // when projects is clicked
   useFrame(({ camera }) => {
     if (projectsScreenRef.current) {
       if (projectsClicked) {
-        // props.orbitControlRef.current.enableZoom = false
         camera.lookAt(projectsScreenRef.current.position)
         const projectArea = new Vector3(-27.58, 4.88, 25.66)
         camera.position.lerp(projectArea, 0.05)
-        
-        // props.setOrbitControl(false)
-       
       }
     }
 
   })
+  const exitFocus = () => {
+    console.log('exit focus');
 
-  useFrame(() => {
-    if (esc.down) {
-      setSkillsAnimPlaying(false)
-      // props.orbitControlRef.current.enableZoom = true
+    setSkillsAnimPlaying(false)
+    setProjectsClicked(false)
+    setSkillsClicked(false)
+    setAboutMeClicked(false)
+    setMainScreenFocus(true)
 
+  }
+
+  // when esc is clicked
+  useEffect(() => {
+
+    if (esc.down || exitFocusClicked) {
       if (!mainScreenFocus) {
+        // setSkillsAnimPlaying(false)
+        // setProjectsClicked(false)
+        // setSkillsClicked(false)
+        // setAboutMeClicked(false)
+        // setMainScreenFocus(true)
+        exitFocus()
 
-        setMainScreenFocus(true)
-        setProjectsClicked(false)
-        setSkillsClicked(false)
-        setAboutMeClicked(false)
-        // props.setOrbitControl(true)
-        // props.orbitControlRef.current.minDistance = 60
-  
-
-        
       } else {
         setMainScreenFocus(false)
-        // props.setZoomEnabled(true)
-      }
 
+      }
+      return setExitFocusClicked(false)
     }
   })
 
+  useEffect(() => {
+    console.log('about me : ', aboutMeclicked);
+    console.log('main screen : ', mainScreenFocus);
 
 
+  }, [aboutMeclicked, mainScreenFocus])
 
+  // when main screen is in focus 
   useFrame(({ camera }) => {
     if (mainScreenFocus) {
-      // props.orbitControlRef.current.enableZoom = false
       camera.lookAt(billboardLCDRef.current.position)
       camera.position.lerp(new Vector3(64.6, 7.12, 10.46), 0.05)
 
@@ -252,32 +245,36 @@ export function Cars(props) {
 
   })
 
+  // returns true if the current browser tab loses focus
   const tabInUse = useTabInUse()
-  
-  useEffect(()=>{
-    if (!tabInUse){
+
+  // disable audio if the tab is left
+  useEffect(() => {
+
+    if (!tabInUse) {
       setAudioPlaying(false)
-    }else{
+    } else {
       setAudioPlaying(true)
     }
-  },[tabInUse])
+  }, [tabInUse])
 
 
+  // handles all click events
   const handleClickArea = ({ eventObject: { name } }) => {
     setBingPlaying(true)
-    
+
     if (name === 'aboutmeArea' || name === 'infoLCD1') {
       setMainScreenFocus(false)
-      
+
       return setAboutMeClicked(true)
     }
-    if (name === 'projectsArea' || name === "projectsArea2") {
+    if (name === 'projectsArea') {
       setMainScreenFocus(false)
       return setProjectsClicked(true)
     }
-    if (name === 'skillsArea' || name === "skillsArea2") {
+    if (name === 'skillsArea') {
       setMainScreenFocus(false)
-      
+
 
       return setSkillsClicked(true)
     }
@@ -289,14 +286,17 @@ export function Cars(props) {
       return setMainScreenFocus(true)
 
     }
-    
+    if (name === 'returnArea' || name === 'returnArea2') {
+      return setExitFocusClicked(true)
+    }
+
 
 
   }
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <ButtonSoundEffect playing={bingPlaying}/>
+      <ButtonSoundEffect playing={bingPlaying} />
       <group name="Scene">
         <AudioToggleButton toggleAudio={toggleAudio} audioPlaying={audioPlaying} />
         <group name="backLight" position={[-75.87, 20.41, -34.92]} rotation={[0.29, -0.22, 1.45]}>
@@ -376,10 +376,11 @@ export function Cars(props) {
 
         <mesh name="linkedinArea" castShadow receiveShadow geometry={nodes.linkedinArea.geometry} material={nodes.linkedinArea.material} position={[52.35, 4.26, 8.5]} scale={[0.1, 0.6, 0.4]} visible={false} onClick={handleClickArea} />
         <mesh name="aboutmeArea" castShadow receiveShadow geometry={nodes.aboutmeArea.geometry} material={nodes.aboutmeArea.material} position={[52.35, 4.26, 12.32]} scale={[0.09, 0.54, 0.36]} visible={false} onClick={handleClickArea} />
-        <mesh name="projectsArea" castShadow receiveShadow geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]} scale={[0.1, 0.59, 0.4]} visible={false} onClick={handleClickArea}>
-        </mesh>
-        <mesh name="skillsArea" castShadow receiveShadow geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]} scale={[0.1, 0.6, 0.4]} visible={false} onClick={handleClickArea}>
-        </mesh>
+        <mesh name="projectsArea" castShadow receiveShadow geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]} scale={[0.1, 0.59, 0.4]} visible={false} onClick={handleClickArea} />
+
+        <mesh name="skillsArea" castShadow receiveShadow geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]} scale={[0.1, 0.6, 0.4]} visible={false} onClick={handleClickArea} />
+        <mesh name="returnArea" castShadow receiveShadow geometry={nodes.returnArea.geometry} material={nodes.returnArea.material} position={[52.46, 3.08, 12.78]} scale={[0.05, 0.12, 0.18]} onClick={handleClickArea} visible={false} />
+        <mesh name="returnArea2" castShadow receiveShadow geometry={nodes.returnArea2.geometry} material={nodes.returnArea2.material} position={[29.4, 3.05, 19.54]} scale={[0.05, 0.12, 0.11]} onClick={handleClickArea} visible={false} />
 
 
         <mesh name="spotlightTarget3" castShadow receiveShadow geometry={nodes.spotlightTarget3.geometry} material={nodes.spotlightTarget3.material} position={[56.81, 1.05, 4.66]} scale={0.84} ref={targetRef3} visible={false} />
@@ -471,10 +472,10 @@ export function Cars(props) {
           <mesh name="Cone003" castShadow receiveShadow geometry={nodes.Cone003.geometry} material={materials['black.006']} />
           <mesh name="Cone003_1" castShadow receiveShadow geometry={nodes.Cone003_1.geometry} material={materials.metal} />
           {projectsClicked &&
-            <HtmlContainer 
+            <HtmlContainer
               center
             >
-              <Projects />
+              <Projects exitFocus={exitFocus}/>
             </HtmlContainer>
 
           }
@@ -495,6 +496,8 @@ export function Cars(props) {
             loop
             ref={jetEngineSoundRef}
           />}
+
+
         </group>
         <group name="orangeRunwayCar2" position={[-52.85, 1.12, -14.27]} rotation={[Math.PI, -0.72, Math.PI]} scale={[0.87, 0.35, 1.41]}>
           <mesh name="Cube185" castShadow receiveShadow geometry={nodes.Cube185.geometry} material={materials.window} />
