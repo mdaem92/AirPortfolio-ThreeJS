@@ -8,17 +8,13 @@ import { useKeyState } from 'use-key-state'
 import { Plane } from '../737/Plane.component'
 import { Cars } from '../cars/Cars.component'
 import { ConveyorBelt } from '../conveyorTruck/conveyor.component'
-import MoonlitGolf from '../../HDRI/moonlit_golf_1k.hdr'
-import BlueNight from '../../HDRI/blaubeuren_night_4k.hdr'
-import Stpeters from '../../HDRI/st_peters_square_night_4k.hdr'
-import Shanghai from '../../HDRI/shanghai_bund_4k.hdr'
-import dikhololo from '../../HDRI/dikhololo_night_4k.hdr'
+
 import satara from '../../HDRI/satara_night_no_lamps_4k.hdr'
 import venice from '../../HDRI/venice_sunset_2k.hdr'
 
 import { useState } from 'react'
 
-const Three = ({navigate,started}) => {
+const Three = ({started}) => {
 
     const angleToRadians = (ang) => (Math.PI / 180) * ang
     const orbitControlRef = useRef(null)
@@ -85,11 +81,11 @@ const Three = ({navigate,started}) => {
                 ref={orbitControlRef} 
                 minPolarAngle={angleToRadians(30)} 
                 maxPolarAngle={angleToRadians(88)} 
-                minDistance={minDist} 
+                minDistance={60} 
                 maxDistance={90}
                 rotateSpeed={0.6}
                 enabled={controlEnabled}
-                enableZoom={zoomEnabled}
+                enableZoom
                 
             
             />
@@ -109,7 +105,7 @@ const Three = ({navigate,started}) => {
             >
                 <Text fontSize={1}>I'm a billboard</Text>
             </Billboard> */}
-            <Cars setOrbitControl={setOrbitControl} camRef={camRef} setZoomEnabled={setZoomEnabled} setminDist={setminDist} navigate={navigate}  audioPlaying={started}/>
+            <Cars setOrbitControl={setOrbitControl} camRef={camRef} orbitControlRef={orbitControlRef}/>
             {/* <ConveyorBelt /> */}
             {/* <Environment files={satara} /> */}
 

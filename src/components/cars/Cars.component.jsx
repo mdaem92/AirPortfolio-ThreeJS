@@ -59,7 +59,7 @@ export function Cars(props) {
   const { actions } = useAnimations(animations, group)
   const { esc } = useKeyState({ esc: "esc" })
   const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
-  const [skillsAnimPlaying, setSkillsAnimPlaying] = useState(true)
+  const [skillsAnimPlaying, setSkillsAnimPlaying] = useState(false)
   const infoLCD2Video = useVideoTexture("/videos/videoplayback.mp4")
   const [audioPlaying, setAudioPlaying] = useState(true)
 
@@ -162,21 +162,33 @@ export function Cars(props) {
 
   useFrame(({ camera }) => {
     if (aboutMeclicked) {
+      // props.orbitControlRef.current.enabled = false
+
       camera.lookAt(aboutMeScreenRef.current.position)
       camera.position.lerp(new Vector3(32.7, 3.97, 20.6), 0.05)
+      props.orbitControlRef.current.minDistance = 20
+      // props.orbitControlRef.current.enableZoom = false
 
-      props.setOrbitControl(false)
+      // props.setOrbitControl(false)
+      console.log('orbit control: ',props.orbitControlRef.current)
 
+    }
+    else{
+      if(props.orbitControlRef.current.minDistance < 60){
+        return props.orbitControlRef.current.minDistance = 60
 
-      // camera.updateProjectionMatrix()
+      }
+
     }
   })
 
   useFrame(({ camera }) => {
     if (skillsClicked) {
+
       camera.lookAt(skillsScreenRef.current.position)
       const skillsArea = new Vector3(-25.69, 3.78, -4.08)
       camera.position.lerp(skillsArea, 0.08)
+      // props.orbitControlRef.current.enableZoom = false
       setSkillsAnimPlaying(true)
       // camera.updateWorldMatrix()
       // props.setOrbitControl(false)
@@ -186,9 +198,11 @@ export function Cars(props) {
   useFrame(({ camera }) => {
     if (projectsScreenRef.current) {
       if (projectsClicked) {
+        // props.orbitControlRef.current.enableZoom = false
         camera.lookAt(projectsScreenRef.current.position)
         const projectArea = new Vector3(-27.58, 4.88, 25.66)
         camera.position.lerp(projectArea, 0.05)
+        
         // props.setOrbitControl(false)
        
       }
@@ -199,6 +213,7 @@ export function Cars(props) {
   useFrame(() => {
     if (esc.down) {
       setSkillsAnimPlaying(false)
+      // props.orbitControlRef.current.enableZoom = true
 
       if (!mainScreenFocus) {
 
@@ -206,10 +221,14 @@ export function Cars(props) {
         setProjectsClicked(false)
         setSkillsClicked(false)
         setAboutMeClicked(false)
-        props.setOrbitControl(true)
+        // props.setOrbitControl(true)
+        // props.orbitControlRef.current.minDistance = 60
+  
+
+        
       } else {
         setMainScreenFocus(false)
-        props.setZoomEnabled(true)
+        // props.setZoomEnabled(true)
       }
 
     }
@@ -220,7 +239,7 @@ export function Cars(props) {
 
   useFrame(({ camera }) => {
     if (mainScreenFocus) {
-
+      // props.orbitControlRef.current.enableZoom = false
       camera.lookAt(billboardLCDRef.current.position)
       camera.position.lerp(new Vector3(64.6, 7.12, 10.46), 0.05)
 
@@ -270,7 +289,7 @@ export function Cars(props) {
           </directionalLight>
         </group>
         <group name="keyLight" position={[51.84, 35.17, 67.67]} rotation={[1.3, 0.18, -0.58]}>
-          <directionalLight name="keyLight_Orientation" intensity={10} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
+          <directionalLight name="keyLight_Orientation" intensity={20} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
             <group position={[0, 0, -1]} />
           </directionalLight>
         </group>
@@ -440,10 +459,6 @@ export function Cars(props) {
           }
         </group>
 
-
-
-
-
         <group name="airplane" position={[-32.6, 5.02, 8.14]} scale={2.26} >
           <mesh name="Cube034" castShadow receiveShadow geometry={nodes.Cube034.geometry} material={materials.airplane_white} />
           <mesh name="Cube034_1" castShadow receiveShadow geometry={nodes.Cube034_1.geometry} material={materials.airplane_dark_blue} />
@@ -493,7 +508,7 @@ export function Cars(props) {
             <group>
               <PositionalAudio
                 url='/audio/police-siren.mp3'
-                distance={0.8}
+                distance={2}
                 autoplay
                 loop
               />
@@ -738,7 +753,7 @@ export function Cars(props) {
           <mesh name="Cube006_5" castShadow receiveShadow geometry={nodes.Cube006_5.geometry} material={materials.metal} />
           {audioPlaying && <PositionalAudio
             url='/audio/car-passing1.mp3'
-            distance={2}
+            distance={4}
             autoplay
             loop
           />}
@@ -857,33 +872,6 @@ export function Cars(props) {
         </group>
         <mesh name="Suzanne" castShadow receiveShadow geometry={nodes.Suzanne.geometry} material={materials.blender_orange} position={[-40.68, 200, 1.45]} rotation={[-0.36, -0.12, 0.31]} scale={0.22} />
 
-        {/* <mesh name="cplusplus" castShadow receiveShadow geometry={nodes.cplusplus.geometry} material={materials['cplusblue.001']} position={[-40.76, 2000, 1.47]} rotation={[0, 0, -Math.PI / 2]} scale={[0.28, 0.61, 0.28]} />
-        <group name="python" position={[-40.78, 1500, 1.5]} rotation={[Math.PI / 2, 0, 0]} scale={[51.58, 111.2, 51.58]}>
-          <mesh name="Curve001" castShadow receiveShadow geometry={nodes.Curve001.geometry} material={materials['SVGMat.002']} />
-          <mesh name="Curve001_1" castShadow receiveShadow geometry={nodes.Curve001_1.geometry} material={materials['SVGMat.001']} />
-        </group>
-        <group name="javascript" position={[-40.74, 1500, 1.42]} scale={[0.13, 0.21, 0.17]}>
-          <mesh name="Cube008" castShadow receiveShadow geometry={nodes.Cube008.geometry} material={materials.js_yellow} />
-          <mesh name="Cube008_1" castShadow receiveShadow geometry={nodes.Cube008_1.geometry} material={materials.js_yellow2} />
-          <mesh name="Cube008_2" castShadow receiveShadow geometry={nodes.Cube008_2.geometry} material={materials.exterior_white} />
-        </group>
-        <group name="css" position={[-40.76, 1500, 1.42]} scale={[0.14, 0.21, 0.17]}>
-          <mesh name="Cube237" castShadow receiveShadow geometry={nodes.Cube237.geometry} material={materials.exterior_white} />
-          <mesh name="Cube237_1" castShadow receiveShadow geometry={nodes.Cube237_1.geometry} material={materials.css_blue} />
-          <mesh name="Cube237_2" castShadow receiveShadow geometry={nodes.Cube237_2.geometry} material={materials.css_blue2} />
-        </group>
-        <group name="html" position={[-40.7, 1500, 1.42]} scale={[0.14, 0.21, 0.17]}>
-          <mesh name="Cube239" castShadow receiveShadow geometry={nodes.Cube239.geometry} material={materials.exterior_white} />
-          <mesh name="Cube239_1" castShadow receiveShadow geometry={nodes.Cube239_1.geometry} material={materials.html_red} />
-          <mesh name="Cube239_2" castShadow receiveShadow geometry={nodes.Cube239_2.geometry} material={materials.html_Red2} />
-        </group>
-        <group name="threeJS" position={[-40.63, 1500, 1.46]} scale={0.28}>
-          <mesh name="Cone004" castShadow receiveShadow geometry={nodes.Cone004.geometry} material={materials.exterior_white} />
-          <mesh name="Cone004_1" castShadow receiveShadow geometry={nodes.Cone004_1.geometry} material={materials['black.006']} />
-        </group> */}
-
-
-
         <group name="revolvingDoor" position={[27.65, 2.67, 10.48]} scale={[67.28, 48.07, 48.07]}>
           <mesh name="Plane003" castShadow receiveShadow geometry={nodes.Plane003.geometry} material={materials.dark_metal_frame} />
           <mesh name="Plane003_1" castShadow receiveShadow geometry={nodes.Plane003_1.geometry} material={materials.dark_glass} />
@@ -900,18 +888,6 @@ export function Cars(props) {
 
         <mesh name="infoDisplay1" castShadow receiveShadow geometry={nodes.infoDisplay1.geometry} material={materials.dark_metal_frame} position={[29.25, 3.69, 20.61]} scale={[0.08, 1.62, 1.51]} ref={aboutMeScreenRef} />
 
-
-        {/* <group name='billboard' >
-          <mesh name="Cube148" castShadow receiveShadow geometry={nodes.Cube148.geometry} material={materials.dark_metal_frame} position={[52.1, 5.05, 10.32]} scale={[0.09, 2.09, 4.14]} />
-          <mesh name="screen" castShadow receiveShadow geometry={nodes.screen.geometry} material={materials['taxi_pattern.002']} position={[52.16, 5.05, 10.32]} scale={[0.09, 2.09, 4.14]} onClick={handleClickScreen}   >
-            <Html className='html' rotation-y={Math.PI / 2}  transform occlude ref={screenHtmlRef} onClick={()=>console.log('clicking')} >
-              <Screen >
-                <SplitFlapDisplay characterSet={['1', '2', '3', '4', ':']} value="12:34"/>
-              </Screen>
-            </Html>
-
-          </mesh>
-        </group> */}
 
       </group>
     </group>
