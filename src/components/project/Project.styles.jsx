@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Button } from "antd";
 
 export const ProjectContainer = styled.div`
@@ -7,17 +7,16 @@ export const ProjectContainer = styled.div`
     display:flex ;
     justify-content:space-between ;
     flex-direction:column ;
-    row-gap:10px ;
+    /* row-gap:10px ; */
+    
     .anticon{
         
         svg{
             width:20px ;
             height:20px ;
             :hover {
-	            /* background: rgba(0,0,0,0); */
 	            fill: #7dc0ff;
-	            /* box-shadow: inset 0 0 0 3px #3a7999; */
-}
+            }
         }
     }
 `
@@ -42,9 +41,14 @@ export const DescriptionContainer = styled.p`
     /* margin-bottom:20px ; */
 
 `
+
+const mobileCss = css`
+    height:40% ;
+`
 export const ImagesContainer = styled.div`
     height:50%;
     margin-top:20px ;
+    margin-bottom:20px ;
 
     /* border:1px solid black ; */
     display: grid;
@@ -54,7 +58,7 @@ export const ImagesContainer = styled.div`
     grid-template-areas:
         "firstImage secondImage"
         "firstImage thirdImage";
-    
+    ${props=>props.isMobile && mobileCss}
 `
 export const Image1 = styled.img`
     height:15rem ;

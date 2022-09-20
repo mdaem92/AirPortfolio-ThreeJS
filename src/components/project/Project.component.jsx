@@ -3,13 +3,13 @@ import { ArrowLeftOutlined, RollbackOutlined } from '@ant-design/icons'
 import React from 'react'
 import { DescriptionContainer, Image1, Image2, Image3, ImagesContainer, LogoContainer, ProjectContainer, TitleContainer, CustomButton , LogoAndTitleContainer } from './Project.styles'
 
-const Project = ({ title, description, url, images, exitFocus }) => {
+const Project = ({ title, description, url, images, exitFocus,isMobile}) => {
 
   const handleClick = () => {
     exitFocus()
   }
   return (
-    <ProjectContainer>
+    <ProjectContainer >
       <TitleContainer>
         <ArrowLeftOutlined onClick={handleClick} />
         <LogoAndTitleContainer>
@@ -18,7 +18,7 @@ const Project = ({ title, description, url, images, exitFocus }) => {
         </LogoAndTitleContainer>
 
       </TitleContainer>
-      {images.length > 0 && <ImagesContainer>
+      {images.length > 0 && <ImagesContainer isMobile={isMobile}>
         <Image1 src={images[0]} />
         <Image2 src={images[1]} />
         <Image3 src={images[2]} />

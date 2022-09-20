@@ -15,6 +15,7 @@ import Projects from '../overlay/projects/Projects.component';
 import { HtmlContainer } from '../audio-toggle-button/AudioToggleButton.styles';
 import ButtonSoundEffect from '../button-sound-effect/ButtonSoundEffect.component';
 import useTabInUse from '../../hooks/useTabInUse';
+import useWindowWidth from '../../hooks/useWindowWidth';
 
 
 // import SplitFlapDisplay from 'react-split-flap-display';
@@ -159,10 +160,19 @@ export function Cars(props) {
   const [bingPlaying, setBingPlaying] = useState(false)
 
   // when about me is clicked
+  const width = useWindowWidth()
   useFrame(({ camera }) => {
     if (aboutMeclicked) {
       camera.lookAt(aboutMeScreenRef.current.position)
-      camera.position.lerp(new Vector3(32.7, 3.97, 20.6), 0.05)
+      if (width < 600){
+      camera.position.lerp(new Vector3(36, 3.97, 20.6), 0.05)
+
+      }else{
+        camera.position.lerp(new Vector3(32.7, 3.97, 20.6), 0.05)
+
+      }
+      // on mobile
+
       props.orbitControlRef.current.minDistance = 20
     }
     else {
@@ -212,11 +222,6 @@ export function Cars(props) {
 
     if (esc.down || exitFocusClicked) {
       if (!mainScreenFocus) {
-        // setSkillsAnimPlaying(false)
-        // setProjectsClicked(false)
-        // setSkillsClicked(false)
-        // setAboutMeClicked(false)
-        // setMainScreenFocus(true)
         exitFocus()
 
       } else {
@@ -227,12 +232,6 @@ export function Cars(props) {
     }
   })
 
-  useEffect(() => {
-    console.log('about me : ', aboutMeclicked);
-    console.log('main screen : ', mainScreenFocus);
-
-
-  }, [aboutMeclicked, mainScreenFocus])
 
   // when main screen is in focus 
   useFrame(({ camera }) => {
@@ -273,20 +272,20 @@ export function Cars(props) {
       return setProjectsClicked(true)
     }
     if (name === 'skillsArea') {
+      console.log('skills area');
       setMainScreenFocus(false)
-
-
       return setSkillsClicked(true)
     }
     if (name === 'linkedinArea') {
-      // props.navigate('www.linkedin.com/in/mahyardaem')
       return window.open('https://www.linkedin.com/in/mahyardaem', '_blank');
     }
     if (name === 'billboardLCD' && !mainScreenFocus) {
+
       return setMainScreenFocus(true)
 
     }
     if (name === 'returnArea' || name === 'returnArea2') {
+
       return setExitFocusClicked(true)
     }
 
@@ -789,7 +788,7 @@ export function Cars(props) {
 
         <mesh name="billboardLCD" castShadow receiveShadow geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={3.32} ref={billboardLCDRef} />
         <mesh name="infoLCD2" castShadow receiveShadow geometry={nodes.infoLCD2.geometry} material={nodes.infoLCD2.material}  >
-          <meshBasicMaterial map={infoLCD2Video} toneMapped={false} rotation />
+          <meshBasicMaterial map={infoLCD2Video} toneMapped={false}  />
         </mesh>
         <mesh name="infoLCD1" castShadow receiveShadow geometry={nodes.infoLCD1.geometry} material={materials.aboutMePage} position={[29.41, 3.94, 20.57]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[1.6, 2.83, 3.02]} onClick={handleClickArea} />
 
@@ -857,7 +856,7 @@ export function Cars(props) {
           <mesh name="Cube009_6" castShadow receiveShadow geometry={nodes.Cube009_6.geometry} material={materials['metal_frame.002']} />
           {skillsClicked &&
             <HtmlContainer center >
-              <Skills />
+              <Skills exitFocus={exitFocus}/>
             </HtmlContainer>
 
           }

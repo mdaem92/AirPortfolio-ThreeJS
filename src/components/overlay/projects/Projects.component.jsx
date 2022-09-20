@@ -5,22 +5,21 @@ import { ItemContainer, OverlayContainer } from "./Projects.styles";
 import Project from "../../project/Project.component";
 import { projects } from "../../../data/projects";
 import useDelayedMount from "../../../hooks/useDelayedMount";
+import useWindowWidth from "../../../hooks/useWindowWidth";
 
 
 
 const Projects = ({exitFocus}) => {
 
     const isShown = useDelayedMount(1800)
+    const isMobile = useWindowWidth() <=600
 
-    const onChange = (currentSlide) => {
-        console.log(currentSlide);
-    };
 
     return isShown &&
-        <OverlayContainer >
-            <Carousel afterChange={onChange} style={{ height: '37rem' }} >
+        <OverlayContainer isMobile={isMobile} >
+            <Carousel style={{ height: '37rem' }} >
                 {
-                    projects.map((props, index) => <Project key={index} {...props} exitFocus={exitFocus} />)
+                    projects.map((props, index) => <Project key={index} {...props} exitFocus={exitFocus} isMobile={isMobile} />)
                 }
 
             </Carousel>

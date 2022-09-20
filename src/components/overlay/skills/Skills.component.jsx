@@ -1,15 +1,23 @@
+import { ArrowLeftOutlined } from '@ant-design/icons'
 import React from 'react'
 import useDelayedMount from '../../../hooks/useDelayedMount'
+import useWindowWidth from '../../../hooks/useWindowWidth'
 import { OverlayContainer, TitleContainer, ItemsContainer, RowContainer,Item } from './Skills.styles'
-const Skills = () => {
+const Skills = ({exitFocus}) => {
 
     const isShown = useDelayedMount(2000)
+    const isMobile = useWindowWidth() <=600
 
+    const handleClick = ()=>{
+        exitFocus()
+    }
 
     return isShown && (
-        <OverlayContainer>
+        <OverlayContainer isMobile={isMobile}>
             <RowContainer>
+                <ArrowLeftOutlined onClick={handleClick}/>
                 <TitleContainer>
+                    
                     Programming
                 </TitleContainer>
                 <ItemsContainer>

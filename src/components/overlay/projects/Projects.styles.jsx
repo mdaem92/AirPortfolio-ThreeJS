@@ -1,23 +1,11 @@
-import styled from "styled-components"
-import { Carousel } from 'antd'
+import styled, { css } from "styled-components"
 
-// export const OverlayContainer = styled((props) => <Carousel {...props} />)`
-//     background-color:white;
-//     width:35rem;
-//     height:40rem;
-//     opacity:0.5;
-//     border-radius:10px ;
-//     padding:20px ;
-//     pointer-events:none ;
-//     text-decoration:none ;
-//     font-family: 'Teko', sans-serif;
-//     font-size:40px ;
-
-//     border: 5px solid white;
-
-
-// `
-
+const mobileCss = css`
+    width:22rem;
+    /* background-color:red ; */
+    position: relative ;
+    right:-15px ;
+`
 
 export const OverlayContainer = styled.div`
     background-color:white;
@@ -46,6 +34,7 @@ export const OverlayContainer = styled.div`
     background: #1890ff;
     height: 8px;
 }
+${props=>props.isMobile && mobileCss}
 
 `
 export const ItemContainer = styled.div`
