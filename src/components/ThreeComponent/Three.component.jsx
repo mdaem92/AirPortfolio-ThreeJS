@@ -1,16 +1,12 @@
 import React, { useEffect, useRef } from 'react'
-import { BakeShadows, ContactShadows, Environment, OrbitControls, PresentationControls, PerspectiveCamera, Sky, useHelper, FlyControls, Billboard, Text, Stars } from '@react-three/drei'
+import { OrbitControls, PerspectiveCamera, useHelper ,Stars } from '@react-three/drei'
 import ArrowHelper from '../Arrow-helper/ArrowHelper.component'
-import { HemisphereLight, Vector3, BackSide, DirectionalLightHelper, PointLightHelper, SpotLightHelper } from 'three'
-import { useFrame, useThree } from '@react-three/fiber'
-import gsap from "gsap"
-import { useKeyState } from 'use-key-state'
-import { Plane } from '../737/Plane.component'
-import { Cars } from '../cars/Cars.component'
-import { ConveyorBelt } from '../conveyorTruck/conveyor.component'
+import { Vector3, DirectionalLightHelper, PointLightHelper, SpotLightHelper } from 'three'
+import { useFrame } from '@react-three/fiber'
 
-import satara from '../../HDRI/satara_night_no_lamps_4k.hdr'
-import venice from '../../HDRI/venice_sunset_2k.hdr'
+import { useKeyState } from 'use-key-state'
+import { Cars } from '../cars/Cars.component'
+
 
 import { useState } from 'react'
 
@@ -107,7 +103,7 @@ const Three = ({started}) => {
             </Billboard> */}
             <Cars setOrbitControl={setOrbitControl} camRef={camRef} orbitControlRef={orbitControlRef}/>
             {/* <ConveyorBelt /> */}
-            <Environment files={satara} />
+            {/* <Environment files={satara} /> */}
 
         </>
     )

@@ -86,6 +86,12 @@ export function Cars(props) {
 
   })
 
+
+  useEffect(()=>{
+    console.log(audioPlaying);
+  },[audioPlaying])
+
+
   // play skills animations
   useEffect(() => {
     if (skillsAnimPlaying) {
@@ -265,7 +271,8 @@ export function Cars(props) {
 
     if (!tabInUse) {
       setAudioPlaying(false)
-    } else {
+    } 
+    else {
       setAudioPlaying(true)
     }
   }, [tabInUse])
@@ -277,11 +284,14 @@ export function Cars(props) {
 
     if (name === 'aboutmeArea' || name === 'infoLCD1') {
       setMainScreenFocus(false)
+      setCreditsClicked(false)
 
       return setAboutMeClicked(true)
     }
     if (name === 'projectsArea') {
       // setBingPlaying(true)
+      setCreditsClicked(false)
+
       setMainScreenFocus(false)
       return setProjectsClicked(true)
     }
@@ -291,14 +301,17 @@ export function Cars(props) {
       return setSkillsClicked(true)
     }
     if (name === 'linkedinArea') {
+      setCreditsClicked(false)
+
       return window.open('https://www.linkedin.com/in/mahyardaem', '_blank');
     }
     if (name === 'billboardLCD' && !mainScreenFocus) {
-
+      setCreditsClicked(false)
       return setMainScreenFocus(true)
 
     }
     if (name === 'creditsArea') {
+      setMainScreenFocus(false)
       return setCreditsClicked(true)
     }
     if (name === 'returnArea' || name === 'returnArea2') {
@@ -326,7 +339,7 @@ export function Cars(props) {
           </directionalLight>
         </group>
         <group name="keyLight" position={[51.84, 35.17, 67.67]} rotation={[1.3, 0.18, -0.58]}>
-          <directionalLight name="keyLight_Orientation" intensity={20} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
+          <directionalLight name="keyLight_Orientation" intensity={6} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
             <group position={[0, 0, -1]} />
           </directionalLight>
         </group>

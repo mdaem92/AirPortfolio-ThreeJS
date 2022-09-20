@@ -3,8 +3,8 @@ export const projects = [
         title:'Car Trades App',
         description:'A React application with a firebase realtime database. This project tackles the problem of visualizing a large number of listings and various filtering and sorting functionalities using redux and a UI capable of displaying a lot of information about listings in a minimal and intuitive manner.',
         images:[
-            '/images/car-trades/car-trades1.png',
-            '/images/car-trades/car-trades2.png',
+            '/images/car-trades/car-trades-c1.png',
+            '/images/car-trades/car-trades-c2.png',
             '/images/car-trades/car-trades3.png',
             '/images/car-trades/logo.png'
         ],
@@ -25,9 +25,9 @@ export const projects = [
         title:'Airportfolio',
         description:'Here I tried to place my cv within my happy place. Using Blender and React Three Fiber I managed to do just that.',
         images:[
-            '/images/airport/ap3.png',
-            '/images/airport/ap2.png',
-            '/images/airport/ap1.png',
+            '/images/airport/apc3.png',
+            '/images/airport/apc2.png',
+            '/images/airport/apc1.png',
         ],
         url:'/'
 
