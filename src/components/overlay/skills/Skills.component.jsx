@@ -9,6 +9,7 @@ const Skills = ({exitFocus}) => {
     const isMobile = useWindowWidth() <=600
 
     const handleClick = ()=>{
+        console.log('calling');
         exitFocus()
     }
 

@@ -8,7 +8,7 @@ const mobileCss = css`
 export const OverlayContainer = styled.div`
     background-color:white;
     width:20rem;
-    height:35rem;
+    /* height:35rem; */
     opacity:0.5;
     /* border: 5px solid white; */
     border-radius:10px ;

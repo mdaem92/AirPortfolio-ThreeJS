@@ -16,6 +16,7 @@ import { HtmlContainer } from '../audio-toggle-button/AudioToggleButton.styles';
 import ButtonSoundEffect from '../button-sound-effect/ButtonSoundEffect.component';
 import useTabInUse from '../../hooks/useTabInUse';
 import useWindowWidth from '../../hooks/useWindowWidth';
+import Credits from '../credits/Credits.component';
 
 
 // import SplitFlapDisplay from 'react-split-flap-display';
@@ -56,6 +57,7 @@ export function Cars(props) {
   const rearLightTarget2 = useRef(null)
   const rearLightTarget3 = useRef(null)
   const billboardLCDRef = useRef(null)
+  const creditsAreaRef = useRef(null)
 
   const jetEngineSoundRef = useRef(null)
 
@@ -158,16 +160,17 @@ export function Cars(props) {
   const [mainScreenFocus, setMainScreenFocus] = useState(true)
   const [exitFocusClicked, setExitFocusClicked] = useState(false)
   const [bingPlaying, setBingPlaying] = useState(false)
+  const [creditsClicked, setCreditsClicked] = useState(false)
 
   // when about me is clicked
   const width = useWindowWidth()
   useFrame(({ camera }) => {
     if (aboutMeclicked) {
       camera.lookAt(aboutMeScreenRef.current.position)
-      if (width < 600){
-      camera.position.lerp(new Vector3(36, 3.97, 20.6), 0.05)
+      if (width < 600) {
+        camera.position.lerp(new Vector3(34.4, 3.97, 21.8), 0.05)
 
-      }else{
+      } else {
         camera.position.lerp(new Vector3(32.7, 3.97, 20.6), 0.05)
 
       }
@@ -194,6 +197,14 @@ export function Cars(props) {
 
     }
   })
+  // when credits is clicked
+  useFrame(({ camera }) => {
+    if (creditsClicked) {
+      camera.lookAt(creditsAreaRef.current.position)
+      camera.position.lerp(new Vector3(40, 4, -8), 0.08)
+
+    }
+  })
 
   // when projects is clicked
   useFrame(({ camera }) => {
@@ -206,6 +217,7 @@ export function Cars(props) {
     }
 
   })
+
   const exitFocus = () => {
     console.log('exit focus');
 
@@ -214,6 +226,7 @@ export function Cars(props) {
     setSkillsClicked(false)
     setAboutMeClicked(false)
     setMainScreenFocus(true)
+    setCreditsClicked(false)
 
   }
 
@@ -257,7 +270,7 @@ export function Cars(props) {
     }
   }, [tabInUse])
 
-
+  
   // handles all click events
   const handleClickArea = ({ eventObject: { name } }) => {
     setBingPlaying(true)
@@ -268,6 +281,7 @@ export function Cars(props) {
       return setAboutMeClicked(true)
     }
     if (name === 'projectsArea') {
+      // setBingPlaying(true)
       setMainScreenFocus(false)
       return setProjectsClicked(true)
     }
@@ -284,6 +298,9 @@ export function Cars(props) {
       return setMainScreenFocus(true)
 
     }
+    if (name === 'creditsArea') {
+      return setCreditsClicked(true)
+    }
     if (name === 'returnArea' || name === 'returnArea2') {
 
       return setExitFocusClicked(true)
@@ -295,7 +312,7 @@ export function Cars(props) {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <ButtonSoundEffect playing={bingPlaying} />
+      <ButtonSoundEffect playing={bingPlaying}  />
       <group name="Scene">
         <AudioToggleButton toggleAudio={toggleAudio} audioPlaying={audioPlaying} />
         <group name="backLight" position={[-75.87, 20.41, -34.92]} rotation={[0.29, -0.22, 1.45]}>
@@ -474,7 +491,7 @@ export function Cars(props) {
             <HtmlContainer
               center
             >
-              <Projects exitFocus={exitFocus}/>
+              <Projects exitFocus={exitFocus} />
             </HtmlContainer>
 
           }
@@ -788,7 +805,7 @@ export function Cars(props) {
 
         <mesh name="billboardLCD" castShadow receiveShadow geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={3.32} ref={billboardLCDRef} />
         <mesh name="infoLCD2" castShadow receiveShadow geometry={nodes.infoLCD2.geometry} material={nodes.infoLCD2.material}  >
-          <meshBasicMaterial map={infoLCD2Video} toneMapped={false}  />
+          <meshBasicMaterial map={infoLCD2Video} toneMapped={false} />
         </mesh>
         <mesh name="infoLCD1" castShadow receiveShadow geometry={nodes.infoLCD1.geometry} material={materials.aboutMePage} position={[29.41, 3.94, 20.57]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[1.6, 2.83, 3.02]} onClick={handleClickArea} />
 
@@ -814,7 +831,14 @@ export function Cars(props) {
             loop
           />}
         </group>
-        <mesh name="signPostCreditsText" castShadow receiveShadow geometry={nodes.signPostCreditsText.geometry} material={materials.emissive_white} position={[51.65, 3.9, -2.86]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={0.38} />
+        {/* <mesh name="signPostCreditsText" castShadow receiveShadow geometry={nodes.signPostCreditsText.geometry} material={materials.emissive_white} position={[51.65, 3.9, -2.86]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={0.38} /> */}
+        <group name="creditsArea" position={[51.65, 3.86, -2.85]} scale={[0.33, 0.1, 0.39]} onClick={handleClickArea} ref={creditsAreaRef}>
+          <mesh name="Cube014" castShadow receiveShadow geometry={nodes.Cube014.geometry} material={materials.airplane_dark_blue} />
+          <mesh name="Cube014_1" castShadow receiveShadow geometry={nodes.Cube014_1.geometry} material={materials.emissive_white} />
+          {creditsClicked && <HtmlContainer center>
+            <Credits exitFocus={exitFocus} />
+          </HtmlContainer>}
+        </group>
         <mesh name="signPostArrivalText" castShadow receiveShadow geometry={nodes.signPostArrivalText.geometry} material={materials.emissive_white} position={[51.37, 3.6, -2.99]} rotation={[Math.PI / 2, 0, Math.PI]} scale={0.32} />
         <mesh name="signPostDepartureText" castShadow receiveShadow geometry={nodes.signPostDepartureText.geometry} material={materials.emissive_white} position={[51.43, 3.26, -2.99]} rotation={[Math.PI / 2, 0, Math.PI]} scale={0.31} />
         <mesh name="signPostArrivalSign" castShadow receiveShadow geometry={nodes.signPostArrivalSign.geometry} material={materials.emissive_white} position={[51.9, 3.54, -2.99]} rotation={[Math.PI / 2, 0.56, 0]} scale={[0.29, 0.29, 0.02]} />
@@ -856,7 +880,7 @@ export function Cars(props) {
           <mesh name="Cube009_6" castShadow receiveShadow geometry={nodes.Cube009_6.geometry} material={materials['metal_frame.002']} />
           {skillsClicked &&
             <HtmlContainer center >
-              <Skills exitFocus={exitFocus}/>
+              <Skills exitFocus={exitFocus} />
             </HtmlContainer>
 
           }

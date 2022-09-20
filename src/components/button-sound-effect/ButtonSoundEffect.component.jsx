@@ -9,7 +9,7 @@ const ButtonSoundEffect = ({ playing }) => {
             <ReactHowler
                 src={'/audio/bing.mp3'}
                 playing={playing}
-                volume={0.5}
+                volume={0.25}
             />
         </Html>
 

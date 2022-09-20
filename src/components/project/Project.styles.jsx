@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { Button } from "antd";
 
 export const ProjectContainer = styled.div`
-    height: 32rem;
+    /* height: 32rem; */
     color: black;
     display:flex ;
     justify-content:space-between ;
@@ -48,7 +48,7 @@ const mobileCss = css`
 export const ImagesContainer = styled.div`
     height:50%;
     margin-top:20px ;
-    margin-bottom:20px ;
+    /* margin-bottom:20px ; */
 
     /* border:1px solid black ; */
     display: grid;

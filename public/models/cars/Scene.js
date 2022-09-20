@@ -443,7 +443,6 @@ export function Model(props) {
           <mesh name="Cube011" castShadow receiveShadow geometry={nodes.Cube011.geometry} material={materials.metal} />
           <mesh name="Cube011_1" castShadow receiveShadow geometry={nodes.Cube011_1.geometry} material={materials.airplane_dark_blue} />
         </group>
-        <mesh name="signPostCreditsText" castShadow receiveShadow geometry={nodes.signPostCreditsText.geometry} material={materials.emissive_white} position={[51.65, 3.9, -2.86]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={0.38} />
         <mesh name="signPostArrivalText" castShadow receiveShadow geometry={nodes.signPostArrivalText.geometry} material={materials.emissive_white} position={[51.37, 3.6, -2.99]} rotation={[Math.PI / 2, 0, Math.PI]} scale={0.32} />
         <mesh name="signPostDepartureText" castShadow receiveShadow geometry={nodes.signPostDepartureText.geometry} material={materials.emissive_white} position={[51.43, 3.26, -2.99]} rotation={[Math.PI / 2, 0, Math.PI]} scale={0.31} />
         <mesh name="signPostArrivalSign" castShadow receiveShadow geometry={nodes.signPostArrivalSign.geometry} material={materials.emissive_white} position={[51.9, 3.54, -2.99]} rotation={[Math.PI / 2, 0.56, 0]} scale={[0.29, 0.29, 0.02]} />
@@ -514,6 +513,10 @@ export function Model(props) {
           <mesh name="Cube003_5" castShadow receiveShadow geometry={nodes.Cube003_5.geometry} material={materials.metal} />
           <mesh name="Cube003_6" castShadow receiveShadow geometry={nodes.Cube003_6.geometry} material={materials.taillights} />
           <mesh name="Cube003_7" castShadow receiveShadow geometry={nodes.Cube003_7.geometry} material={materials.taxi_sign} />
+        </group>
+        <group name="creditsArea" position={[51.65, 3.86, -2.85]} scale={[0.33, 0.1, 0.39]}>
+          <mesh name="Cube014" castShadow receiveShadow geometry={nodes.Cube014.geometry} material={materials.airplane_dark_blue} />
+          <mesh name="Cube014_1" castShadow receiveShadow geometry={nodes.Cube014_1.geometry} material={materials.emissive_white} />
         </group>
         <mesh name="nodeJS" castShadow receiveShadow geometry={nodes.nodeJS.geometry} material={materials.nodeGreen} position={[-40.8, 200, 1.46]} scale={[0.67, 0.88, 0.67]} />
       </group>
