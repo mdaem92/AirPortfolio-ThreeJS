@@ -54,15 +54,8 @@ const Three = ({started}) => {
     useHelper(showHelpers && directionalLightRef, DirectionalLightHelper, 1)
     useHelper(showHelpers && pointLightRef, PointLightHelper, 1)
     useHelper(showHelpers && spotLightRef, SpotLightHelper, 0xffff00)
-    const { w } = useKeyState({ w: 'w' })
-    const { a } = useKeyState({ a: 'a' })
-    const { s } = useKeyState({ s: 's' })
-    const { d } = useKeyState({ d: 'd' })
-    const [zoom, setZoom] = useState(false)
-    const [focus, setFocus] = useState({})
     const [controlEnabled,setOrbitControl] = useState(true)
-    const [zoomEnabled,setZoomEnabled] = useState(false)
-    const [minDist, setminDist] = useState(60)
+
 
     return (
         <>
@@ -82,27 +75,15 @@ const Three = ({started}) => {
                 rotateSpeed={0.6}
                 enabled={controlEnabled}
                 enableZoom
-                
-            
             />
-
-
 
             <ArrowHelper x={5} y={0} z={0} color={0xffff00} dir={new Vector3(0, 2, 0)} />
             <ArrowHelper x={5} y={0} z={0} color={0x0000FF} />
             <ArrowHelper x={5} y={0} z={0} color={0xff0000} dir={new Vector3(2, 0, 0)} />
             <ambientLight args={['#ffffff', 0.2]} />
             <Stars radius={100} depth={200} count={5000} factor={4} saturation={0} fade speed={2} />
-            {/* <Billboard
-                follow={true}
-                lockX={false}
-                lockY={false}
-                lockZ={false} // Lock the rotation on the z axis (default=false)
-            >
-                <Text fontSize={1}>I'm a billboard</Text>
-            </Billboard> */}
+
             <Cars setOrbitControl={setOrbitControl} camRef={camRef} orbitControlRef={orbitControlRef}/>
-            {/* <ConveyorBelt /> */}
             {/* <Environment files={satara} /> */}
 
         </>
