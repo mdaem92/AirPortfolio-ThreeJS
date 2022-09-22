@@ -8,9 +8,7 @@ const green = css`
     fill:green;
 `
 export const HtmlContainer = styled(({audioPlaying,...otherProps})=><Html {...otherProps}/>)`
-    /* bottom:200px; */
-    /* position:relative ; */
-    
+
     .anticon-sound{
         position:absolute ;
         font-size:50px ;

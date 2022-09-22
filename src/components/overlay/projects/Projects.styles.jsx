@@ -14,13 +14,9 @@ export const OverlayContainer = styled.div`
     opacity:0.8;
     border-radius:10px ;
     padding:20px ;
-    /* pointer-events:none ;
-    text-decoration:none ; */
+
     font-family: 'Teko', sans-serif;
     font-size:40px ;
-    /* display:flex ; */
-    /* flex-wrap:nowrap ;
-    overflow:hidden ; */
 
     .ant-carousel .slick-dots li button {
     background: #1890ff;
