@@ -49,7 +49,7 @@ const Three = ({started}) => {
             <ArrowHelper x={5} y={0} z={0} color={0xffff00} dir={new Vector3(0, 2, 0)} />
             <ArrowHelper x={5} y={0} z={0} color={0x0000FF} />
             <ArrowHelper x={5} y={0} z={0} color={0xff0000} dir={new Vector3(2, 0, 0)} />
-            <ambientLight args={['#ffffff', 0.2]} />
+            {/* <ambientLight args={['#ffffff', 0.2]} /> */}
             <Stars radius={100} depth={200} count={5000} factor={4} saturation={0} fade speed={2} />
             <Cars setOrbitControl={setOrbitControl} camRef={camRef} orbitControlRef={orbitControlRef}/>
         </>
