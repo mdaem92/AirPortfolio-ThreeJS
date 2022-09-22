@@ -1,9 +1,9 @@
 import { Canvas } from '@react-three/fiber'
-import { Suspense, useState } from 'react'
+import { Suspense } from 'react'
 import Three from './components/ThreeComponent/Three.component';
 import './App.css'
 import * as THREE from 'three'
-import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, ToneMapping } from '@react-three/postprocessing'
+import { EffectComposer, Vignette } from '@react-three/postprocessing'
 import { Color } from 'three';
 import { Html } from '@react-three/drei';
 import "antd/dist/antd.min.css";
