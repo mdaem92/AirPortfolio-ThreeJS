@@ -1,5 +1,6 @@
 import { Html } from '@react-three/drei'
 import { Suspense, cloneElement, useEffect, useState } from 'react'
+import { IntroContainer } from './Intro.styles'
 
 function Ready({ setReady }) {
     useEffect(() => () => void setReady(true), [])
@@ -10,7 +11,7 @@ export default function Intro({ children }) {
     const [clicked, setClicked] = useState(false)
     const [ready, setReady] = useState(false)
     return (
-        <>
+        <IntroContainer>
             <Suspense fallback={<Ready setReady={setReady} />}>
                 {cloneElement(children, { ready: clicked && ready })}
             </Suspense>
@@ -31,6 +32,6 @@ export default function Intro({ children }) {
                 </div>
             </div>
 
-        </>
+        </IntroContainer>
     )
 }
