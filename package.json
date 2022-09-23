@@ -16,6 +16,7 @@
     "react-howler": "^5.2.0",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.4",
     "styled-components": "^5.3.5",
     "three": "^0.143.0",
     "use-key-state": "^0.1.9",

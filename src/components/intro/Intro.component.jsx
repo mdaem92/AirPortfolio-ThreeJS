@@ -1,6 +1,8 @@
 import { Html } from '@react-three/drei'
 import { Suspense, cloneElement, useEffect, useState } from 'react'
-import { IntroContainer } from './Intro.styles'
+import { RotateLoader } from 'react-spinners'
+import Spinner from '../spinner/Spinner.component'
+import { AnchorContainer, IntroContainer } from './Intro.styles'
 
 function Ready({ setReady }) {
     useEffect(() => () => void setReady(true), [])
@@ -15,20 +17,17 @@ export default function Intro({ children }) {
             <Suspense fallback={<Ready setReady={setReady} />}>
                 {cloneElement(children, { ready: clicked && ready })}
             </Suspense>
-            {/* <Html>
-                <div className={`fullscreen bg ${ready ? 'ready' : 'notready'} ${clicked && 'clicked'}`}>
-                    <div className="stack">
-                        <button onClick={() => setClicked(true)}>
-                            {!ready ? 'loading' : 'click to continue'}
-                        </button>
-                    </div>
-                </div>
-            </Html> */}
             <div className={`fullscreen bg ${ready ? 'ready' : 'notready'} ${clicked && 'clicked'}`}>
                 <div className="stack">
-                    <button onClick={() => setClicked(true)}>
+                    
+                    {ready?
+                    <AnchorContainer href='#' onClick={() => setClicked(true)}>
                         {!ready ? 'loading' : 'click to continue'}
-                    </button>
+                    </AnchorContainer>
+                    :
+                    // <Spinner/>
+                    <RotateLoader color='#1790ff' loading={!ready}/>
+                    }
                 </div>
             </div>
 

@@ -26,12 +26,6 @@ function App({ready}) {
       }}
 
     >
-      {/* <Suspense fallback={<Html><Spinner /> </Html>}>
-        <EffectComposer>
-          <Vignette eskil={true} offset={0.1} darkness={0.6} />
-        </EffectComposer>
-        <Three />
-      </Suspense> */}
         <EffectComposer>
           <Vignette eskil={true} offset={0.1} darkness={0.6} />
         </EffectComposer>

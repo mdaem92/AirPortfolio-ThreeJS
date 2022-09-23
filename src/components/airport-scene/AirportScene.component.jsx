@@ -60,12 +60,7 @@ export const AirportScene = (props) => {
   const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
   const [skillsAnimPlaying, setSkillsAnimPlaying] = useState(false)
   const infoLCD2Video = useVideoTexture("/videos/videoplayback.mp4")
-  // const [audioPlaying, setAudioPlaying] = useState(true)
 
-
-  // const toggleAudio = () => {
-  //   setAudioPlaying(!audioPlaying)
-  // }
 
   // play main animations 
   useEffect(() => {
@@ -141,9 +136,10 @@ export const AirportScene = (props) => {
   const [bingPlaying, setBingPlaying] = useState(false)
   const [creditsClicked, setCreditsClicked] = useState(false)
 
-
-  // when about me is clicked
+  // returns the current screen width
   const width = useWindowWidth()
+  // when about me is clicked
+
   useFrame(({ camera }) => {
     if (aboutMeclicked) {
       camera.lookAt(aboutMeScreenRef.current.position)
@@ -239,18 +235,6 @@ export const AirportScene = (props) => {
   // returns true if the current browser tab loses focus
   const tabInUse = useTabInUse()
 
-  // disable audio if the tab is left
-  // useEffect(() => {
-  //   if (audioPlaying){
-  //     if (!tabInUse) {
-  //       setAudioPlaying(false)
-  //     }
-  //   }
-
-
-  // }, [tabInUse])
-
-
   // handles all click events
   const handleClickArea = ({ eventObject: { name } }) => {
     setBingPlaying(true)
@@ -294,17 +278,6 @@ export const AirportScene = (props) => {
     }
 
   }
-
-  useEffect(()=>{
-    if (jetEngineSoundRef.current){
-      // if(audioPlaying){
-      //   jetEngineSoundRef.current.play()
-      // }else{
-      //   jetEngineSoundRef.current.stop()
-      // }
-      console.log(jetEngineSoundRef.current);
-    }
-  },[])
 
   return (
     <group ref={group} {...props} dispose={null}>
@@ -392,7 +365,7 @@ export const AirportScene = (props) => {
         <mesh name="projectsArea" castShadow receiveShadow geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]} scale={[0.1, 0.59, 0.4]} visible={false} onClick={handleClickArea} />
 
         <mesh name="skillsArea" castShadow receiveShadow geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]} scale={[0.1, 0.6, 0.4]} visible={false} onClick={handleClickArea} />
-        <mesh name="returnArea" castShadow receiveShadow geometry={nodes.returnArea.geometry} material={nodes.returnArea.material} position={[52.46, 3.08, 12.78]} scale={[0.05, 0.12, 0.18]} onClick={handleClickArea} visible={false} />
+        <mesh name="returnArea" castShadow receiveShadow geometry={nodes.returnArea.geometry} material={nodes.returnArea.material} position={[52.4, 3.05, 10.4]} onClick={handleClickArea} visible={false} />
         <mesh name="returnArea2" castShadow receiveShadow geometry={nodes.returnArea2.geometry} material={nodes.returnArea2.material} position={[29.4, 3.05, 19.54]} scale={[0.05, 0.12, 0.11]} onClick={handleClickArea} visible={false} />
 
 
@@ -502,22 +475,13 @@ export const AirportScene = (props) => {
           <mesh name="Cube034_4" castShadow receiveShadow geometry={nodes.Cube034_4.geometry} material={materials['black.006']} />
           <mesh name="Cube034_5" castShadow receiveShadow geometry={nodes.Cube034_5.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube034_6" castShadow receiveShadow geometry={nodes.Cube034_6.geometry} material={materials['headlights.004']} />
-          <PositionalAudio
+          {tabInUse && <PositionalAudio
             url='/audio/jet-idle.mp3'
-            distance={1}
+            distance={0.8}
             autoplay
             loop
             ref={jetEngineSoundRef}
-          />
-          {/* <PositionalAudio
-            url='/audio/jet-idle.mp3'
-            distance={1}
-            // autoplay
-            loop
-            ref={jetEngineSoundRef}
-          /> */}
-
-
+          />}
         </group>
         <group name="orangeRunwayCar2" position={[-52.85, 1.12, -14.27]} rotation={[Math.PI, -0.72, Math.PI]} scale={[0.87, 0.35, 1.41]}>
           <mesh name="Cube185" castShadow receiveShadow geometry={nodes.Cube185.geometry} material={materials.window} />
@@ -548,35 +512,21 @@ export const AirportScene = (props) => {
           <mesh name="Cube001_5" castShadow receiveShadow geometry={nodes.Cube001_5.geometry} material={materials['metal_frame.002']} />
           <mesh name="Cube001_6" castShadow receiveShadow geometry={nodes.Cube001_6.geometry} material={materials.siren_blue} />
           <mesh name="Cube001_7" castShadow receiveShadow geometry={nodes.Cube001_7.geometry} material={materials.siren_red} />
-          {/* {props.ready &&
-            <group>
-              <PositionalAudio
-                url='/audio/police-siren.mp3'
-                distance={1.5}
-                autoplay
-                loop
-              />
-              <PositionalAudio
-                url='/audio/car-passing2.mp3'
-                distance={1}
-                autoplay
-                loop
-              />
-            </group>
-          } */}
+          {tabInUse && <group>
+            <PositionalAudio
+              url='/audio/police-siren.mp3'
+              distance={1}
+              autoplay
+            // loop
+            />
+            <PositionalAudio
+              url='/audio/car-passing2.mp3'
+              distance={1}
+              autoplay
+              loop
+            />
+          </group>}
 
-          <PositionalAudio
-            url='/audio/police-siren.mp3'
-            distance={1.5}
-            autoplay
-            loop
-          />
-          <PositionalAudio
-            url='/audio/car-passing2.mp3'
-            distance={1}
-            autoplay
-            loop
-          />
         </group>
         <group name="runwayPolice" position={[-46.7, 2.49, 6.09]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.93}>
           <mesh name="Cube002" castShadow receiveShadow geometry={nodes.Cube002.geometry} material={materials['black.006']} />
@@ -645,18 +595,13 @@ export const AirportScene = (props) => {
           <mesh name="Cube039_5" castShadow receiveShadow geometry={nodes.Cube039_5.geometry} material={materials.metal} />
           <mesh name="Cube039_6" castShadow receiveShadow geometry={nodes.Cube039_6.geometry} material={materials.taillights} />
           <mesh name="Cube039_7" castShadow receiveShadow geometry={nodes.Cube039_7.geometry} material={materials.taxi_sign} />
-          {props.ready && <PositionalAudio
+          {/* props.ready can be used only once. the browser only needs to know if the user interaction triggered the sound */}
+          {props.ready && tabInUse&& <PositionalAudio
             url='/audio/car-passing1.mp3'
             distance={3}
             autoplay
             loop
           />}
-          {/* <PositionalAudio
-            url='/audio/car-passing1.mp3'
-            distance={3}
-            autoplay
-            loop
-          /> */}
         </group>
         <group name="yellowparkingTaxi" position={[43.74, 1.48, 12.64]} scale={0.93}>
           <mesh name="Cube039" castShadow receiveShadow geometry={nodes.Cube039.geometry} material={materials['taxi_yellow.002']} />
@@ -683,18 +628,13 @@ export const AirportScene = (props) => {
           <mesh name="Cube041_3" castShadow receiveShadow geometry={nodes.Cube041_3.geometry} material={materials.taillights} />
           <mesh name="Cube041_4" castShadow receiveShadow geometry={nodes.Cube041_4.geometry} material={materials['black.006']} />
           <mesh name="Cube041_5" castShadow receiveShadow geometry={nodes.Cube041_5.geometry} material={materials.metal} />
-          {/* {props.ready && <PositionalAudio
+
+          {tabInUse && <PositionalAudio
             url='/audio/car-passing2.mp3'
             distance={2}
             autoplay
             loop
-          />} */}
-          <PositionalAudio
-            url='/audio/car-passing2.mp3'
-            distance={2}
-            autoplay
-            loop
-          />
+          />}
         </group>
         <group name="blueParkingCar" position={[49.79, 1.44, 8.31]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.93}>
           <mesh name="Cube043" castShadow receiveShadow geometry={nodes.Cube043.geometry} material={materials['headlights.004']} />
@@ -711,18 +651,13 @@ export const AirportScene = (props) => {
           <mesh name="Cube043_3" castShadow receiveShadow geometry={nodes.Cube043_3.geometry} material={materials.taillights} />
           <mesh name="Cube043_4" castShadow receiveShadow geometry={nodes.Cube043_4.geometry} material={materials.DARK_BLUE} />
           <mesh name="Cube043_5" castShadow receiveShadow geometry={nodes.Cube043_5.geometry} material={materials.window} />
-          {/* {props.ready && <PositionalAudio
+
+          {tabInUse && <PositionalAudio
             url='/audio/car-passing1.mp3'
             distance={2}
             autoplay
             loop
-          />} */}
-          <PositionalAudio
-            url='/audio/car-passing1.mp3'
-            distance={2}
-            autoplay
-            loop
-          />
+          />}
         </group>
         <group name="blackParkingCar" position={[40.64, 1.44, 12.83]} scale={0.93}>
           <mesh name="Cube157" castShadow receiveShadow geometry={nodes.Cube157.geometry} material={materials['headlights.004']} />
@@ -795,6 +730,12 @@ export const AirportScene = (props) => {
           <mesh name="Cube177" castShadow receiveShadow geometry={nodes.Cube177.geometry} material={materials.tree_branch} />
           <mesh name="Cube177_1" castShadow receiveShadow geometry={nodes.Cube177_1.geometry} material={materials.tree_green} />
           <mesh name="Cube177_2" castShadow receiveShadow geometry={nodes.Cube177_2.geometry} material={materials.tree_green_2} />
+          {tabInUse && <PositionalAudio
+            url='/audio/cricket.mp3'
+            distance={1.5}
+            autoplay
+            loop
+          />}
         </group>
         <group name="tree2" position={[47.38, 4.45, 35.16]}>
           <mesh name="Cube178" castShadow receiveShadow geometry={nodes.Cube178.geometry} material={materials.tree_branch} />
@@ -824,18 +765,13 @@ export const AirportScene = (props) => {
           <mesh name="Cube006_3" castShadow receiveShadow geometry={nodes.Cube006_3.geometry} material={materials['headlights.004']} />
           <mesh name="Cube006_4" castShadow receiveShadow geometry={nodes.Cube006_4.geometry} material={materials.taillights} />
           <mesh name="Cube006_5" castShadow receiveShadow geometry={nodes.Cube006_5.geometry} material={materials.metal} />
-          {/* {props.ready && <PositionalAudio
+
+          {tabInUse && <PositionalAudio
             url='/audio/car-passing1.mp3'
             distance={4}
             autoplay
             loop
-          />} */}
-          <PositionalAudio
-            url='/audio/car-passing1.mp3'
-            distance={4}
-            autoplay
-            loop
-          />
+          />}
         </group>
         <mesh name="runway_lights_white" castShadow receiveShadow geometry={nodes.runway_lights_white.geometry} material={materials.emissive_white} position={[-62.03, 0.99, 4.94]} scale={[67.28, 48.07, 48.07]} />
 
@@ -866,12 +802,12 @@ export const AirportScene = (props) => {
             autoplay
             loop
           />} */}
-          <PositionalAudio
+          {tabInUse && <PositionalAudio
             url='/audio/car-passing2.mp3'
             distance={2}
             autoplay
             loop
-          />
+          />}
         </group>
         <group name="creditsArea" position={[51.65, 3.86, -2.85]} scale={[0.33, 0.1, 0.39]} onClick={handleClickArea} ref={creditsAreaRef}>
           <mesh name="Cube014" castShadow receiveShadow geometry={nodes.Cube014.geometry} material={materials.airplane_dark_blue} />
@@ -901,18 +837,13 @@ export const AirportScene = (props) => {
         <group name="radar" position={[15.54, 34.28, -27.27]} rotation={[0.06, 0, 0]} scale={0.86}>
           <mesh name="Cube010" castShadow receiveShadow geometry={nodes.Cube010.geometry} material={materials.radar_red} />
           <mesh name="Cube010_1" castShadow receiveShadow geometry={nodes.Cube010_1.geometry} material={materials.radar_white} />
-          {/* {props.ready && <PositionalAudio
+
+          {tabInUse && <PositionalAudio
             url={'/audio/radar.mp3'}
-            distance={8}
+            distance={2}
             autoplay
             loop
-          />} */}
-          <PositionalAudio
-            url={'/audio/radar.mp3'}
-            distance={8}
-            autoplay
-            loop
-          />
+          />}
         </group>
 
         <group name="conveyor-truck" position={[-37.06, 2.21, 1.08]} scale={[3.69, 0.8, 1]} ref={skillsScreenRef} >
@@ -967,18 +898,13 @@ export const AirportScene = (props) => {
         <group name="revolvingDoor" position={[27.65, 2.67, 10.48]} scale={[67.28, 48.07, 48.07]}>
           <mesh name="Plane003" castShadow receiveShadow geometry={nodes.Plane003.geometry} material={materials.dark_metal_frame} />
           <mesh name="Plane003_1" castShadow receiveShadow geometry={nodes.Plane003_1.geometry} material={materials.dark_glass} />
-          {/* {props.ready && <PositionalAudio
+
+          {tabInUse && <PositionalAudio
             url='/audio/airport-ambiance.mp3'
             distance={100}
             autoplay
             loop
-          />} */}
-          <PositionalAudio
-            url='/audio/airport-ambiance.mp3'
-            distance={100}
-            autoplay
-            loop
-          />
+          />}
         </group>
         <mesh name="infoDisplay2" castShadow receiveShadow geometry={nodes.infoDisplay2.geometry} material={materials.dark_metal_frame} position={[29.35, 4.43, -0.29]} scale={[0.11, 0.96, 3.03]} />
         <mesh name="infoDisplay1" castShadow receiveShadow geometry={nodes.infoDisplay1.geometry} material={materials.dark_metal_frame} position={[29.25, 3.69, 20.61]} scale={[0.08, 1.62, 1.51]} ref={aboutMeScreenRef} />

@@ -26,15 +26,25 @@ export const IntroContainer = styled.div`
   opacity: 0;
 }
 
-a {
+/* a {
   pointer-events: all;
   cursor: pointer;
   color: inherit;
   text-decoration: none;
-}
+} */
 
-a:hover {
+/* a:hover {
   text-decoration: underline;
-  color: inherit;
-}
+  color: #1790ff;
+} */
+
+`
+export const AnchorContainer = styled.a`
+    pointer-events: all;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    :hover{
+        color: #1790ff;
+    }
 `
