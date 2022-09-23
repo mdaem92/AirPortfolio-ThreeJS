@@ -11,7 +11,9 @@ import Spinner from './components/spinner/Spinner.component';
 
 
 
-function App() {
+
+function App({ready}) {
+
 
   return (
     <Canvas
@@ -30,6 +32,7 @@ function App() {
         </EffectComposer>
         <Three />
       </Suspense>
+
     </Canvas>
   );
 

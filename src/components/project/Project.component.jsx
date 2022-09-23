@@ -1,9 +1,9 @@
 // import { Button } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import React from 'react'
-import { DescriptionContainer, Image1, Image2, Image3, ImagesContainer, LogoContainer, ProjectContainer, TitleContainer, CustomButton , LogoAndTitleContainer } from './Project.styles'
+import { DescriptionContainer, Image1, Image2, Image3, ImagesContainer, LogoContainer, ProjectContainer, TitleContainer, CustomButton, LogoAndTitleContainer, ButtonsContainer } from './Project.styles'
 
-const Project = ({ title, description, url, images, exitFocus,isMobile}) => {
+const Project = ({ title, description, url, images, exitFocus, isMobile,gitUrl }) => {
 
   const handleClick = () => {
     exitFocus()
@@ -28,7 +28,11 @@ const Project = ({ title, description, url, images, exitFocus,isMobile}) => {
       <DescriptionContainer>
         {description}
       </DescriptionContainer>
-      {url && <CustomButton type='primary' shape='round' href={url} target="_blank">Live demo</CustomButton>}
+      <ButtonsContainer>
+        {!!url && <CustomButton type='primary' shape='round' href={url} target="_blank">Live demo</CustomButton>}
+        <CustomButton type='primary'  shape='round' href={gitUrl} target="_blank">GitHub</CustomButton>
+        {/* <GithubOutlined/> */}
+      </ButtonsContainer>
 
 
     </ProjectContainer>

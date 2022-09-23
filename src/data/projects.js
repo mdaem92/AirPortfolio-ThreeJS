@@ -8,7 +8,8 @@ export const projects = [
             '/images/car-trades/car-trades3.png',
             '/images/car-trades/logo.png'
         ],
-        url:'https://car-trade-demo.herokuapp.com'
+        url:'https://car-trade-demo.herokuapp.com',
+        gitUrl:'https://github.com/mdaem92/car-trades-react'
     },
     {
         title:'DBT Therapy App',
@@ -19,7 +20,9 @@ export const projects = [
             '/images/dbt/dbt3.png',
             '/images/dbt/logo.png'
         ],
-        url:'https://dbt-bh.herokuapp.com'
+        url:'https://dbt-bh.herokuapp.com',
+        gitUrl:'https://github.com/mdaem92/car-trades-react'
+
     },
     {
         title:'Airportfolio',
@@ -28,8 +31,11 @@ export const projects = [
             '/images/airport/apc3.png',
             '/images/airport/apc2.png',
             '/images/airport/apc1.png',
+            '/images/airport/logo.png'
         ],
-        url:'/'
+        url:'',
+        gitUrl:'https://github.com/mdaem92/car-trades-react'
+
 
     },
     {

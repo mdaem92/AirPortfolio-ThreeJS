@@ -88,10 +88,23 @@ export const Image3 = styled.img`
 `
 export const CustomButton = styled((props)=><Button {...props}/>)`
     /* width:30% ; */
-    align-self: center;
+    /* .anticon{
+        padding-top: 50px;
+    } */
+
+
 `
 export const LogoAndTitleContainer = styled.div`
     display:flex ;
     flex-direction: row ;
     justify-content:space-between ;
+`
+
+export const ButtonsContainer = styled.div`
+    display:flex ;
+    flex-direction:row ;
+    justify-content:center ;
+    align-items:center ;
+    column-gap:10px ;
+
 `

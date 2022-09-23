@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { useGLTF, useAnimations,useVideoTexture, PositionalAudio } from '@react-three/drei'
+import { useGLTF, useAnimations, useVideoTexture, PositionalAudio } from '@react-three/drei'
 
 import { useFrame, useThree } from '@react-three/fiber';
 
-import { Vector3} from 'three';
+import { Vector3 } from 'three';
 import { useKeyState } from 'use-key-state'
 import Skills from '../overlay/skills/Skills.component';
 import AudioToggleButton from '../audio-toggle-button/AudioToggleButton.component';
@@ -69,13 +69,12 @@ export const AirportScene = (props) => {
 
   // play main animations 
   useEffect(() => {
-    console.log('started animations');
     Object.keys(actions).forEach((key) => {
       if (!animationsList.includes(key)) {
         actions[key].play()
       }
     })
-  },[])
+  }, [])
 
   // play skills animations
   useEffect(() => {
@@ -92,7 +91,6 @@ export const AirportScene = (props) => {
     }
   }, [skillsAnimPlaying])
 
-  // const showHelpers = false
 
   // const angleToRadians = (ang) => (Math.PI / 180) * ang
 
@@ -133,11 +131,7 @@ export const AirportScene = (props) => {
     rearLightRef3.current.target = rearLightTarget3.current
   }, [scene])
 
-  // useHelper(showHelpers && lightRef1, SpotLightHelper, 0xffff00)
-  // useHelper(showHelpers && lightRef2, SpotLightHelper, 0xffff00)
-  // useHelper(showHelpers && lightRef3, SpotLightHelper, 0xffff00)
-  // useHelper(showHelpers && lightRef4, SpotLightHelper, 0xffff00)
-  // useHelper(showHelpers && lightRef5, SpotLightHelper, 0xffff00)
+
 
   const [aboutMeclicked, setAboutMeClicked] = useState(false)
   const [projectsClicked, setProjectsClicked] = useState(false)
@@ -183,7 +177,7 @@ export const AirportScene = (props) => {
 
     }
   })
-  
+
   // when credits is clicked
   useFrame(({ camera }) => {
     if (creditsClicked) {
@@ -204,6 +198,8 @@ export const AirportScene = (props) => {
     }
 
   })
+
+
 
   const exitFocus = () => {
     console.log('exit focus');
@@ -230,7 +226,7 @@ export const AirportScene = (props) => {
       }
       return setExitFocusClicked(false)
     }
-  },[esc,exitFocusClicked,mainScreenFocus])
+  }, [esc, exitFocusClicked, mainScreenFocus])
 
   // when main screen is in focus 
   useFrame(({ camera }) => {
@@ -245,13 +241,13 @@ export const AirportScene = (props) => {
 
   // disable audio if the tab is left
   useEffect(() => {
-
-    if (!tabInUse) {
-      setAudioPlaying(false)
-    } 
-    else {
-      setAudioPlaying(true)
+    if (audioPlaying){
+      if (!tabInUse) {
+        setAudioPlaying(false)
+      }
     }
+
+
   }, [tabInUse])
 
 
@@ -299,12 +295,23 @@ export const AirportScene = (props) => {
 
   }
 
+  useEffect(()=>{
+    if (jetEngineSoundRef.current){
+      // if(audioPlaying){
+      //   jetEngineSoundRef.current.play()
+      // }else{
+      //   jetEngineSoundRef.current.stop()
+      // }
+      console.log(jetEngineSoundRef.current);
+    }
+  },[audioPlaying])
+
   return (
     <group ref={group} {...props} dispose={null}>
-      <ButtonSoundEffect playing={bingPlaying}  />
+      <ButtonSoundEffect playing={audioPlaying && bingPlaying} />
       <group name="Scene">
-        <AudioToggleButton toggleAudio={toggleAudio} audioPlaying={audioPlaying} />
-        
+        <AudioToggleButton toggleAudio={toggleAudio} audioPlaying={audioPlaying && audioPlaying} />
+
         <group name="backLight" position={[-75.87, 20.41, -34.92]} rotation={[0.29, -0.22, 1.45]}>
           <directionalLight name="backLight_Orientation" intensity={3} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
             <group position={[0, 0, -1]} />
@@ -502,6 +509,13 @@ export const AirportScene = (props) => {
             loop
             ref={jetEngineSoundRef}
           />}
+          {/* <PositionalAudio
+            url='/audio/jet-idle.mp3'
+            distance={1}
+            // autoplay
+            loop
+            ref={jetEngineSoundRef}
+          /> */}
 
 
         </group>
@@ -549,9 +563,20 @@ export const AirportScene = (props) => {
                 loop
               />
             </group>
-
-
           }
+
+          {/* <PositionalAudio
+            url='/audio/police-siren.mp3'
+            distance={1.5}
+            autoplay
+            loop
+          />
+          <PositionalAudio
+            url='/audio/car-passing2.mp3'
+            distance={1}
+            autoplay
+            loop
+          /> */}
         </group>
         <group name="runwayPolice" position={[-46.7, 2.49, 6.09]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.93}>
           <mesh name="Cube002" castShadow receiveShadow geometry={nodes.Cube002.geometry} material={materials['black.006']} />
@@ -626,6 +651,12 @@ export const AirportScene = (props) => {
             autoplay
             loop
           />}
+          {/* <PositionalAudio
+            url='/audio/car-passing1.mp3'
+            distance={3}
+            autoplay
+            loop
+          /> */}
         </group>
         <group name="yellowparkingTaxi" position={[43.74, 1.48, 12.64]} scale={0.93}>
           <mesh name="Cube039" castShadow receiveShadow geometry={nodes.Cube039.geometry} material={materials['taxi_yellow.002']} />
@@ -658,6 +689,12 @@ export const AirportScene = (props) => {
             autoplay
             loop
           />}
+          {/* <PositionalAudio
+            url='/audio/car-passing2.mp3'
+            distance={2}
+            autoplay
+            loop
+          /> */}
         </group>
         <group name="blueParkingCar" position={[49.79, 1.44, 8.31]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.93}>
           <mesh name="Cube043" castShadow receiveShadow geometry={nodes.Cube043.geometry} material={materials['headlights.004']} />
@@ -680,6 +717,12 @@ export const AirportScene = (props) => {
             autoplay
             loop
           />}
+          {/* <PositionalAudio
+            url='/audio/car-passing1.mp3'
+            distance={2}
+            autoplay
+            loop
+          /> */}
         </group>
         <group name="blackParkingCar" position={[40.64, 1.44, 12.83]} scale={0.93}>
           <mesh name="Cube157" castShadow receiveShadow geometry={nodes.Cube157.geometry} material={materials['headlights.004']} />
@@ -787,6 +830,12 @@ export const AirportScene = (props) => {
             autoplay
             loop
           />}
+          {/* <PositionalAudio
+            url='/audio/car-passing1.mp3'
+            distance={4}
+            autoplay
+            loop
+          /> */}
         </group>
         <mesh name="runway_lights_white" castShadow receiveShadow geometry={nodes.runway_lights_white.geometry} material={materials.emissive_white} position={[-62.03, 0.99, 4.94]} scale={[67.28, 48.07, 48.07]} />
 
@@ -817,6 +866,12 @@ export const AirportScene = (props) => {
             autoplay
             loop
           />}
+          {/* <PositionalAudio
+            url='/audio/car-passing2.mp3'
+            distance={2}
+            autoplay
+            loop
+          /> */}
         </group>
         <group name="creditsArea" position={[51.65, 3.86, -2.85]} scale={[0.33, 0.1, 0.39]} onClick={handleClickArea} ref={creditsAreaRef}>
           <mesh name="Cube014" castShadow receiveShadow geometry={nodes.Cube014.geometry} material={materials.airplane_dark_blue} />
@@ -852,6 +907,12 @@ export const AirportScene = (props) => {
             autoplay
             loop
           />}
+          {/* <PositionalAudio
+            url={'/audio/radar.mp3'}
+            distance={8}
+            autoplay
+            loop
+          /> */}
         </group>
 
         <group name="conveyor-truck" position={[-37.06, 2.21, 1.08]} scale={[3.69, 0.8, 1]} ref={skillsScreenRef} >
@@ -912,6 +973,12 @@ export const AirportScene = (props) => {
             autoplay
             loop
           />}
+          {/* <PositionalAudio
+            url='/audio/airport-ambiance.mp3'
+            distance={100}
+            autoplay
+            loop
+          /> */}
         </group>
         <mesh name="infoDisplay2" castShadow receiveShadow geometry={nodes.infoDisplay2.geometry} material={materials.dark_metal_frame} position={[29.35, 4.43, -0.29]} scale={[0.11, 0.96, 3.03]} />
         <mesh name="infoDisplay1" castShadow receiveShadow geometry={nodes.infoDisplay1.geometry} material={materials.dark_metal_frame} position={[29.25, 3.69, 20.61]} scale={[0.08, 1.62, 1.51]} ref={aboutMeScreenRef} />

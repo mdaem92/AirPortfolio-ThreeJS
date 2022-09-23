@@ -3,7 +3,7 @@ import { OrbitControls, PerspectiveCamera ,Stars } from '@react-three/drei'
 import { AirportScene } from '../airport-scene/AirportScene.component'
 
 
-const Three = () => {
+const Three = ({ready}) => {
     const angleToRadians = (ang) => (Math.PI / 180) * ang
     const orbitControlRef = useRef(null)
     const camRef = useRef(null)
@@ -23,7 +23,7 @@ const Three = () => {
             />
             <ambientLight args={['#ffffff', 0.2]} />
             <Stars radius={100} depth={200} count={5000} factor={4} saturation={0} fade speed={2} />
-            <AirportScene camRef={camRef} orbitControlRef={orbitControlRef}/>
+            <AirportScene camRef={camRef} orbitControlRef={orbitControlRef} ready={ready}/>
         </>
     )
 }
