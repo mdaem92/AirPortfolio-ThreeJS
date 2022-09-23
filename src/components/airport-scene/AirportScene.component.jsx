@@ -284,7 +284,6 @@ export const AirportScene = (props) => {
       <ButtonSoundEffect playing={props.ready && bingPlaying} />
       <group name="Scene">
         {/* <AudioToggleButton toggleAudio={toggleAudio} audioPlaying={audioPlaying} /> */}
-
         <group name="backLight" position={[-75.87, 20.41, -34.92]} rotation={[0.29, -0.22, 1.45]}>
           <directionalLight name="backLight_Orientation" intensity={3} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
             <group position={[0, 0, -1]} />
