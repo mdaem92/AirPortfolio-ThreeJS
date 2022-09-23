@@ -21,8 +21,8 @@ export default function Intro({ children }) {
                 <div className="stack">
                     
                     {ready?
-                    <AnchorContainer href='#' onClick={() => setClicked(true)}>
-                        {!ready ? 'loading' : 'click to continue'}
+                    !clicked && <AnchorContainer href='#' onClick={() => setClicked(true)}>
+                        {!ready ? 'loading' : 'START'}
                     </AnchorContainer>
                     :
                     // <Spinner/>

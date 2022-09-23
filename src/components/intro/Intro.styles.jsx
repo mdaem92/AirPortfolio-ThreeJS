@@ -44,6 +44,9 @@ export const AnchorContainer = styled.a`
     cursor: pointer;
     color: inherit;
     text-decoration: none;
+    font-family: 'Teko', sans-serif;
+    font-size:80px ;
+
     :hover{
         color: #1790ff;
     }

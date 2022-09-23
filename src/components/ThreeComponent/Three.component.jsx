@@ -10,7 +10,7 @@ const Three = ({ready}) => {
 
     return (
         <>
-            {/* use position of the perspective camera to set initial location then use orbitcontrol to change polar and azimuthal angle  [80, 8.26, 9.51]*/}
+            {/* use position of the perspective camera to set initial location then use orbitcontrol to change polar and azimuthal angle */}
             <PerspectiveCamera makeDefault position={[80, 8.26, 9.51]}  />
             <OrbitControls 
                 ref={orbitControlRef} 
