@@ -52,7 +52,7 @@ export const RowContainer = styled.div`
         border: 5px dotted #1890ff;
         border-style: none none dotted; 
         color: #fff; 
-        background-color: #fff;
+        background-color: black;
         width:50px ;
         align-self:center ;
     }
