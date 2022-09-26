@@ -29,4 +29,4 @@ const Three = ({ready}) => {
     )
 }
 
-export default Three
+export default React.memo(Three)
