@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { OrbitControls, PerspectiveCamera ,Stars } from '@react-three/drei'
+import { OrbitControls, PerspectiveCamera ,Stars, Stats } from '@react-three/drei'
 import { AirportScene } from '../airport-scene/AirportScene.component'
 
 
@@ -15,16 +15,17 @@ const Three = ({ready}) => {
             <OrbitControls 
                 ref={orbitControlRef} 
                 minPolarAngle={angleToRadians(30)} 
-                maxPolarAngle={angleToRadians(88)} 
+                maxPolarAngle={angleToRadians(85)} 
                 minDistance={60} 
                 maxDistance={90}
-                rotateSpeed={0.6}
-                enableZoom
+                rotateSpeed={0.35}
+                // enableZoom
             />
             {/* #96B1D9 */}
             <ambientLight args={['#D5DAEB', 0.5]} />
             <Stars radius={100} depth={200} count={1000} factor={4} saturation={0} fade speed={2} />
             <AirportScene  orbitControlRef={orbitControlRef} ready={ready}/>
+            
         </>
     )
 }

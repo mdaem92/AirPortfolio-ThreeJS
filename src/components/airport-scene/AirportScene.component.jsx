@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { useGLTF, useAnimations, useVideoTexture, PositionalAudio } from '@react-three/drei'
+import { useGLTF, useAnimations, useVideoTexture, PositionalAudio, Stats } from '@react-three/drei'
 
 import { useFrame, useThree } from '@react-three/fiber';
 
@@ -37,19 +37,19 @@ export const AirportScene = (props) => {
   const projectsScreenRef = useRef(null)
   const skillsScreenRef = useRef(null)
 
-  const planeGreenLightRef = useRef(null)
-  const planeRedLightRef = useRef(null)
+  // const planeGreenLightRef = useRef(null)
+  // const planeRedLightRef = useRef(null)
 
-  const planeGreenLightTarget = useRef(null)
-  const planeRedLightTarget = useRef(null)
+  // const planeGreenLightTarget = useRef(null)
+  // const planeRedLightTarget = useRef(null)
 
-  const rearLightRef1 = useRef(null)
-  const rearLightRef2 = useRef(null)
-  const rearLightRef3 = useRef(null)
+  // const rearLightRef1 = useRef(null)
+  // const rearLightRef2 = useRef(null)
+  // const rearLightRef3 = useRef(null)
 
-  const rearLightTarget1 = useRef(null)
-  const rearLightTarget2 = useRef(null)
-  const rearLightTarget3 = useRef(null)
+  // const rearLightTarget1 = useRef(null)
+  // const rearLightTarget2 = useRef(null)
+  // const rearLightTarget3 = useRef(null)
   const billboardLCDRef = useRef(null)
   const creditsAreaRef = useRef(null)
 
@@ -61,10 +61,12 @@ export const AirportScene = (props) => {
   const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
   const [skillsAnimPlaying, setSkillsAnimPlaying] = useState(false)
   const infoLCD2Video = useVideoTexture("/videos/videoplayback.mp4")
+  
 
 
   // play main animations 
   useEffect(() => {
+    infoLCD2Video.flipY = false
     Object.keys(actions).forEach((key) => {
       if (!animationsList.includes(key)) {
         actions[key].play()
@@ -97,22 +99,22 @@ export const AirportScene = (props) => {
     scene.add(lightRef3.current.target)
     scene.add(lightRef4.current.target)
     scene.add(lightRef5.current.target)
-    scene.add(planeGreenLightRef.current.target)
-    scene.add(planeRedLightRef.current.target)
-    scene.add(rearLightRef1.current.target)
-    scene.add(rearLightRef2.current.target)
-    scene.add(rearLightRef3.current.target)
+    // scene.add(planeGreenLightRef.current.target)
+    // scene.add(planeRedLightRef.current.target)
+    // scene.add(rearLightRef1.current.target)
+    // scene.add(rearLightRef2.current.target)
+    // scene.add(rearLightRef3.current.target)
 
     scene.add(targetRef1.current)
     scene.add(targetRef2.current)
     scene.add(targetRef3.current)
     scene.add(targetRef4.current)
     scene.add(targetRef5.current)
-    scene.add(planeGreenLightTarget.current)
-    scene.add(planeRedLightTarget.current)
-    scene.add(rearLightTarget1.current)
-    scene.add(rearLightTarget2.current)
-    scene.add(rearLightTarget3.current)
+    // scene.add(planeGreenLightTarget.current)
+    // scene.add(planeRedLightTarget.current)
+    // scene.add(rearLightTarget1.current)
+    // scene.add(rearLightTarget2.current)
+    // scene.add(rearLightTarget3.current)
 
 
     lightRef1.current.target = targetRef1.current
@@ -120,11 +122,11 @@ export const AirportScene = (props) => {
     lightRef3.current.target = targetRef3.current
     lightRef4.current.target = targetRef4.current
     lightRef5.current.target = targetRef5.current
-    planeGreenLightRef.current.target = planeGreenLightTarget.current
-    planeRedLightRef.current.target = planeRedLightTarget.current
-    rearLightRef1.current.target = rearLightTarget1.current
-    rearLightRef2.current.target = rearLightTarget2.current
-    rearLightRef3.current.target = rearLightTarget3.current
+    // planeGreenLightRef.current.target = planeGreenLightTarget.current
+    // planeRedLightRef.current.target = planeRedLightTarget.current
+    // rearLightRef1.current.target = rearLightTarget1.current
+    // rearLightRef2.current.target = rearLightTarget2.current
+    // rearLightRef3.current.target = rearLightTarget3.current
   }, [scene])
 
 
@@ -156,11 +158,11 @@ export const AirportScene = (props) => {
       camera.lookAt(aboutMeScreenRef.current.position)
       if (width < 600) {
         // camera.position.lerp(new Vector3(36, 3.97, 21), 0.05)
-        camera.position.lerp(aboutMeScreenVector, 0.05)
+        camera.position.lerp(aboutMeScreenVector,0.05)
 
 
       } else {
-        camera.position.lerp(new Vector3(32.7, 3.97, 20.6), 0.05)
+        camera.position.lerp(aboutMeScreenVector, 0.05)
 
       }
       // on mobile
@@ -178,9 +180,8 @@ export const AirportScene = (props) => {
   // when skills is clicked
   useFrame(({ camera }) => {
     if (skillsClicked) {
-
+      // console.log(deltas);
       camera.lookAt(skillsScreenRef.current.position)
-      // const skillsArea = new Vector3(-25.69, 3.78, -4.08)
       camera.position.lerp(skillsScreenVector, 0.08)
       setSkillsAnimPlaying(true)
 
@@ -191,10 +192,7 @@ export const AirportScene = (props) => {
   useFrame(({ camera }) => {
     if (creditsClicked) {
       camera.lookAt(creditsAreaRef.current.position)
-      // camera.position.lerp(new Vector3(40, 4, -8), 0.08)
       camera.position.lerp(creditsScreenVector, 0.08)
-
-
     }
   })
 
@@ -203,7 +201,6 @@ export const AirportScene = (props) => {
     if (projectsScreenRef.current) {
       if (projectsClicked) {
         camera.lookAt(projectsScreenRef.current.position)
-        // const projectArea = new Vector3(-27.58, 4.88, 25.66)
         camera.position.lerp(projectsScreenVector, 0.05)
       }
     }
@@ -242,8 +239,7 @@ export const AirportScene = (props) => {
   useFrame(({ camera }) => {
     if (mainScreenFocus) {
       camera.lookAt(billboardLCDRef.current.position)
-      // camera.position.lerp(new Vector3(64.6, 7.12, 10.46), 0.05)
-      camera.position.lerp(mainScreenVector, 0.05)
+      camera.position.lerp(mainScreenVector,0.05)
 
     }
   })
@@ -295,8 +291,11 @@ export const AirportScene = (props) => {
 
   }
 
+  const angleToRadians = (angle)=>(angle/180) * Math.PI
+
   return (
     <group ref={group} {...props} dispose={null}>
+      <Stats />
       <ButtonSoundEffect playing={props.ready && bingPlaying} />
       <group name="Scene">
         {/* <AudioToggleButton toggleAudio={toggleAudio} audioPlaying={audioPlaying} /> */}
@@ -315,12 +314,8 @@ export const AirportScene = (props) => {
             <group position={[0, 0, -1]} />
           </directionalLight>
         </group>
-        <group name="rearLight1" position={[-32.59, 7.01, -17.31]} rotation={[Math.PI / 2, 0, 0]} scale={0.55}>
-          <spotLight name="rearLight1_Orientation" intensity={200} angle={0.42} penumbra={0.19} decay={2} rotation={[-Math.PI / 2, 0, 0]} ref={rearLightRef1}>
-            <group position={[0, 0, -1]} />
-          </spotLight>
-        </group>
-        <group name="spotlight5" position={[59.6, 5.61, 44.36]} rotation={[0, 0, -0.07]} scale={0.92}>
+
+        <group name="spotlight5" position={[59.6, 5.61, 44.36]} rotation={[0, 0, -0.07]} >
           <spotLight name="spotlight5_Orientation" intensity={500} angle={0.51} penumbra={0.23} decay={2} color="#ffebbf" rotation={[-Math.PI / 2, 0, 0]} ref={lightRef5}>
             <group position={[0, 0, -1]} />
           </spotLight>
@@ -345,59 +340,31 @@ export const AirportScene = (props) => {
             <group position={[0, 0, -1]} />
           </spotLight>
         </group>
-        <group name="rearLight3" position={[-12.08, 5.95, 4.48]} rotation={[Math.PI / 2, 0, 0]} scale={0.32}>
-          <spotLight name="rearLight3_Orientation" intensity={200} angle={0.42} penumbra={0.19} decay={2} rotation={[-Math.PI / 2, 0, 0]} ref={rearLightRef3}>
-            <group position={[0, 0, -1]} />
-          </spotLight>
-        </group>
-        <group name="planeGreenLight" position={[-52.9, 5.95, 5.53]} rotation={[-Math.PI / 2, 0, 0]} scale={0.49}>
-          <spotLight name="planeGreenLight_Orientation" intensity={100} angle={0.22} penumbra={0.26} decay={2} color="#ff0708" rotation={[-Math.PI / 2, 0, 0]} ref={planeGreenLightRef}>
-            <group position={[0, 0, -1]} />
-          </spotLight>
-        </group>
-        <group name="rearLight2" position={[-53.04, 5.95, 4.48]} rotation={[Math.PI / 2, 0, 0]} scale={0.32}>
-          <spotLight name="rearLight2_Orientation" intensity={200} angle={0.42} penumbra={0.19} decay={2} rotation={[-Math.PI / 2, 0, 0]} ref={rearLightRef2}>
-            <group position={[0, 0, -1]} />
-          </spotLight>
-        </group>
-        <group name="planeRedLight" position={[-12.26, 5.95, 5.53]} rotation={[-Math.PI / 2, 0, 0]} scale={0.49}>
-          <spotLight name="planeRedLight_Orientation" intensity={100} angle={0.22} penumbra={0.26} decay={2} color="#025500" rotation={[-Math.PI / 2, 0, 0]} ref={planeRedLightRef}>
-            <group position={[0, 0, -1]} />
-          </spotLight>
-        </group>
 
 
+        <mesh name="lightPost1" castShadow receiveShadow geometry={nodes.lightPost1.geometry} material={materials['black.006']} position={[59.47, 1.15, 48.16]}  />
+        <mesh name="lightPost2" castShadow receiveShadow geometry={nodes.lightPost2.geometry} material={materials['black.006']} position={[59.47, 1.15, 29.87]}  />
+        <mesh name="lightPost3" castShadow receiveShadow geometry={nodes.lightPost3.geometry} material={materials['black.006']} position={[60.23, 4.65, 4.56]}  />
+        <mesh name="lightPost4" castShadow receiveShadow geometry={nodes.lightPost4.geometry} material={materials['black.006']} position={[60.23, 4.65, -14.83]}  />
+        <mesh name="lightPost5" castShadow receiveShadow geometry={nodes.lightPost5.geometry} material={materials['black.006']} position={[60.23, 4.65, -33.8]}  />
 
-        <mesh name="lightPost1" castShadow receiveShadow geometry={nodes.lightPost1.geometry} material={materials['black.006']} position={[59.47, 1.15, 48.16]} rotation={[Math.PI, -1.53, Math.PI]} scale={0.15} />
-        <mesh name="lightPost2" castShadow receiveShadow geometry={nodes.lightPost2.geometry} material={materials['black.006']} position={[59.47, 1.15, 29.87]} rotation={[Math.PI, -1.53, Math.PI]} scale={0.15} />
-        <mesh name="lightPost3" castShadow receiveShadow geometry={nodes.lightPost3.geometry} material={materials['black.006']} position={[60.23, 4.65, 4.56]} rotation={[Math.PI, -1.53, Math.PI]} scale={0.15} />
-        <mesh name="lightPost4" castShadow receiveShadow geometry={nodes.lightPost4.geometry} material={materials['black.006']} position={[60.23, 4.65, -14.83]} rotation={[Math.PI, -1.53, Math.PI]} scale={0.15} />
-        <mesh name="lightPost5" castShadow receiveShadow geometry={nodes.lightPost5.geometry} material={materials['black.006']} position={[60.23, 4.65, -33.8]} rotation={[Math.PI, -1.53, Math.PI]} scale={0.15} />
 
+        <mesh name="linkedinArea" castShadow receiveShadow geometry={nodes.linkedinArea.geometry} material={nodes.linkedinArea.material} position={[52.35, 4.26, 8.5]} visible={false} onClick={handleClickArea} />
+        <mesh name="aboutmeArea" castShadow receiveShadow geometry={nodes.aboutmeArea.geometry} material={nodes.aboutmeArea.material} position={[52.35, 4.26, 12.32]} visible={false} onClick={handleClickArea} />
+        <mesh name="projectsArea" castShadow receiveShadow geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]}  visible={false} onClick={handleClickArea} />
 
-        <mesh name="linkedinArea" castShadow receiveShadow geometry={nodes.linkedinArea.geometry} material={nodes.linkedinArea.material} position={[52.35, 4.26, 8.5]} scale={[0.1, 0.6, 0.4]} visible={false} onClick={handleClickArea} />
-        <mesh name="aboutmeArea" castShadow receiveShadow geometry={nodes.aboutmeArea.geometry} material={nodes.aboutmeArea.material} position={[52.35, 4.26, 12.32]} scale={[0.09, 0.54, 0.36]} visible={false} onClick={handleClickArea} />
-        <mesh name="projectsArea" castShadow receiveShadow geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]} scale={[0.1, 0.59, 0.4]} visible={false} onClick={handleClickArea} />
-
-        <mesh name="skillsArea" castShadow receiveShadow geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]} scale={[0.1, 0.6, 0.4]} visible={false} onClick={handleClickArea} />
+        <mesh name="skillsArea" castShadow receiveShadow geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]}  visible={false} onClick={handleClickArea} />
         <mesh name="returnArea" castShadow receiveShadow geometry={nodes.returnArea.geometry} material={nodes.returnArea.material} position={[52.4, 3.05, 10.4]} onClick={handleClickArea} visible={false} />
-        <mesh name="returnArea2" castShadow receiveShadow geometry={nodes.returnArea2.geometry} material={nodes.returnArea2.material} position={[29.4, 3.05, 19.54]} scale={[0.05, 0.12, 0.11]} onClick={handleClickArea} visible={false} />
+        <mesh name="returnArea2" castShadow receiveShadow geometry={nodes.returnArea2.geometry} material={nodes.returnArea2.material} position={[29.4, 3.05, 19.54]}  onClick={handleClickArea} visible={false} />
 
 
-        <mesh name="spotlightTarget3" castShadow receiveShadow geometry={nodes.spotlightTarget3.geometry} material={nodes.spotlightTarget3.material} position={[56.81, 1.05, 4.66]} scale={0.84} ref={targetRef3} visible={false} />
-        <mesh name="spotlightTarget2" castShadow receiveShadow geometry={nodes.spotlightTarget2.geometry} material={nodes.spotlightTarget2.material} position={[56.81, 1.05, -14.44]} scale={0.84} ref={targetRef2} visible={false} />
-        <mesh name="spotLightTarget1" castShadow receiveShadow geometry={nodes.spotLightTarget1.geometry} material={nodes.spotLightTarget1.material} position={[56.81, 1.05, -33.64]} scale={0.84} ref={targetRef1} visible={false} />
-        <mesh name="spotlightTarget4" castShadow receiveShadow geometry={nodes.spotlightTarget4.geometry} material={nodes.spotlightTarget4.material} position={[56.81, 1.05, 26.35]} scale={0.84} ref={targetRef4} visible={false} />
-        <mesh name="spotlightTarget5" castShadow receiveShadow geometry={nodes.spotlightTarget5.geometry} material={nodes.spotlightTarget5.material} position={[56.81, 1.05, 44.3]} scale={0.84} ref={targetRef5} visible={false} />
-        <mesh name="planeGreenLightTarget" castShadow receiveShadow geometry={nodes.planeGreenLightTarget.geometry} material={nodes.planeGreenLightTarget.material} position={[-52.9, 5.95, 6.7]} scale={0.34} ref={planeGreenLightTarget} visible={false} />
-        <mesh name="planeRedLightTarget" castShadow receiveShadow geometry={nodes.planeRedLightTarget.geometry} material={nodes.planeRedLightTarget.material} position={[-12.26, 5.95, 7.05]} scale={0.34} ref={planeRedLightTarget} visible={false} />
-        <mesh name="rearLightTarget1" castShadow receiveShadow geometry={nodes.rearLightTarget1.geometry} material={nodes.rearLightTarget1.material} position={[-32.59, 7.01, -18.44]} scale={0.23} ref={rearLightTarget1} visible={false} />
-        <mesh name="rearLightTarget3" castShadow receiveShadow geometry={nodes.rearLightTarget3.geometry} material={nodes.rearLightTarget3.material} position={[-12.08, 5.92, 3.86]} scale={0.23} ref={rearLightTarget3} visible={false} />
-        <mesh name="rearLightTarget2" castShadow receiveShadow geometry={nodes.rearLightTarget2.geometry} material={nodes.rearLightTarget2.material} position={[-52.88, 5.97, 3.29]} scale={0.23} ref={rearLightTarget2} visible={false} />
-        
+        <mesh name="spotlightTarget3" castShadow receiveShadow geometry={nodes.spotlightTarget3.geometry} material={nodes.spotlightTarget3.material} position={[56.81, 1.05, 4.66]}  ref={targetRef3} visible={false} />
+        <mesh name="spotlightTarget2" castShadow receiveShadow geometry={nodes.spotlightTarget2.geometry} material={nodes.spotlightTarget2.material} position={[56.81, 1.05, -14.44]}  ref={targetRef2} visible={false} />
+        <mesh name="spotLightTarget1" castShadow receiveShadow geometry={nodes.spotLightTarget1.geometry} material={nodes.spotLightTarget1.material} position={[56.81, 1.05, -33.64]}  ref={targetRef1} visible={false} />
+        <mesh name="spotlightTarget4" castShadow receiveShadow geometry={nodes.spotlightTarget4.geometry} material={nodes.spotlightTarget4.material} position={[56.81, 1.05, 26.35]}  ref={targetRef4} visible={false} />
+        <mesh name="spotlightTarget5" castShadow receiveShadow geometry={nodes.spotlightTarget5.geometry} material={nodes.spotlightTarget5.material} position={[56.81, 1.05, 44.3]}  ref={targetRef5} visible={false} />
         <StaticItems />
-
-        <group name="engine2" position={[-38.5, 3.02, 14.62]} rotation={[Math.PI / 2, 0, 0]} scale={0.41} ref={projectsScreenRef}>
+        <group name="engine2" position={[-38.5, 3.02, 14.62]} rotation={[Math.PI / 2, 0, 0]} ref={projectsScreenRef}>
           <mesh name="Cone003" castShadow receiveShadow geometry={nodes.Cone003.geometry} material={materials['black.006']} />
           <mesh name="Cone003_1" castShadow receiveShadow geometry={nodes.Cone003_1.geometry} material={materials.metal} />
           {projectsClicked &&
@@ -408,9 +375,15 @@ export const AirportScene = (props) => {
             </HtmlContainer>
 
           }
+          {/* <HtmlContainer
+            center
+            visible={false}
+          >
+            <Projects exitFocus={exitFocus} />
+          </HtmlContainer> */}
         </group>
 
-        <group name="airplane" position={[-32.6, 5.02, 8.14]} scale={2.26} >
+        <group name="airplane" position={[-32.6, 5.02, 8.14]}  >
           <mesh name="Cube034" castShadow receiveShadow geometry={nodes.Cube034.geometry} material={materials.airplane_white} />
           <mesh name="Cube034_1" castShadow receiveShadow geometry={nodes.Cube034_1.geometry} material={materials.airplane_dark_blue} />
           <mesh name="Cube034_2" castShadow receiveShadow geometry={nodes.Cube034_2.geometry} material={materials.metal} />
@@ -426,8 +399,8 @@ export const AirportScene = (props) => {
             ref={jetEngineSoundRef}
           />}
         </group>
-        
-        <group name="police_car" position={[58.08, 200, 46.56]} rotation={[Math.PI, 0, Math.PI]} scale={0.93}>
+
+        <group name="police_car" position={[58.08, 200, 46.56]} >
           <mesh name="Cube001" castShadow receiveShadow geometry={nodes.Cube001.geometry} material={materials['black.006']} />
           <mesh name="Cube001_1" castShadow receiveShadow geometry={nodes.Cube001_1.geometry} material={materials['Material.002']} />
           <mesh name="Cube001_2" castShadow receiveShadow geometry={nodes.Cube001_2.geometry} material={materials.window} />
@@ -452,7 +425,7 @@ export const AirportScene = (props) => {
           </group>}
         </group>
 
-        <group name="turningTaxi" position={[54.24, 1.47, -34.57]} scale={0.93}>
+        <group name="turningTaxi" position={[54.24, 1.47, -34.57]} >
           <mesh name="Cube039" castShadow receiveShadow geometry={nodes.Cube039.geometry} material={materials['taxi_yellow.002']} />
           <mesh name="Cube039_1" castShadow receiveShadow geometry={nodes.Cube039_1.geometry} material={materials['Material.002']} />
           <mesh name="Cube039_2" castShadow receiveShadow geometry={nodes.Cube039_2.geometry} material={materials.window} />
@@ -469,8 +442,8 @@ export const AirportScene = (props) => {
             loop
           />}
         </group>
-        
-        <group name="redMovingCar" position={[54.49, 200, -34.77]} rotation={[0, 0.01, 0]} scale={[0.74, 0.3, 1.2]}>
+
+        <group name="redMovingCar" position={[54.49, 200, -34.77]}  >
           <mesh name="Cube041" castShadow receiveShadow geometry={nodes.Cube041.geometry} material={materials['headlights.004']} />
           <mesh name="Cube041_1" castShadow receiveShadow geometry={nodes.Cube041_1.geometry} material={materials.firefighter_red} />
           <mesh name="Cube041_2" castShadow receiveShadow geometry={nodes.Cube041_2.geometry} material={materials.window} />
@@ -485,8 +458,8 @@ export const AirportScene = (props) => {
             loop
           />}
         </group>
-        
-        <group name="blueMovingCar" position={[54.27, 200, -34.58]} scale={0.93}>
+
+        <group name="blueMovingCar" position={[54.27, 200, -34.58]} >
           <mesh name="Cube043" castShadow receiveShadow geometry={nodes.Cube043.geometry} material={materials['headlights.004']} />
           <mesh name="Cube043_1" castShadow receiveShadow geometry={nodes.Cube043_1.geometry} material={materials['black.006']} />
           <mesh name="Cube043_2" castShadow receiveShadow geometry={nodes.Cube043_2.geometry} material={materials['metal_frame.002']} />
@@ -501,8 +474,8 @@ export const AirportScene = (props) => {
             loop
           />}
         </group>
-       
-        <group name="tree3" position={[47.24, 3.95, 29.79]} rotation={[0, 1.35, 0]}>
+
+        <group name="tree3" position={[47.24, 3.95, 29.79]} >
           <mesh name="Cube177" castShadow receiveShadow geometry={nodes.Cube177.geometry} material={materials.tree_branch} />
           <mesh name="Cube177_1" castShadow receiveShadow geometry={nodes.Cube177_1.geometry} material={materials.tree_green} />
           <mesh name="Cube177_2" castShadow receiveShadow geometry={nodes.Cube177_2.geometry} material={materials.tree_green_2} />
@@ -513,9 +486,9 @@ export const AirportScene = (props) => {
             loop
           />}
         </group>
-        
-        <mesh name="billboard" castShadow receiveShadow geometry={nodes.billboard.geometry} material={materials.dark_metal_frame} position={[52.25, 4.43, 10.49]} scale={[0.11, 1.78, 3.03]} />
-        <group name="Bus_animated" position={[58.17, 2.06, 45.89]} rotation={[-Math.PI, 0, -Math.PI]} scale={[1.17, 1.35, 1.23]}>
+
+        <mesh name="billboard" castShadow receiveShadow geometry={nodes.billboard.geometry} material={materials.dark_metal_frame} position={[52.25, 4.43, 10.49]}  />
+        <group name="Bus_animated" position={[58.17, 2.06, 45.89]} >
           <mesh name="Cube006" castShadow receiveShadow geometry={nodes.Cube006.geometry} material={materials['black.006']} />
           <mesh name="Cube006_1" castShadow receiveShadow geometry={nodes.Cube006_1.geometry} material={materials.light_blue} />
           <mesh name="Cube006_2" castShadow receiveShadow geometry={nodes.Cube006_2.geometry} material={materials.window} />
@@ -531,13 +504,13 @@ export const AirportScene = (props) => {
           />}
         </group>
 
-        <mesh name="billboardLCD" castShadow receiveShadow geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={3.32} ref={billboardLCDRef} />
-        <mesh name="infoLCD2" castShadow receiveShadow geometry={nodes.infoLCD2.geometry} material={nodes.infoLCD2.material}  >
-          <meshBasicMaterial map={infoLCD2Video} toneMapped={false} />
+        <mesh name="billboardLCD" castShadow receiveShadow geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]}  ref={billboardLCDRef} />
+        <mesh name="infoLCD2" castShadow receiveShadow geometry={nodes.infoLCD2.geometry} material={nodes.infoLCD2.material} position={[29.53, 4.43, -0.36]}  >
+          <meshBasicMaterial map={infoLCD2Video} toneMapped={true} />
         </mesh>
-        <mesh name="infoLCD1" castShadow receiveShadow geometry={nodes.infoLCD1.geometry} material={materials.aboutMePage} position={[29.41, 3.94, 20.57]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={[1.6, 2.83, 3.02]} onClick={handleClickArea} />
-        
-        <group name="straight_taxi" position={[58.15, 200, 46.47]} rotation={[Math.PI, 0, Math.PI]} scale={0.93}>
+        <mesh name="infoLCD1" castShadow receiveShadow geometry={nodes.infoLCD1.geometry} material={materials.aboutMePage} position={[29.41, 3.94, 20.57]} onClick={handleClickArea} />
+
+        <group name="straight_taxi" position={[58.15, 200, 46.47]}  >
           <mesh name="Cube003" castShadow receiveShadow geometry={nodes.Cube003.geometry} material={materials.window} />
           <mesh name="Cube003_1" castShadow receiveShadow geometry={nodes.Cube003_1.geometry} material={materials['headlights.004']} />
           <mesh name="Cube003_2" castShadow receiveShadow geometry={nodes.Cube003_2.geometry} material={materials['taxi_yellow.002']} />
@@ -554,15 +527,18 @@ export const AirportScene = (props) => {
             loop
           />}
         </group>
-        <group name="creditsArea" position={[51.65, 3.86, -2.85]} scale={[0.33, 0.1, 0.39]} onClick={handleClickArea} ref={creditsAreaRef}>
+        <group name="creditsArea" position={[51.65, 3.86, -2.85]} onClick={handleClickArea} ref={creditsAreaRef}>
           <mesh name="Cube014" castShadow receiveShadow geometry={nodes.Cube014.geometry} material={materials.airplane_dark_blue} />
           <mesh name="Cube014_1" castShadow receiveShadow geometry={nodes.Cube014_1.geometry} material={materials.emissive_white} />
           {creditsClicked && <HtmlContainer center>
             <Credits exitFocus={exitFocus} />
           </HtmlContainer>}
+          {/* <HtmlContainer center visible={creditsClicked}>
+            <Credits exitFocus={exitFocus} />
+          </HtmlContainer> */}
         </group>
-        
-        <group name="radar" position={[15.54, 34.28, -27.27]} rotation={[0.06, 0, 0]} scale={0.86}>
+
+        <group name="radar" position={[15.54, 34.28, -27.27]}  >
           <mesh name="Cube010" castShadow receiveShadow geometry={nodes.Cube010.geometry} material={materials.radar_red} />
           <mesh name="Cube010_1" castShadow receiveShadow geometry={nodes.Cube010_1.geometry} material={materials.radar_white} />
 
@@ -574,7 +550,7 @@ export const AirportScene = (props) => {
           />}
         </group>
 
-        <group name="conveyor-truck" position={[-37.06, 2.21, 1.08]} scale={[3.69, 0.8, 1]} ref={skillsScreenRef} >
+        <group name="conveyor-truck" position={[-37.06, 2.21, 1.08]} ref={skillsScreenRef} >
           <mesh name="Cube009" castShadow receiveShadow geometry={nodes.Cube009.geometry} material={materials['airplane_white.001']} />
           <mesh name="Cube009_1" castShadow receiveShadow geometry={nodes.Cube009_1.geometry} material={materials.window} />
           <mesh name="Cube009_2" castShadow receiveShadow geometry={nodes.Cube009_2.geometry} material={materials['headlights.004']} />
@@ -588,10 +564,13 @@ export const AirportScene = (props) => {
             </HtmlContainer>
 
           }
+          {/* <HtmlContainer center visible={skillsClicked} >
+            <Skills exitFocus={exitFocus} />
+          </HtmlContainer> */}
 
         </group>
 
-        <group name="revolvingDoor" position={[27.65, 2.67, 10.48]} scale={[67.28, 48.07, 48.07]}>
+        <group name="revolvingDoor" position={[27.65, 2.67, 10.48]} >
           <mesh name="Plane003" castShadow receiveShadow geometry={nodes.Plane003.geometry} material={materials.dark_metal_frame} />
           <mesh name="Plane003_1" castShadow receiveShadow geometry={nodes.Plane003_1.geometry} material={materials.dark_glass} />
 
@@ -602,7 +581,7 @@ export const AirportScene = (props) => {
             loop
           />}
         </group>
-        <mesh name="infoDisplay1" castShadow receiveShadow geometry={nodes.infoDisplay1.geometry} material={materials.dark_metal_frame} position={[29.25, 3.69, 20.61]} scale={[0.08, 1.62, 1.51]} ref={aboutMeScreenRef} />
+        <mesh name="infoDisplay1" castShadow receiveShadow geometry={nodes.infoDisplay1.geometry} material={materials.dark_metal_frame} position={[29.25, 3.69, 20.61]}  ref={aboutMeScreenRef} />
       </group>
     </group>
   )
