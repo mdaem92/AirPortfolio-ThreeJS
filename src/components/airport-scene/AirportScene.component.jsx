@@ -135,7 +135,7 @@ export const AirportScene = (props) => {
   const [exitFocusClicked, setExitFocusClicked] = useState(false)
   const [bingPlaying, setBingPlaying] = useState(false)
   const [creditsClicked, setCreditsClicked] = useState(false)
-  
+
   // returns the current screen width
   const width = useWindowWidth()
   // when about me is clicked
@@ -144,10 +144,10 @@ export const AirportScene = (props) => {
     if (aboutMeclicked) {
       camera.lookAt(aboutMeScreenRef.current.position)
       if (width < 600) {
-        camera.position.lerp(new Vector3(36, 3.97,21), 0.15)
+        camera.position.lerp(new Vector3(36, 3.97,21), 0.05)
 
       } else {
-        camera.position.lerp(new Vector3(32.7, 3.97, 20.6), 0.15)
+        camera.position.lerp(new Vector3(32.7, 3.97, 20.6), 0.05)
 
       }
       // on mobile
@@ -168,7 +168,7 @@ export const AirportScene = (props) => {
 
       camera.lookAt(skillsScreenRef.current.position)
       const skillsArea = new Vector3(-25.69, 3.78, -4.08)
-      camera.position.lerp(skillsArea, 0.15)
+      camera.position.lerp(skillsArea, 0.08)
       setSkillsAnimPlaying(true)
 
     }
@@ -178,7 +178,7 @@ export const AirportScene = (props) => {
   useFrame(({ camera }) => {
     if (creditsClicked) {
       camera.lookAt(creditsAreaRef.current.position)
-      camera.position.lerp(new Vector3(40, 4, -8), 0.15)
+      camera.position.lerp(new Vector3(40, 4, -8), 0.08)
 
     }
   })
@@ -189,7 +189,7 @@ export const AirportScene = (props) => {
       if (projectsClicked) {
         camera.lookAt(projectsScreenRef.current.position)
         const projectArea = new Vector3(-27.58, 4.88, 25.66)
-        camera.position.lerp(projectArea, 0.15)
+        camera.position.lerp(projectArea, 0.05)
       }
     }
 
@@ -228,7 +228,7 @@ export const AirportScene = (props) => {
   useFrame(({ camera }) => {
     if (mainScreenFocus) {
       camera.lookAt(billboardLCDRef.current.position)
-      camera.position.lerp(new Vector3(64.6, 7.12, 10.46), 0.15)
+      camera.position.lerp(new Vector3(64.6, 7.12, 10.46), 0.05)
     }
   })
 
