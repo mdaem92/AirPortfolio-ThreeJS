@@ -5,7 +5,7 @@ export const projects = [
         images:[
             '/images/car-trades/car-trades-c1.png',
             '/images/car-trades/car-trades-c2.png',
-            '/images/car-trades/car-trades3.png',
+            '/images/car-trades/car-trades-c3.png',
             '/images/car-trades/logo.png'
         ],
         url:'https://car-trade-demo.herokuapp.com',
