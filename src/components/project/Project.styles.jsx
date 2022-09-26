@@ -3,7 +3,7 @@ import { Button } from "antd";
 
 export const ProjectContainer = styled.div`
     /* height: 32rem; */
-    color: black;
+    color: white;
     display:flex ;
     justify-content:space-between ;
     flex-direction:column ;
