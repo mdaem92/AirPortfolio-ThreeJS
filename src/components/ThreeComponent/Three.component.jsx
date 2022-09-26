@@ -23,7 +23,7 @@ const Three = ({ready}) => {
             />
             {/* #96B1D9 */}
             <ambientLight args={['#D5DAEB', 0.5]} />
-            <Stars radius={100} depth={200} count={5000} factor={4} saturation={0} fade speed={2} />
+            <Stars radius={100} depth={200} count={1000} factor={4} saturation={0} fade speed={2} />
             <AirportScene  orbitControlRef={orbitControlRef} ready={ready}/>
         </>
     )

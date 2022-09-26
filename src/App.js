@@ -18,11 +18,13 @@ function App({ready}) {
   return (
     <Canvas
       id='three-canvas-container'
-      shadows
+      // shadows
+      
       onCreated={(canvasCtx) => {
         canvasCtx.gl.physicallyCorrectLights = true
-        canvasCtx.gl.toneMapping = THREE.NoToneMapping
+        // canvasCtx.gl.toneMapping = THREE.NoToneMapping
         canvasCtx.scene.background = new Color('#00071a')
+        
       }}
 
     >
