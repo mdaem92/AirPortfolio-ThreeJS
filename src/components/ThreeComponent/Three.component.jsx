@@ -10,7 +10,7 @@ const Three = ({ready}) => {
 
     return (
         <>
-            {/* use position of the perspective camera to set initial location then use orbitcontrol to change polar and azimuthal angle */}
+            {/* use position of the perspective camera to set initial location then use orbitcontrol to change polar and azimuthal angle [80, 8.26, 9.51] */}
             <PerspectiveCamera makeDefault position={[80, 8.26, 9.51]}  />
             <OrbitControls 
                 ref={orbitControlRef} 
@@ -21,7 +21,8 @@ const Three = ({ready}) => {
                 rotateSpeed={0.6}
                 enableZoom
             />
-            <ambientLight args={['#ffffff', 0.2]} />
+            {/* #96B1D9 */}
+            <ambientLight args={['#D5DAEB', 0.5]} />
             <Stars radius={100} depth={200} count={5000} factor={4} saturation={0} fade speed={2} />
             <AirportScene  orbitControlRef={orbitControlRef} ready={ready}/>
         </>

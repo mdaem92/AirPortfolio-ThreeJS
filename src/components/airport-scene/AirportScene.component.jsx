@@ -144,7 +144,7 @@ export const AirportScene = (props) => {
     if (aboutMeclicked) {
       camera.lookAt(aboutMeScreenRef.current.position)
       if (width < 600) {
-        camera.position.lerp(new Vector3(34.4, 3.97, 21.8), 0.05)
+        camera.position.lerp(new Vector3(36, 3.97,21), 0.05)
 
       } else {
         camera.position.lerp(new Vector3(32.7, 3.97, 20.6), 0.05)

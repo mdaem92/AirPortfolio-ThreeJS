@@ -12,7 +12,7 @@ export const OverlayContainer = styled.div`
     opacity:0.5;
     /* border: 5px solid white; */
     border-radius:10px ;
-    padding:10px 20px 10px 20px ;
+    padding:10px 20px 20px 20px ;
     font-family: 'Teko', sans-serif;
     font-size:40px ;
     ${props=>props.isMobile && mobileCss}
@@ -48,11 +48,15 @@ export const RowContainer = styled.div`
     }
 
     hr{
-        margin-top: 5px;
-        margin-bottom:5px ;
+        border: 5px dotted #1890ff;
+        border-style: none none dotted; 
+        color: #fff; 
+        background-color: #fff;
+        width:50px ;
+        align-self:center ;
     }
 `
 export const Item = styled.div`
     font-size:medium ;
-    font-weight:bold ;
+    /* font-weight:10px ; */
 `
