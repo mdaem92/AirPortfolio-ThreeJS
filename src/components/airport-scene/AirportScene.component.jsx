@@ -140,6 +140,7 @@ export const AirportScene = (props) => {
   const [bingPlaying, setBingPlaying] = useState(false)
   const [creditsClicked, setCreditsClicked] = useState(false)
   const aboutMeScreenVector = new Vector3(36, 3.97, 21)
+  const aboutMeScreenVectorPC = new Vector3(33, 3.97, 20.6)
   const skillsScreenVector = new Vector3(-25.69, 3.78, -4.08)
   const projectsScreenVector = new Vector3(-27.58, 4.88, 25.66)
   const creditsScreenVector = new Vector3(40, 4, -8)
@@ -162,7 +163,7 @@ export const AirportScene = (props) => {
 
 
       } else {
-        camera.position.lerp(aboutMeScreenVector, 0.05)
+        camera.position.lerp(aboutMeScreenVectorPC, 0.05)
 
       }
       // on mobile

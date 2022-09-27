@@ -1,7 +1,5 @@
-import { Html } from '@react-three/drei'
 import { Suspense, cloneElement, useEffect, useState } from 'react'
 import { RotateLoader } from 'react-spinners'
-import Spinner from '../spinner/Spinner.component'
 import { AnchorContainer, IntroContainer } from './Intro.styles'
 
 function Ready({ setReady }) {

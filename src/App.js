@@ -1,13 +1,10 @@
 import { Canvas } from '@react-three/fiber'
-import { Suspense } from 'react'
 import Three from './components/ThreeComponent/Three.component';
 import './App.css'
-import * as THREE from 'three'
 import { EffectComposer, Vignette } from '@react-three/postprocessing'
 import { Color } from 'three';
-import { Html } from '@react-three/drei';
 import "antd/dist/antd.min.css";
-import Spinner from './components/spinner/Spinner.component';
+import StaticItemsComponent from './components/static-items/StaticItems.component';
 
 
 
@@ -28,9 +25,9 @@ function App({ready}) {
       }}
 
     >
-        <EffectComposer>
+        {/* <EffectComposer>
           <Vignette eskil={true} offset={0.1} darkness={0.6} />
-        </EffectComposer>
+        </EffectComposer> */}
         <Three ready={ready} />
     </Canvas>
   );
