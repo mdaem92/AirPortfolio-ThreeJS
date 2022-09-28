@@ -178,6 +178,21 @@ export const AirportScene = (props) => {
   },[skillsClicked])
 
 
+  // activate skills animation when skills area is clicked/ stop it otherwise
+  useEffect(()=>{
+    if(skillsClicked){
+      animationsList.forEach(key => {
+        actions[key].play()
+      })
+    }else{
+      animationsList.forEach(key => {
+        actions[key].stop()
+
+      })
+    }
+  },[skillsClicked])
+
+
   // when credits is clicked
   useFrame(({ camera }) => {
     if (creditsClicked) {
