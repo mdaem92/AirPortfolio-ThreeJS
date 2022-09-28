@@ -11,5 +11,8 @@ root.render(
   <Intro>
     <App />
   </Intro>
+      // <App />
+
+  
 );
 

@@ -45,14 +45,12 @@ export const AirportScene = (props) => {
   const { actions } = useAnimations(animations, group)
   const { esc } = useKeyState({ esc: "esc" })
   const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
-  const [skillsAnimPlaying, setSkillsAnimPlaying] = useState(false)
-  const infoLCD2Video = useVideoTexture("/videos/videoplayback.mp4")
+  // const infoLCD2Video = useVideoTexture("/videos/videoplayback.mp4")
   
-
-
+  
   // play main animations 
   useEffect(() => {
-    infoLCD2Video.flipY = false
+    // infoLCD2Video.flipY = false
     Object.keys(actions).forEach((key) => {
       if (!animationsList.includes(key)) {
         actions[key].play()
@@ -60,43 +58,30 @@ export const AirportScene = (props) => {
     })
   }, [])
 
-  // play skills animations
-  useEffect(() => {
-    if (skillsAnimPlaying) {
-      animationsList.forEach(key => {
-        actions[key].play()
-
-      })
-    } else {
-      animationsList.forEach(key => {
-        actions[key].stop()
-
-      })
-    }
-  }, [skillsAnimPlaying])
-
-
   // const angleToRadians = (ang) => (Math.PI / 180) * ang
 
   // set the light references
   useEffect(() => {
-    scene.add(lightRef1.current.target)
-    scene.add(lightRef2.current.target)
-    scene.add(lightRef3.current.target)
-    scene.add(lightRef4.current.target)
-    scene.add(lightRef5.current.target)
+    if(lightRef1.current){
+      scene.add(lightRef1.current.target)
+      scene.add(lightRef2.current.target)
+      scene.add(lightRef3.current.target)
+      scene.add(lightRef4.current.target)
+      scene.add(lightRef5.current.target)
+  
+      scene.add(targetRef1.current)
+      scene.add(targetRef2.current)
+      scene.add(targetRef3.current)
+      scene.add(targetRef4.current)
+      scene.add(targetRef5.current)
+  
+      lightRef1.current.target = targetRef1.current
+      lightRef2.current.target = targetRef2.current
+      lightRef3.current.target = targetRef3.current
+      lightRef4.current.target = targetRef4.current
+      lightRef5.current.target = targetRef5.current
+    }
 
-    scene.add(targetRef1.current)
-    scene.add(targetRef2.current)
-    scene.add(targetRef3.current)
-    scene.add(targetRef4.current)
-    scene.add(targetRef5.current)
-
-    lightRef1.current.target = targetRef1.current
-    lightRef2.current.target = targetRef2.current
-    lightRef3.current.target = targetRef3.current
-    lightRef4.current.target = targetRef4.current
-    lightRef5.current.target = targetRef5.current
 
   }, [scene])
 
@@ -121,7 +106,7 @@ export const AirportScene = (props) => {
 
 
 
-  // returns the current screen width
+  // // returns the current screen width
   const width = useWindowWidth()
 
   // when about me is clicked
@@ -149,18 +134,32 @@ export const AirportScene = (props) => {
     }
   })
 
-  // when skills is clicked
+
+  // // when skills is clicked
   useFrame(({ camera }) => {
     if (skillsClicked) {
-      // console.log(deltas);
       camera.lookAt(skillsScreenRef.current.position)
       camera.position.lerp(skillsScreenVector, 0.1)
-      setSkillsAnimPlaying(true)
 
     }
   })
 
-  // when credits is clicked
+  // activate skills animation when skills area is clicked/ stop it otherwise
+  useEffect(()=>{
+    if(skillsClicked){
+      animationsList.forEach(key => {
+        actions[key].play()
+      })
+    }else{
+      animationsList.forEach(key => {
+        actions[key].stop()
+
+      })
+    }
+  },[skillsClicked])
+
+
+  // // when credits is clicked
   useFrame(({ camera }) => {
     if (creditsClicked) {
       camera.lookAt(creditsAreaRef.current.position)
@@ -179,11 +178,8 @@ export const AirportScene = (props) => {
 
   })
 
+  const switchToMainScreen = () => {
 
-  const exitFocus = () => {
-    console.log('exit focus');
-
-    setSkillsAnimPlaying(false)
     setProjectsClicked(false)
     setSkillsClicked(false)
     setAboutMeClicked(false)
@@ -192,12 +188,12 @@ export const AirportScene = (props) => {
 
   }
 
-  // when esc is clicked
+  // // when esc is clicked
   useEffect(() => {
 
     if (esc.down || exitFocusClicked) {
       if (!mainScreenFocus) {
-        exitFocus()
+        switchToMainScreen()
 
       } else {
         setMainScreenFocus(false)
@@ -216,7 +212,7 @@ export const AirportScene = (props) => {
     }
   })
 
-  // returns true if the current browser tab loses focus
+  // // returns true if the current browser tab loses focus
   const tabInUse = useTabInUse()
 
   // handles all click events
@@ -257,20 +253,23 @@ export const AirportScene = (props) => {
       return setCreditsClicked(true)
     }
     if (name === 'returnArea' || name === 'returnArea2') {
-
+      setProjectsClicked(false)
+      setAboutMeClicked(false)
+      setCreditsClicked(false)
+      setSkillsClicked(false)
       return setExitFocusClicked(true)
     }
 
   }
 
   const angleToRadians = (angle)=>(angle/180) * Math.PI
+  // // <AudioToggleButton toggleAudio={toggleAudio} audioPlaying={audioPlaying} />
 
   return (
     <group ref={group} {...props} dispose={null} >
-      <Stats />
+      {/* <Stats /> */}
       <ButtonSoundEffect playing={props.ready && bingPlaying} />
       <group name="Scene">
-        {/* <AudioToggleButton toggleAudio={toggleAudio} audioPlaying={audioPlaying} /> */}
         <group name="backLight" position={[-75.87, 20.41, -34.92]} rotation={[0.29, -0.22, 1.45]}>
           <directionalLight name="backLight_Orientation" intensity={3} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
             <group position={[0, 0, -1]} />
@@ -343,7 +342,7 @@ export const AirportScene = (props) => {
             <HtmlContainer
               center
             >
-              <Projects exitFocus={exitFocus} />
+              <Projects exitFocus={switchToMainScreen} />
             </HtmlContainer>
 
           }
@@ -401,7 +400,6 @@ export const AirportScene = (props) => {
           <mesh name="Cube039_5"  geometry={nodes.Cube039_5.geometry} material={materials.metal} />
           <mesh name="Cube039_6"  geometry={nodes.Cube039_6.geometry} material={materials.taillights} />
           <mesh name="Cube039_7"  geometry={nodes.Cube039_7.geometry} material={materials.taxi_sign} />
-          {/* props.ready can be used only once. the browser only needs to know if the user interaction triggered the sound */}
           {props.ready && tabInUse && <PositionalAudio
             url='/audio/car-passing1.mp3'
             distance={3}
@@ -472,9 +470,9 @@ export const AirportScene = (props) => {
         </group>
 
         <mesh name="billboardLCD"  geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]}  ref={billboardLCDRef} />
-        <mesh name="infoLCD2"  geometry={nodes.infoLCD2.geometry} material={nodes.infoLCD2.material} position={[29.53, 4.43, -0.36]}  >
+        {/* <mesh name="infoLCD2"  geometry={nodes.infoLCD2.geometry} material={nodes.infoLCD2.material} position={[29.53, 4.43, -0.36]}  >
           <meshBasicMaterial map={infoLCD2Video} toneMapped={true} />
-        </mesh>
+        </mesh> */}
         <mesh name="infoLCD1"  geometry={nodes.infoLCD1.geometry} material={materials.aboutMePage} position={[29.41, 3.94, 20.57]} onClick={handleClickArea} />
 
         <group name="straight_taxi" position={[58.15, 200, 46.47]}  >
@@ -498,7 +496,7 @@ export const AirportScene = (props) => {
           <mesh name="Cube014"  geometry={nodes.Cube014.geometry} material={materials.airplane_dark_blue} />
           <mesh name="Cube014_1"  geometry={nodes.Cube014_1.geometry} material={materials.emissive_white} />
           {creditsClicked && <HtmlContainer center>
-            <Credits exitFocus={exitFocus} />
+            <Credits exitFocus={switchToMainScreen} />
           </HtmlContainer>}
 
         </group>
@@ -525,7 +523,7 @@ export const AirportScene = (props) => {
           <mesh name="Cube009_6"  geometry={nodes.Cube009_6.geometry} material={materials['metal_frame.002']} />
           {skillsClicked &&
             <HtmlContainer center >
-              <Skills exitFocus={exitFocus} />
+              <Skills exitFocus={switchToMainScreen} />
             </HtmlContainer>
 
           }
