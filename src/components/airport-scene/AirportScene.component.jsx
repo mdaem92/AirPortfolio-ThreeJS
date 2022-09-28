@@ -60,20 +60,7 @@ export const AirportScene = (props) => {
     })
   }, [])
 
-  // play skills animations
-  useEffect(() => {
-    if (skillsAnimPlaying) {
-      animationsList.forEach(key => {
-        actions[key].play()
 
-      })
-    } else {
-      animationsList.forEach(key => {
-        actions[key].stop()
-
-      })
-    }
-  }, [skillsAnimPlaying])
 
 
   // const angleToRadians = (ang) => (Math.PI / 180) * ang
@@ -155,10 +142,28 @@ export const AirportScene = (props) => {
       // console.log(deltas);
       camera.lookAt(skillsScreenRef.current.position)
       camera.position.lerp(skillsScreenVector, 0.1)
+      // here is one issue
       setSkillsAnimPlaying(true)
 
     }
   })
+  
+  // play skills animations
+  useEffect(() => {
+    if (skillsAnimPlaying) {
+      animationsList.forEach(key => {
+        actions[key].play()
+
+      })
+    } else {
+      animationsList.forEach(key => {
+        actions[key].stop()
+
+      })
+    }
+  }, [skillsAnimPlaying])
+
+
 
   // when credits is clicked
   useFrame(({ camera }) => {
@@ -503,7 +508,7 @@ export const AirportScene = (props) => {
 
         </group>
 
-        <group name="radar" position={[15.54, 34.28, -27.27]}  >
+        <group name="radar" position={[15.54, 34.28, -27.27]}   >
           <mesh name="Cube010"  geometry={nodes.Cube010.geometry} material={materials.radar_red} />
           <mesh name="Cube010_1"  geometry={nodes.Cube010_1.geometry} material={materials.radar_white} />
 
