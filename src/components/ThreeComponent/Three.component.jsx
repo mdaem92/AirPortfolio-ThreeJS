@@ -14,16 +14,17 @@ const Three = ({ready}) => {
             <PerspectiveCamera makeDefault position={[80, 8.26, 9.51]}  />
             <OrbitControls 
                 ref={orbitControlRef} 
-                minPolarAngle={angleToRadians(30)} 
+                minPolarAngle={angleToRadians(45)} 
                 maxPolarAngle={angleToRadians(85)} 
                 minDistance={60} 
                 maxDistance={90}
                 rotateSpeed={0.35}
                 // enableZoom
+                enablePan={false}
             />
             {/* #96B1D9 */}
             <ambientLight args={['#D5DAEB', 0.5]} />
-            <Stars radius={100} depth={200} count={1000} factor={4} saturation={0} fade speed={2} />
+            <Stars radius={100} depth={200} count={3000} factor={4} saturation={0} fade speed={2} />
             <AirportScene  orbitControlRef={orbitControlRef} ready={ready}/>
             
         </>

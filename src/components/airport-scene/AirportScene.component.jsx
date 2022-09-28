@@ -6,7 +6,6 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Vector3 } from 'three';
 import { useKeyState } from 'use-key-state'
 import Skills from '../overlay/skills/Skills.component';
-import AudioToggleButton from '../audio-toggle-button/AudioToggleButton.component';
 import Projects from '../overlay/projects/Projects.component';
 import { HtmlContainer } from '../audio-toggle-button/AudioToggleButton.styles';
 import ButtonSoundEffect from '../button-sound-effect/ButtonSoundEffect.component';
@@ -37,19 +36,6 @@ export const AirportScene = (props) => {
   const projectsScreenRef = useRef(null)
   const skillsScreenRef = useRef(null)
 
-  // const planeGreenLightRef = useRef(null)
-  // const planeRedLightRef = useRef(null)
-
-  // const planeGreenLightTarget = useRef(null)
-  // const planeRedLightTarget = useRef(null)
-
-  // const rearLightRef1 = useRef(null)
-  // const rearLightRef2 = useRef(null)
-  // const rearLightRef3 = useRef(null)
-
-  // const rearLightTarget1 = useRef(null)
-  // const rearLightTarget2 = useRef(null)
-  // const rearLightTarget3 = useRef(null)
   const billboardLCDRef = useRef(null)
   const creditsAreaRef = useRef(null)
 
@@ -99,34 +85,19 @@ export const AirportScene = (props) => {
     scene.add(lightRef3.current.target)
     scene.add(lightRef4.current.target)
     scene.add(lightRef5.current.target)
-    // scene.add(planeGreenLightRef.current.target)
-    // scene.add(planeRedLightRef.current.target)
-    // scene.add(rearLightRef1.current.target)
-    // scene.add(rearLightRef2.current.target)
-    // scene.add(rearLightRef3.current.target)
 
     scene.add(targetRef1.current)
     scene.add(targetRef2.current)
     scene.add(targetRef3.current)
     scene.add(targetRef4.current)
     scene.add(targetRef5.current)
-    // scene.add(planeGreenLightTarget.current)
-    // scene.add(planeRedLightTarget.current)
-    // scene.add(rearLightTarget1.current)
-    // scene.add(rearLightTarget2.current)
-    // scene.add(rearLightTarget3.current)
-
 
     lightRef1.current.target = targetRef1.current
     lightRef2.current.target = targetRef2.current
     lightRef3.current.target = targetRef3.current
     lightRef4.current.target = targetRef4.current
     lightRef5.current.target = targetRef5.current
-    // planeGreenLightRef.current.target = planeGreenLightTarget.current
-    // planeRedLightRef.current.target = planeRedLightTarget.current
-    // rearLightRef1.current.target = rearLightTarget1.current
-    // rearLightRef2.current.target = rearLightTarget2.current
-    // rearLightRef3.current.target = rearLightTarget3.current
+
   }, [scene])
 
 
@@ -183,7 +154,7 @@ export const AirportScene = (props) => {
     if (skillsClicked) {
       // console.log(deltas);
       camera.lookAt(skillsScreenRef.current.position)
-      camera.position.lerp(skillsScreenVector, 0.08)
+      camera.position.lerp(skillsScreenVector, 0.1)
       setSkillsAnimPlaying(true)
 
     }
@@ -295,7 +266,7 @@ export const AirportScene = (props) => {
   const angleToRadians = (angle)=>(angle/180) * Math.PI
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} >
       <Stats />
       <ButtonSoundEffect playing={props.ready && bingPlaying} />
       <group name="Scene">
@@ -343,31 +314,31 @@ export const AirportScene = (props) => {
         </group>
 
 
-        <mesh name="lightPost1" castShadow receiveShadow geometry={nodes.lightPost1.geometry} material={materials['black.006']} position={[59.47, 1.15, 48.16]}  />
-        <mesh name="lightPost2" castShadow receiveShadow geometry={nodes.lightPost2.geometry} material={materials['black.006']} position={[59.47, 1.15, 29.87]}  />
-        <mesh name="lightPost3" castShadow receiveShadow geometry={nodes.lightPost3.geometry} material={materials['black.006']} position={[60.23, 4.65, 4.56]}  />
-        <mesh name="lightPost4" castShadow receiveShadow geometry={nodes.lightPost4.geometry} material={materials['black.006']} position={[60.23, 4.65, -14.83]}  />
-        <mesh name="lightPost5" castShadow receiveShadow geometry={nodes.lightPost5.geometry} material={materials['black.006']} position={[60.23, 4.65, -33.8]}  />
+        <mesh name="lightPost1"  geometry={nodes.lightPost1.geometry} material={materials['black.006']} position={[59.47, 1.15, 48.16]}  />
+        <mesh name="lightPost2"  geometry={nodes.lightPost2.geometry} material={materials['black.006']} position={[59.47, 1.15, 29.87]}  />
+        <mesh name="lightPost3"  geometry={nodes.lightPost3.geometry} material={materials['black.006']} position={[60.23, 4.65, 4.56]}  />
+        <mesh name="lightPost4"  geometry={nodes.lightPost4.geometry} material={materials['black.006']} position={[60.23, 4.65, -14.83]}  />
+        <mesh name="lightPost5"  geometry={nodes.lightPost5.geometry} material={materials['black.006']} position={[60.23, 4.65, -33.8]}  />
 
 
-        <mesh name="linkedinArea" castShadow receiveShadow geometry={nodes.linkedinArea.geometry} material={nodes.linkedinArea.material} position={[52.35, 4.26, 8.5]} visible={false} onClick={handleClickArea} />
-        <mesh name="aboutmeArea" castShadow receiveShadow geometry={nodes.aboutmeArea.geometry} material={nodes.aboutmeArea.material} position={[52.35, 4.26, 12.32]} visible={false} onClick={handleClickArea} />
-        <mesh name="projectsArea" castShadow receiveShadow geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]}  visible={false} onClick={handleClickArea} />
+        <mesh name="linkedinArea"  geometry={nodes.linkedinArea.geometry} material={nodes.linkedinArea.material} position={[52.35, 4.26, 8.5]} visible={false} onClick={handleClickArea} />
+        <mesh name="aboutmeArea"  geometry={nodes.aboutmeArea.geometry} material={nodes.aboutmeArea.material} position={[52.35, 4.26, 12.32]} visible={false} onClick={handleClickArea} />
+        <mesh name="projectsArea"  geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]}  visible={false} onClick={handleClickArea} />
 
-        <mesh name="skillsArea" castShadow receiveShadow geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]}  visible={false} onClick={handleClickArea} />
-        <mesh name="returnArea" castShadow receiveShadow geometry={nodes.returnArea.geometry} material={nodes.returnArea.material} position={[52.4, 3.05, 10.4]} onClick={handleClickArea} visible={false} />
-        <mesh name="returnArea2" castShadow receiveShadow geometry={nodes.returnArea2.geometry} material={nodes.returnArea2.material} position={[29.4, 3.05, 19.54]}  onClick={handleClickArea} visible={false} />
+        <mesh name="skillsArea"  geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]}  visible={false} onClick={handleClickArea} />
+        <mesh name="returnArea"  geometry={nodes.returnArea.geometry} material={nodes.returnArea.material} position={[52.4, 3.05, 10.4]} onClick={handleClickArea} visible={false} />
+        <mesh name="returnArea2"  geometry={nodes.returnArea2.geometry} material={nodes.returnArea2.material} position={[29.4, 3.05, 19.54]}  onClick={handleClickArea} visible={false} />
 
 
-        <mesh name="spotlightTarget3" castShadow receiveShadow geometry={nodes.spotlightTarget3.geometry} material={nodes.spotlightTarget3.material} position={[56.81, 1.05, 4.66]}  ref={targetRef3} visible={false} />
-        <mesh name="spotlightTarget2" castShadow receiveShadow geometry={nodes.spotlightTarget2.geometry} material={nodes.spotlightTarget2.material} position={[56.81, 1.05, -14.44]}  ref={targetRef2} visible={false} />
-        <mesh name="spotLightTarget1" castShadow receiveShadow geometry={nodes.spotLightTarget1.geometry} material={nodes.spotLightTarget1.material} position={[56.81, 1.05, -33.64]}  ref={targetRef1} visible={false} />
-        <mesh name="spotlightTarget4" castShadow receiveShadow geometry={nodes.spotlightTarget4.geometry} material={nodes.spotlightTarget4.material} position={[56.81, 1.05, 26.35]}  ref={targetRef4} visible={false} />
-        <mesh name="spotlightTarget5" castShadow receiveShadow geometry={nodes.spotlightTarget5.geometry} material={nodes.spotlightTarget5.material} position={[56.81, 1.05, 44.3]}  ref={targetRef5} visible={false} />
+        <mesh name="spotlightTarget3"  geometry={nodes.spotlightTarget3.geometry} material={nodes.spotlightTarget3.material} position={[56.81, 1.05, 4.66]}  ref={targetRef3} visible={false} />
+        <mesh name="spotlightTarget2"  geometry={nodes.spotlightTarget2.geometry} material={nodes.spotlightTarget2.material} position={[56.81, 1.05, -14.44]}  ref={targetRef2} visible={false} />
+        <mesh name="spotLightTarget1"  geometry={nodes.spotLightTarget1.geometry} material={nodes.spotLightTarget1.material} position={[56.81, 1.05, -33.64]}  ref={targetRef1} visible={false} />
+        <mesh name="spotlightTarget4"  geometry={nodes.spotlightTarget4.geometry} material={nodes.spotlightTarget4.material} position={[56.81, 1.05, 26.35]}  ref={targetRef4} visible={false} />
+        <mesh name="spotlightTarget5"  geometry={nodes.spotlightTarget5.geometry} material={nodes.spotlightTarget5.material} position={[56.81, 1.05, 44.3]}  ref={targetRef5} visible={false} />
         <StaticItems />
         <group name="engine2" position={[-38.5, 3.02, 14.62]} rotation={[Math.PI / 2, 0, 0]} ref={projectsScreenRef}>
-          <mesh name="Cone003" castShadow receiveShadow geometry={nodes.Cone003.geometry} material={materials['black.006']} />
-          <mesh name="Cone003_1" castShadow receiveShadow geometry={nodes.Cone003_1.geometry} material={materials.metal} />
+          <mesh name="Cone003"  geometry={nodes.Cone003.geometry} material={materials['black.006']} />
+          <mesh name="Cone003_1"  geometry={nodes.Cone003_1.geometry} material={materials.metal} />
           {projectsClicked &&
             <HtmlContainer
               center
@@ -376,22 +347,17 @@ export const AirportScene = (props) => {
             </HtmlContainer>
 
           }
-          {/* <HtmlContainer
-            center
-            visible={false}
-          >
-            <Projects exitFocus={exitFocus} />
-          </HtmlContainer> */}
+
         </group>
 
         <group name="airplane" position={[-32.6, 5.02, 8.14]}  >
-          <mesh name="Cube034" castShadow receiveShadow geometry={nodes.Cube034.geometry} material={materials.airplane_white} />
-          <mesh name="Cube034_1" castShadow receiveShadow geometry={nodes.Cube034_1.geometry} material={materials.airplane_dark_blue} />
-          <mesh name="Cube034_2" castShadow receiveShadow geometry={nodes.Cube034_2.geometry} material={materials.metal} />
-          <mesh name="Cube034_3" castShadow receiveShadow geometry={nodes.Cube034_3.geometry} material={materials.airplane_interior_lights} />
-          <mesh name="Cube034_4" castShadow receiveShadow geometry={nodes.Cube034_4.geometry} material={materials['black.006']} />
-          <mesh name="Cube034_5" castShadow receiveShadow geometry={nodes.Cube034_5.geometry} material={materials['metal_frame.002']} />
-          <mesh name="Cube034_6" castShadow receiveShadow geometry={nodes.Cube034_6.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube034"  geometry={nodes.Cube034.geometry} material={materials.airplane_white} />
+          <mesh name="Cube034_1"  geometry={nodes.Cube034_1.geometry} material={materials.airplane_dark_blue} />
+          <mesh name="Cube034_2"  geometry={nodes.Cube034_2.geometry} material={materials.metal} />
+          <mesh name="Cube034_3"  geometry={nodes.Cube034_3.geometry} material={materials.airplane_interior_lights} />
+          <mesh name="Cube034_4"  geometry={nodes.Cube034_4.geometry} material={materials['black.006']} />
+          <mesh name="Cube034_5"  geometry={nodes.Cube034_5.geometry} material={materials['metal_frame.002']} />
+          <mesh name="Cube034_6"  geometry={nodes.Cube034_6.geometry} material={materials['headlights.004']} />
           {tabInUse && <PositionalAudio
             url='/audio/jet-idle.mp3'
             distance={0.8}
@@ -402,14 +368,14 @@ export const AirportScene = (props) => {
         </group>
 
         <group name="police_car" position={[58.08, 200, 46.56]} >
-          <mesh name="Cube001" castShadow receiveShadow geometry={nodes.Cube001.geometry} material={materials['black.006']} />
-          <mesh name="Cube001_1" castShadow receiveShadow geometry={nodes.Cube001_1.geometry} material={materials['Material.002']} />
-          <mesh name="Cube001_2" castShadow receiveShadow geometry={nodes.Cube001_2.geometry} material={materials.window} />
-          <mesh name="Cube001_3" castShadow receiveShadow geometry={nodes.Cube001_3.geometry} material={materials['headlights.004']} />
-          <mesh name="Cube001_4" castShadow receiveShadow geometry={nodes.Cube001_4.geometry} material={materials.taillights} />
-          <mesh name="Cube001_5" castShadow receiveShadow geometry={nodes.Cube001_5.geometry} material={materials['metal_frame.002']} />
-          <mesh name="Cube001_6" castShadow receiveShadow geometry={nodes.Cube001_6.geometry} material={materials.siren_blue} />
-          <mesh name="Cube001_7" castShadow receiveShadow geometry={nodes.Cube001_7.geometry} material={materials.siren_red} />
+          <mesh name="Cube001"  geometry={nodes.Cube001.geometry} material={materials['black.006']} />
+          <mesh name="Cube001_1"  geometry={nodes.Cube001_1.geometry} material={materials['Material.002']} />
+          <mesh name="Cube001_2"  geometry={nodes.Cube001_2.geometry} material={materials.window} />
+          <mesh name="Cube001_3"  geometry={nodes.Cube001_3.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube001_4"  geometry={nodes.Cube001_4.geometry} material={materials.taillights} />
+          <mesh name="Cube001_5"  geometry={nodes.Cube001_5.geometry} material={materials['metal_frame.002']} />
+          <mesh name="Cube001_6"  geometry={nodes.Cube001_6.geometry} material={materials.siren_blue} />
+          <mesh name="Cube001_7"  geometry={nodes.Cube001_7.geometry} material={materials.siren_red} />
           {tabInUse && <group>
             <PositionalAudio
               url='/audio/police-siren.mp3'
@@ -427,14 +393,14 @@ export const AirportScene = (props) => {
         </group>
 
         <group name="turningTaxi" position={[54.24, 1.47, -34.57]} >
-          <mesh name="Cube039" castShadow receiveShadow geometry={nodes.Cube039.geometry} material={materials['taxi_yellow.002']} />
-          <mesh name="Cube039_1" castShadow receiveShadow geometry={nodes.Cube039_1.geometry} material={materials['Material.002']} />
-          <mesh name="Cube039_2" castShadow receiveShadow geometry={nodes.Cube039_2.geometry} material={materials.window} />
-          <mesh name="Cube039_3" castShadow receiveShadow geometry={nodes.Cube039_3.geometry} material={materials['headlights.004']} />
-          <mesh name="Cube039_4" castShadow receiveShadow geometry={nodes.Cube039_4.geometry} material={materials['black.006']} />
-          <mesh name="Cube039_5" castShadow receiveShadow geometry={nodes.Cube039_5.geometry} material={materials.metal} />
-          <mesh name="Cube039_6" castShadow receiveShadow geometry={nodes.Cube039_6.geometry} material={materials.taillights} />
-          <mesh name="Cube039_7" castShadow receiveShadow geometry={nodes.Cube039_7.geometry} material={materials.taxi_sign} />
+          <mesh name="Cube039"  geometry={nodes.Cube039.geometry} material={materials['taxi_yellow.002']} />
+          <mesh name="Cube039_1"  geometry={nodes.Cube039_1.geometry} material={materials['Material.002']} />
+          <mesh name="Cube039_2"  geometry={nodes.Cube039_2.geometry} material={materials.window} />
+          <mesh name="Cube039_3"  geometry={nodes.Cube039_3.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube039_4"  geometry={nodes.Cube039_4.geometry} material={materials['black.006']} />
+          <mesh name="Cube039_5"  geometry={nodes.Cube039_5.geometry} material={materials.metal} />
+          <mesh name="Cube039_6"  geometry={nodes.Cube039_6.geometry} material={materials.taillights} />
+          <mesh name="Cube039_7"  geometry={nodes.Cube039_7.geometry} material={materials.taxi_sign} />
           {/* props.ready can be used only once. the browser only needs to know if the user interaction triggered the sound */}
           {props.ready && tabInUse && <PositionalAudio
             url='/audio/car-passing1.mp3'
@@ -444,13 +410,13 @@ export const AirportScene = (props) => {
           />}
         </group>
 
-        <group name="redMovingCar" position={[54.49, 200, -34.77]}  >
-          <mesh name="Cube041" castShadow receiveShadow geometry={nodes.Cube041.geometry} material={materials['headlights.004']} />
-          <mesh name="Cube041_1" castShadow receiveShadow geometry={nodes.Cube041_1.geometry} material={materials.firefighter_red} />
-          <mesh name="Cube041_2" castShadow receiveShadow geometry={nodes.Cube041_2.geometry} material={materials.window} />
-          <mesh name="Cube041_3" castShadow receiveShadow geometry={nodes.Cube041_3.geometry} material={materials.taillights} />
-          <mesh name="Cube041_4" castShadow receiveShadow geometry={nodes.Cube041_4.geometry} material={materials['black.006']} />
-          <mesh name="Cube041_5" castShadow receiveShadow geometry={nodes.Cube041_5.geometry} material={materials.metal} />
+        <group name="redMovingCar" position={[54.49, 200, -34.77]} rotation={[0,angleToRadians(180),0 ]} >
+          <mesh name="Cube041"  geometry={nodes.Cube041.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube041_1"  geometry={nodes.Cube041_1.geometry} material={materials.firefighter_red} />
+          <mesh name="Cube041_2"  geometry={nodes.Cube041_2.geometry} material={materials.window} />
+          <mesh name="Cube041_3"  geometry={nodes.Cube041_3.geometry} material={materials.taillights} />
+          <mesh name="Cube041_4"  geometry={nodes.Cube041_4.geometry} material={materials['black.006']} />
+          <mesh name="Cube041_5"  geometry={nodes.Cube041_5.geometry} material={materials.metal} />
 
           {tabInUse && <PositionalAudio
             url='/audio/car-passing2.mp3'
@@ -460,13 +426,13 @@ export const AirportScene = (props) => {
           />}
         </group>
 
-        <group name="blueMovingCar" position={[54.27, 200, -34.58]} >
-          <mesh name="Cube043" castShadow receiveShadow geometry={nodes.Cube043.geometry} material={materials['headlights.004']} />
-          <mesh name="Cube043_1" castShadow receiveShadow geometry={nodes.Cube043_1.geometry} material={materials['black.006']} />
-          <mesh name="Cube043_2" castShadow receiveShadow geometry={nodes.Cube043_2.geometry} material={materials['metal_frame.002']} />
-          <mesh name="Cube043_3" castShadow receiveShadow geometry={nodes.Cube043_3.geometry} material={materials.taillights} />
-          <mesh name="Cube043_4" castShadow receiveShadow geometry={nodes.Cube043_4.geometry} material={materials.DARK_BLUE} />
-          <mesh name="Cube043_5" castShadow receiveShadow geometry={nodes.Cube043_5.geometry} material={materials.window} />
+        <group name="blueMovingCar" position={[54.27, 200, -34.58]} rotation={[0,angleToRadians(180),0 ]} >
+          <mesh name="Cube043"  geometry={nodes.Cube043.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube043_1"  geometry={nodes.Cube043_1.geometry} material={materials['black.006']} />
+          <mesh name="Cube043_2"  geometry={nodes.Cube043_2.geometry} material={materials['metal_frame.002']} />
+          <mesh name="Cube043_3"  geometry={nodes.Cube043_3.geometry} material={materials.taillights} />
+          <mesh name="Cube043_4"  geometry={nodes.Cube043_4.geometry} material={materials.DARK_BLUE} />
+          <mesh name="Cube043_5"  geometry={nodes.Cube043_5.geometry} material={materials.window} />
 
           {tabInUse && <PositionalAudio
             url='/audio/car-passing1.mp3'
@@ -477,9 +443,9 @@ export const AirportScene = (props) => {
         </group>
 
         <group name="tree3" position={[47.24, 3.95, 29.79]} >
-          <mesh name="Cube177" castShadow receiveShadow geometry={nodes.Cube177.geometry} material={materials.tree_branch} />
-          <mesh name="Cube177_1" castShadow receiveShadow geometry={nodes.Cube177_1.geometry} material={materials.tree_green} />
-          <mesh name="Cube177_2" castShadow receiveShadow geometry={nodes.Cube177_2.geometry} material={materials.tree_green_2} />
+          <mesh name="Cube177"  geometry={nodes.Cube177.geometry} material={materials.tree_branch} />
+          <mesh name="Cube177_1"  geometry={nodes.Cube177_1.geometry} material={materials.tree_green} />
+          <mesh name="Cube177_2"  geometry={nodes.Cube177_2.geometry} material={materials.tree_green_2} />
           {tabInUse && <PositionalAudio
             url='/audio/cricket.mp3'
             distance={1.5}
@@ -488,14 +454,14 @@ export const AirportScene = (props) => {
           />}
         </group>
 
-        <mesh name="billboard" castShadow receiveShadow geometry={nodes.billboard.geometry} material={materials.dark_metal_frame} position={[52.25, 4.43, 10.49]}  />
+        <mesh name="billboard"  geometry={nodes.billboard.geometry} material={materials.dark_metal_frame} position={[52.25, 4.43, 10.49]}  />
         <group name="Bus_animated" position={[58.17, 2.06, 45.89]} >
-          <mesh name="Cube006" castShadow receiveShadow geometry={nodes.Cube006.geometry} material={materials['black.006']} />
-          <mesh name="Cube006_1" castShadow receiveShadow geometry={nodes.Cube006_1.geometry} material={materials.light_blue} />
-          <mesh name="Cube006_2" castShadow receiveShadow geometry={nodes.Cube006_2.geometry} material={materials.window} />
-          <mesh name="Cube006_3" castShadow receiveShadow geometry={nodes.Cube006_3.geometry} material={materials['headlights.004']} />
-          <mesh name="Cube006_4" castShadow receiveShadow geometry={nodes.Cube006_4.geometry} material={materials.taillights} />
-          <mesh name="Cube006_5" castShadow receiveShadow geometry={nodes.Cube006_5.geometry} material={materials.metal} />
+          <mesh name="Cube006"  geometry={nodes.Cube006.geometry} material={materials['black.006']} />
+          <mesh name="Cube006_1"  geometry={nodes.Cube006_1.geometry} material={materials.light_blue} />
+          <mesh name="Cube006_2"  geometry={nodes.Cube006_2.geometry} material={materials.window} />
+          <mesh name="Cube006_3"  geometry={nodes.Cube006_3.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube006_4"  geometry={nodes.Cube006_4.geometry} material={materials.taillights} />
+          <mesh name="Cube006_5"  geometry={nodes.Cube006_5.geometry} material={materials.metal} />
 
           {tabInUse && <PositionalAudio
             url='/audio/car-passing1.mp3'
@@ -505,21 +471,21 @@ export const AirportScene = (props) => {
           />}
         </group>
 
-        <mesh name="billboardLCD" castShadow receiveShadow geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]}  ref={billboardLCDRef} />
-        <mesh name="infoLCD2" castShadow receiveShadow geometry={nodes.infoLCD2.geometry} material={nodes.infoLCD2.material} position={[29.53, 4.43, -0.36]}  >
+        <mesh name="billboardLCD"  geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]}  ref={billboardLCDRef} />
+        <mesh name="infoLCD2"  geometry={nodes.infoLCD2.geometry} material={nodes.infoLCD2.material} position={[29.53, 4.43, -0.36]}  >
           <meshBasicMaterial map={infoLCD2Video} toneMapped={true} />
         </mesh>
-        <mesh name="infoLCD1" castShadow receiveShadow geometry={nodes.infoLCD1.geometry} material={materials.aboutMePage} position={[29.41, 3.94, 20.57]} onClick={handleClickArea} />
+        <mesh name="infoLCD1"  geometry={nodes.infoLCD1.geometry} material={materials.aboutMePage} position={[29.41, 3.94, 20.57]} onClick={handleClickArea} />
 
         <group name="straight_taxi" position={[58.15, 200, 46.47]}  >
-          <mesh name="Cube003" castShadow receiveShadow geometry={nodes.Cube003.geometry} material={materials.window} />
-          <mesh name="Cube003_1" castShadow receiveShadow geometry={nodes.Cube003_1.geometry} material={materials['headlights.004']} />
-          <mesh name="Cube003_2" castShadow receiveShadow geometry={nodes.Cube003_2.geometry} material={materials['taxi_yellow.002']} />
-          <mesh name="Cube003_3" castShadow receiveShadow geometry={nodes.Cube003_3.geometry} material={materials['Material.002']} />
-          <mesh name="Cube003_4" castShadow receiveShadow geometry={nodes.Cube003_4.geometry} material={materials['black.006']} />
-          <mesh name="Cube003_5" castShadow receiveShadow geometry={nodes.Cube003_5.geometry} material={materials.metal} />
-          <mesh name="Cube003_6" castShadow receiveShadow geometry={nodes.Cube003_6.geometry} material={materials.taillights} />
-          <mesh name="Cube003_7" castShadow receiveShadow geometry={nodes.Cube003_7.geometry} material={materials.taxi_sign} />
+          <mesh name="Cube003"  geometry={nodes.Cube003.geometry} material={materials.window} />
+          <mesh name="Cube003_1"  geometry={nodes.Cube003_1.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube003_2"  geometry={nodes.Cube003_2.geometry} material={materials['taxi_yellow.002']} />
+          <mesh name="Cube003_3"  geometry={nodes.Cube003_3.geometry} material={materials['Material.002']} />
+          <mesh name="Cube003_4"  geometry={nodes.Cube003_4.geometry} material={materials['black.006']} />
+          <mesh name="Cube003_5"  geometry={nodes.Cube003_5.geometry} material={materials.metal} />
+          <mesh name="Cube003_6"  geometry={nodes.Cube003_6.geometry} material={materials.taillights} />
+          <mesh name="Cube003_7"  geometry={nodes.Cube003_7.geometry} material={materials.taxi_sign} />
 
           {tabInUse && <PositionalAudio
             url='/audio/car-passing2.mp3'
@@ -529,19 +495,17 @@ export const AirportScene = (props) => {
           />}
         </group>
         <group name="creditsArea" position={[51.65, 3.86, -2.85]} onClick={handleClickArea} ref={creditsAreaRef}>
-          <mesh name="Cube014" castShadow receiveShadow geometry={nodes.Cube014.geometry} material={materials.airplane_dark_blue} />
-          <mesh name="Cube014_1" castShadow receiveShadow geometry={nodes.Cube014_1.geometry} material={materials.emissive_white} />
+          <mesh name="Cube014"  geometry={nodes.Cube014.geometry} material={materials.airplane_dark_blue} />
+          <mesh name="Cube014_1"  geometry={nodes.Cube014_1.geometry} material={materials.emissive_white} />
           {creditsClicked && <HtmlContainer center>
             <Credits exitFocus={exitFocus} />
           </HtmlContainer>}
-          {/* <HtmlContainer center visible={creditsClicked}>
-            <Credits exitFocus={exitFocus} />
-          </HtmlContainer> */}
+
         </group>
 
         <group name="radar" position={[15.54, 34.28, -27.27]}  >
-          <mesh name="Cube010" castShadow receiveShadow geometry={nodes.Cube010.geometry} material={materials.radar_red} />
-          <mesh name="Cube010_1" castShadow receiveShadow geometry={nodes.Cube010_1.geometry} material={materials.radar_white} />
+          <mesh name="Cube010"  geometry={nodes.Cube010.geometry} material={materials.radar_red} />
+          <mesh name="Cube010_1"  geometry={nodes.Cube010_1.geometry} material={materials.radar_white} />
 
           {tabInUse && <PositionalAudio
             url={'/audio/radar.mp3'}
@@ -552,28 +516,26 @@ export const AirportScene = (props) => {
         </group>
 
         <group name="conveyor-truck" position={[-37.06, 2.21, 1.08]} ref={skillsScreenRef} >
-          <mesh name="Cube009" castShadow receiveShadow geometry={nodes.Cube009.geometry} material={materials['airplane_white.001']} />
-          <mesh name="Cube009_1" castShadow receiveShadow geometry={nodes.Cube009_1.geometry} material={materials.window} />
-          <mesh name="Cube009_2" castShadow receiveShadow geometry={nodes.Cube009_2.geometry} material={materials['headlights.004']} />
-          <mesh name="Cube009_3" castShadow receiveShadow geometry={nodes.Cube009_3.geometry} material={materials.orange} />
-          <mesh name="Cube009_4" castShadow receiveShadow geometry={nodes.Cube009_4.geometry} material={materials.taillights} />
-          <mesh name="Cube009_5" castShadow receiveShadow geometry={nodes.Cube009_5.geometry} material={materials['black.006']} />
-          <mesh name="Cube009_6" castShadow receiveShadow geometry={nodes.Cube009_6.geometry} material={materials['metal_frame.002']} />
+          <mesh name="Cube009"  geometry={nodes.Cube009.geometry} material={materials['airplane_white.001']} />
+          <mesh name="Cube009_1"  geometry={nodes.Cube009_1.geometry} material={materials.window} />
+          <mesh name="Cube009_2"  geometry={nodes.Cube009_2.geometry} material={materials['headlights.004']} />
+          <mesh name="Cube009_3"  geometry={nodes.Cube009_3.geometry} material={materials.orange} />
+          <mesh name="Cube009_4"  geometry={nodes.Cube009_4.geometry} material={materials.taillights} />
+          <mesh name="Cube009_5"  geometry={nodes.Cube009_5.geometry} material={materials['black.006']} />
+          <mesh name="Cube009_6"  geometry={nodes.Cube009_6.geometry} material={materials['metal_frame.002']} />
           {skillsClicked &&
             <HtmlContainer center >
               <Skills exitFocus={exitFocus} />
             </HtmlContainer>
 
           }
-          {/* <HtmlContainer center visible={skillsClicked} >
-            <Skills exitFocus={exitFocus} />
-          </HtmlContainer> */}
+
 
         </group>
 
         <group name="revolvingDoor" position={[27.65, 2.67, 10.48]} >
-          <mesh name="Plane003" castShadow receiveShadow geometry={nodes.Plane003.geometry} material={materials.dark_metal_frame} />
-          <mesh name="Plane003_1" castShadow receiveShadow geometry={nodes.Plane003_1.geometry} material={materials.dark_glass} />
+          <mesh name="Plane003"  geometry={nodes.Plane003.geometry} material={materials.dark_metal_frame} />
+          <mesh name="Plane003_1"  geometry={nodes.Plane003_1.geometry} material={materials.dark_glass} />
 
           {tabInUse && <PositionalAudio
             url='/audio/airport-ambiance.mp3'
@@ -582,7 +544,12 @@ export const AirportScene = (props) => {
             loop
           />}
         </group>
-        <mesh name="infoDisplay1" castShadow receiveShadow geometry={nodes.infoDisplay1.geometry} material={materials.dark_metal_frame} position={[29.25, 3.69, 20.61]}  ref={aboutMeScreenRef} />
+        <mesh name="infoDisplay1"  geometry={nodes.infoDisplay1.geometry} material={materials.dark_metal_frame} position={[29.25, 3.69, 20.61]}  ref={aboutMeScreenRef} />
+        {/* <group name="infoDisplay1" ref={aboutMeScreenRef} >
+          <mesh name="Cube068" geometry={nodes.Cube068.geometry} material={materials.dark_metal_frame} />
+          <mesh name="Cube068_1" geometry={nodes.Cube068_1.geometry} material={materials.emissive_white} />
+          <mesh name="Cube068_2" geometry={nodes.Cube068_2.geometry} material={materials.css_blue2} />
+        </group> */}
       </group>
     </group>
   )

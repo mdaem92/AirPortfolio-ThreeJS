@@ -6,7 +6,6 @@
     "@ant-design/icons": "^4.7.0",
     "@react-three/drei": "^9.31.1",
     "@react-three/fiber": "^8.3.1",
-    "@react-three/postprocessing": "^2.6.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",

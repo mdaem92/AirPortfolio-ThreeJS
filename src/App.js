@@ -1,10 +1,8 @@
 import { Canvas } from '@react-three/fiber'
 import Three from './components/ThreeComponent/Three.component';
 import './App.css'
-import { EffectComposer, Vignette } from '@react-three/postprocessing'
 import { Color } from 'three';
 import "antd/dist/antd.min.css";
-import StaticItemsComponent from './components/static-items/StaticItems.component';
 
 
 
@@ -20,7 +18,7 @@ function App({ready}) {
       onCreated={(canvasCtx) => {
         canvasCtx.gl.physicallyCorrectLights = true
         // canvasCtx.gl.toneMapping = THREE.NoToneMapping
-        canvasCtx.scene.background = new Color('#00071a')
+        canvasCtx.scene.background = new Color('#031138')
         
       }}
 

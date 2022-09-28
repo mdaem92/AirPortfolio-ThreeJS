@@ -84,6 +84,13 @@ const StaticItems = () => {
                 <mesh name="Cube185_7" castShadow receiveShadow geometry={nodes.Cube185_7.geometry} material={materials['metal_frame.002']} />
                 <mesh name="Cube185_8" castShadow receiveShadow geometry={nodes.Cube185_8.geometry} material={materials.siren_orange} />
             </group>
+            <group name="luggageTrailer" position={[-45.53, 1.36, -12.44]}>
+                <mesh name="Cube186" geometry={nodes.Cube186.geometry} material={materials.airplane_white} />
+                <mesh name="Cube186_1" geometry={nodes.Cube186_1.geometry} material={materials.window} />
+                <mesh name="Cube186_2" geometry={nodes.Cube186_2.geometry} material={materials['black.006']} />
+                <mesh name="Cube186_3" geometry={nodes.Cube186_3.geometry} material={materials.metal} />
+                <mesh name="Cube186_4" geometry={nodes.Cube186_4.geometry} material={materials.taillights} />
+            </group>
             <group name="runwayBackup" position={[-32.58, 1.75, 35.35]}>
                 <mesh name="Cube199" castShadow receiveShadow geometry={nodes.Cube199.geometry} material={materials.airplane_white} />
                 <mesh name="Cube199_1" castShadow receiveShadow geometry={nodes.Cube199_1.geometry} material={materials.YELLOW} />
@@ -185,11 +192,11 @@ const StaticItems = () => {
                 <mesh name="Cube157_4" castShadow receiveShadow geometry={nodes.Cube157_4.geometry} material={materials.window} />
                 <mesh name="Cube157_5" castShadow receiveShadow geometry={nodes.Cube157_5.geometry} material={materials.grey} />
             </group>
-            <mesh name="airportName" castShadow receiveShadow geometry={nodes.airportName.geometry} material={materials['siren_blue.001']} position={[30.2, 13.13, 8.52]}/>
-            <mesh name="runwayNumber19" castShadow receiveShadow geometry={nodes.runwayNumber19.geometry} material={materials.surface_yellow} position={[-20.2, 1.04, 26.02]}   />
-            <mesh name="runwayNumber92" castShadow receiveShadow geometry={nodes.runwayNumber92.geometry} material={materials.surface_yellow} position={[-42.28, 1.03, 26.02]}   />
-            <mesh name="iranair" castShadow receiveShadow geometry={nodes.iranair.geometry} material={materials.iranair} position={[-31.79, 10.82, -15.67]}   />
-            <mesh name="iranair001" castShadow receiveShadow geometry={nodes.iranair001.geometry} material={materials.iranair} position={[-33.69, 10.82, -15.67]}  />
+            <mesh name="airportName" castShadow receiveShadow geometry={nodes.airportName.geometry} material={materials['siren_blue.001']} position={[30.2, 13.13, 8.52]} />
+            <mesh name="runwayNumber19" castShadow receiveShadow geometry={nodes.runwayNumber19.geometry} material={materials.surface_yellow} position={[-20.2, 1.04, 26.02]} />
+            <mesh name="runwayNumber92" castShadow receiveShadow geometry={nodes.runwayNumber92.geometry} material={materials.surface_yellow} position={[-42.28, 1.03, 26.02]} />
+            <mesh name="iranair" castShadow receiveShadow geometry={nodes.iranair.geometry} material={materials.iranair} position={[-31.79, 10.82, -15.67]} />
+            <mesh name="iranair001" castShadow receiveShadow geometry={nodes.iranair001.geometry} material={materials.iranair} position={[-33.69, 10.82, -15.67]} />
             <group name="Bus" position={[-15.95, 2.06, 38.39]} >
                 <mesh name="Cube160" castShadow receiveShadow geometry={nodes.Cube160.geometry} material={materials['black.006']} />
                 <mesh name="Cube160_1" castShadow receiveShadow geometry={nodes.Cube160_1.geometry} material={materials.light_blue} />
@@ -221,7 +228,7 @@ const StaticItems = () => {
                 <mesh name="Cube197_8" castShadow receiveShadow geometry={nodes.Cube197_8.geometry} material={materials['metal_frame.002']} />
                 <mesh name="Cube197_9" castShadow receiveShadow geometry={nodes.Cube197_9.geometry} material={materials.siren_orange} />
             </group>
-            <mesh name="fuelPipe" castShadow receiveShadow geometry={nodes.fuelPipe.geometry} material={materials['black.006']} position={[-29.98, 1.55, -1.04]}  />
+            <mesh name="fuelPipe" castShadow receiveShadow geometry={nodes.fuelPipe.geometry} material={materials['black.006']} position={[-29.98, 1.55, -1.04]} />
             <group name="orangeRunwayCar1" position={[-24.82, 1.1, 18.85]}  >
                 <mesh name="Cube171" castShadow receiveShadow geometry={nodes.Cube171.geometry} material={materials.window} />
                 <mesh name="Cube171_1" castShadow receiveShadow geometry={nodes.Cube171_1.geometry} material={materials['headlights.004']} />
@@ -233,7 +240,7 @@ const StaticItems = () => {
                 <mesh name="Cube171_7" castShadow receiveShadow geometry={nodes.Cube171_7.geometry} material={materials['metal_frame.002']} />
                 <mesh name="Cube171_8" castShadow receiveShadow geometry={nodes.Cube171_8.geometry} material={materials.siren_orange} />
             </group>
-            <mesh name="Plane005" castShadow receiveShadow geometry={nodes.Plane005.geometry} material={materials['Material.009']} position={[-30.35, 5.39, -5.7]}  />
+            <mesh name="Plane005" castShadow receiveShadow geometry={nodes.Plane005.geometry} material={materials['Material.009']} position={[-30.35, 5.39, -5.7]} />
             <group name="tree5" position={[47.48, 3.62, -21.15]} >
                 <mesh name="Cube175" castShadow receiveShadow geometry={nodes.Cube175.geometry} material={materials.tree_branch} />
                 <mesh name="Cube175_1" castShadow receiveShadow geometry={nodes.Cube175_1.geometry} material={materials.tree_green} />
@@ -264,13 +271,13 @@ const StaticItems = () => {
                 <mesh name="Icosphere018_1" castShadow receiveShadow geometry={nodes.Icosphere018_1.geometry} material={materials.tree_green_2} />
                 <mesh name="Icosphere018_2" castShadow receiveShadow geometry={nodes.Icosphere018_2.geometry} material={materials.tree_branch} />
             </group>
-            <mesh name="signPostArrivalText" castShadow receiveShadow geometry={nodes.signPostArrivalText.geometry} material={materials.emissive_white} position={[51.37, 3.6, -2.99]}  />
-            <mesh name="signPostDepartureText" castShadow receiveShadow geometry={nodes.signPostDepartureText.geometry} material={materials.emissive_white} position={[51.43, 3.26, -2.99]}   />
-            <mesh name="signPostArrivalSign" castShadow receiveShadow geometry={nodes.signPostArrivalSign.geometry} material={materials.emissive_white} position={[51.9, 3.54, -2.99]}  />
-            <mesh name="signPostDepartureSign" castShadow receiveShadow geometry={nodes.signPostDepartureSign.geometry} material={materials.emissive_white} position={[51.89, 3.23, -2.99]}  />
-            <mesh name="runway_lights_red" castShadow receiveShadow geometry={nodes.runway_lights_red.geometry} material={materials.siren_red} position={[-32.59, 0.99, 47.24]}  />
-            <mesh name="runway_lights_green" castShadow receiveShadow geometry={nodes.runway_lights_green.geometry} material={materials.green_light} position={[-32.57, 0.99, -35.33]}  />
-            <mesh name="runway_lights_white" castShadow receiveShadow geometry={nodes.runway_lights_white.geometry} material={materials.emissive_white} position={[-62.03, 0.99, 4.94]}  />
+            <mesh name="signPostArrivalText" castShadow receiveShadow geometry={nodes.signPostArrivalText.geometry} material={materials.emissive_white} position={[51.37, 3.6, -2.99]} />
+            <mesh name="signPostDepartureText" castShadow receiveShadow geometry={nodes.signPostDepartureText.geometry} material={materials.emissive_white} position={[51.43, 3.26, -2.99]} />
+            <mesh name="signPostArrivalSign" castShadow receiveShadow geometry={nodes.signPostArrivalSign.geometry} material={materials.emissive_white} position={[51.9, 3.54, -2.99]} />
+            <mesh name="signPostDepartureSign" castShadow receiveShadow geometry={nodes.signPostDepartureSign.geometry} material={materials.emissive_white} position={[51.89, 3.23, -2.99]} />
+            <mesh name="runway_lights_red" castShadow receiveShadow geometry={nodes.runway_lights_red.geometry} material={materials.siren_red} position={[-32.59, 0.99, 47.24]} />
+            <mesh name="runway_lights_green" castShadow receiveShadow geometry={nodes.runway_lights_green.geometry} material={materials.green_light} position={[-32.57, 0.99, -35.33]} />
+            <mesh name="runway_lights_white" castShadow receiveShadow geometry={nodes.runway_lights_white.geometry} material={materials.emissive_white} position={[-62.03, 0.99, 4.94]} />
 
             <group name="speedLimitSign1" position={[52.21, 2.84, -19.39]}>
                 <mesh name="Cylinder002" castShadow receiveShadow geometry={nodes.Cylinder002.geometry} material={materials.exterior_white} />
@@ -288,7 +295,7 @@ const StaticItems = () => {
                 <mesh name="Cube011" castShadow receiveShadow geometry={nodes.Cube011.geometry} material={materials.metal} />
                 <mesh name="Cube011_1" castShadow receiveShadow geometry={nodes.Cube011_1.geometry} material={materials.airplane_dark_blue} />
             </group>
-            <mesh name="cplusplus" castShadow receiveShadow geometry={nodes.cplusplus.geometry} material={materials.css_blue2} position={[-40.76, 200, 1.42]} rotation={[-Math.PI / 2, -1.37, 0]}  />
+            <mesh name="cplusplus" castShadow receiveShadow geometry={nodes.cplusplus.geometry} material={materials.css_blue2} position={[-40.76, 200, 1.42]} rotation={[-Math.PI / 2, -1.37, 0]} />
             <group name="python" position={[-40.78, 1500, 1.5]} rotation={[Math.PI / 2, 0, 0]} >
                 <mesh name="Curve001" castShadow receiveShadow geometry={nodes.Curve001.geometry} material={materials['SVGMat.002']} />
                 <mesh name="Curve001_1" castShadow receiveShadow geometry={nodes.Curve001_1.geometry} material={materials['SVGMat.001']} />
@@ -312,15 +319,19 @@ const StaticItems = () => {
                 <mesh name="Cone004" castShadow receiveShadow geometry={nodes.Cone004.geometry} material={materials.icon_white} />
                 <mesh name="Cone004_1" castShadow receiveShadow geometry={nodes.Cone004_1.geometry} material={materials['black.006']} />
             </group>
-            <mesh name="nodeJS" castShadow receiveShadow geometry={nodes.nodeJS.geometry} material={materials.nodeGreen} position={[-40.7, 200, 1.42]}  />
-            <mesh name="react" castShadow receiveShadow geometry={nodes.react.geometry} material={materials.react} position={[-40.8, 200, 1.49]} rotation={[0, -0.61, -Math.PI / 2]}  />
+            <mesh name="nodeJS" castShadow receiveShadow geometry={nodes.nodeJS.geometry} material={materials.nodeGreen} position={[-40.7, 200, 1.42]} />
+            <mesh name="react" castShadow receiveShadow geometry={nodes.react.geometry} material={materials.react} position={[-40.8, 200, 1.49]} rotation={[0, -0.61, -Math.PI / 2]} />
             <group name="gatsby" position={[-40.74, 200, 1.44]} rotation={[Math.PI / 2, 0, 0]}>
                 <mesh name="Curve003" castShadow receiveShadow geometry={nodes.Curve003.geometry} material={materials.icon_white} />
                 <mesh name="Curve003_1" castShadow receiveShadow geometry={nodes.Curve003_1.geometry} material={materials.gatsbyPurple} />
             </group>
-            <mesh name="Suzanne" castShadow receiveShadow geometry={nodes.Suzanne.geometry} material={materials.blender_orange} position={[-40.68, 200, 1.45]} rotation={[-0.36, -0.12, 0.31]}  />
-                <mesh name="infoDisplay2" castShadow receiveShadow geometry={nodes.infoDisplay2.geometry} material={materials.dark_metal_frame} position={[29.35, 4.43, -0.29]} />
-
+            <mesh name="Suzanne" castShadow receiveShadow geometry={nodes.Suzanne.geometry} material={materials.blender_orange} position={[-40.68, 200, 1.45]} rotation={[-0.36, -0.12, 0.31]} />
+            <mesh name="infoDisplay2" castShadow receiveShadow geometry={nodes.infoDisplay2.geometry} material={materials.dark_metal_frame} position={[29.35, 4.43, -0.29]} />
+            <group name="infoSign" position={[29.39, 2.1, 20.57]}>
+                <mesh name="Cube018" geometry={nodes.Cube018.geometry} material={materials.dark_metal_frame} />
+                <mesh name="Cube018_1" geometry={nodes.Cube018_1.geometry} material={materials.emissive_white} />
+                <mesh name="Cube018_2" geometry={nodes.Cube018_2.geometry} material={materials.css_blue2} />
+            </group>
         </group>
 
     )
