@@ -45,8 +45,11 @@ export const AirportScene = (props) => {
   const { actions } = useAnimations(animations, group)
   const { esc } = useKeyState({ esc: "esc" })
   const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
+  const [skillsAnimPlaying, setSkillsAnimPlaying] = useState(false)
   const infoLCD2Video = useVideoTexture("/videos/videoplayback.mp4")
   
+
+
   // play main animations 
   useEffect(() => {
     infoLCD2Video.flipY = false
@@ -56,6 +59,22 @@ export const AirportScene = (props) => {
       }
     })
   }, [])
+
+  // play skills animations
+  useEffect(() => {
+    if (skillsAnimPlaying) {
+      animationsList.forEach(key => {
+        actions[key].play()
+
+      })
+    } else {
+      animationsList.forEach(key => {
+        actions[key].stop()
+
+      })
+    }
+  }, [skillsAnimPlaying])
+
 
   // const angleToRadians = (ang) => (Math.PI / 180) * ang
 
@@ -130,30 +149,16 @@ export const AirportScene = (props) => {
     }
   })
 
-
   // when skills is clicked
   useFrame(({ camera }) => {
     if (skillsClicked) {
+      // console.log(deltas);
       camera.lookAt(skillsScreenRef.current.position)
       camera.position.lerp(skillsScreenVector, 0.1)
+      setSkillsAnimPlaying(true)
 
     }
   })
-
-  // activate skills animation when skills area is clicked/ stop it otherwise
-  useEffect(()=>{
-    if(skillsClicked){
-      animationsList.forEach(key => {
-        actions[key].play()
-      })
-    }else{
-      animationsList.forEach(key => {
-        actions[key].stop()
-
-      })
-    }
-  },[skillsClicked])
-
 
   // when credits is clicked
   useFrame(({ camera }) => {
@@ -175,8 +180,10 @@ export const AirportScene = (props) => {
   })
 
 
-  const switchToMainScreen = () => {
+  const exitFocus = () => {
+    console.log('exit focus');
 
+    setSkillsAnimPlaying(false)
     setProjectsClicked(false)
     setSkillsClicked(false)
     setAboutMeClicked(false)
@@ -190,7 +197,7 @@ export const AirportScene = (props) => {
 
     if (esc.down || exitFocusClicked) {
       if (!mainScreenFocus) {
-        switchToMainScreen()
+        exitFocus()
 
       } else {
         setMainScreenFocus(false)
@@ -250,10 +257,7 @@ export const AirportScene = (props) => {
       return setCreditsClicked(true)
     }
     if (name === 'returnArea' || name === 'returnArea2') {
-      setProjectsClicked(false)
-      setAboutMeClicked(false)
-      setCreditsClicked(false)
-      setSkillsClicked(false)
+
       return setExitFocusClicked(true)
     }
 
@@ -339,7 +343,7 @@ export const AirportScene = (props) => {
             <HtmlContainer
               center
             >
-              <Projects exitFocus={switchToMainScreen} />
+              <Projects exitFocus={exitFocus} />
             </HtmlContainer>
 
           }
@@ -494,7 +498,7 @@ export const AirportScene = (props) => {
           <mesh name="Cube014"  geometry={nodes.Cube014.geometry} material={materials.airplane_dark_blue} />
           <mesh name="Cube014_1"  geometry={nodes.Cube014_1.geometry} material={materials.emissive_white} />
           {creditsClicked && <HtmlContainer center>
-            <Credits exitFocus={switchToMainScreen} />
+            <Credits exitFocus={exitFocus} />
           </HtmlContainer>}
 
         </group>
@@ -521,7 +525,7 @@ export const AirportScene = (props) => {
           <mesh name="Cube009_6"  geometry={nodes.Cube009_6.geometry} material={materials['metal_frame.002']} />
           {skillsClicked &&
             <HtmlContainer center >
-              <Skills exitFocus={switchToMainScreen} />
+              <Skills exitFocus={exitFocus} />
             </HtmlContainer>
 
           }
