@@ -37,12 +37,5 @@ export const projects = [
         gitUrl:'https://github.com/mdaem92/car-trades-react'
 
 
-    },
-    {
-        title:'NFT Marketplace App',
-        description:'Coming soon',
-        images:[],
-
-
     }
 ]

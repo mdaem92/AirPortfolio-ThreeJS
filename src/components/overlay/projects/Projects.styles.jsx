@@ -5,6 +5,7 @@ const mobileCss = css`
     /* background-color:red ; */
     position: relative ;
     right:-15px ;
+    top:-30px ;
 `
 
 export const OverlayContainer = styled.div`

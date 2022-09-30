@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 const mobileCss = css`
     position:relative ;
     right:30px ;
+    top:-65px ;
+
 `
 
 export const OverlayContainer = styled.div`

@@ -45,8 +45,6 @@ export const NewAirportScene = (props) => {
     const { actions } = useAnimations(animations, group)
     const { esc } = useKeyState({ esc: "esc" })
     const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
-    // const infoLCD2Video = useVideoTexture("/videos/videoplayback.mp4")
-
 
     // play main animations 
     useEffect(() => {
@@ -354,7 +352,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube034" geometry={nodes.Cube034.geometry} material={materials.airplane_interior_lights} />
                     <mesh name="Cube034_1" geometry={nodes.Cube034_1.geometry} material={materials.metal_frame} />
                     <mesh name="Cube034_2" geometry={nodes.Cube034_2.geometry} material={materials.SURFACE} />
-                    {tabInUse && <PositionalAudio
+                    {props.ready && tabInUse && <PositionalAudio
                         url='/audio/jet-idle.mp3'
                         distance={0.8}
                         autoplay
@@ -370,7 +368,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube001_3" geometry={nodes.Cube001_3.geometry} material={materials.taillights} />
                     <mesh name="Cube001_4" geometry={nodes.Cube001_4.geometry} material={materials.metal_frame} />
                     <mesh name="Cube001_5" geometry={nodes.Cube001_5.geometry} material={materials.siren_blue} />
-                    {tabInUse && <group>
+                    {props.ready && tabInUse && <group>
                         <PositionalAudio
                             url='/audio/police-siren.mp3'
                             distance={1}
@@ -406,7 +404,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube004_2" geometry={nodes.Cube004_2.geometry} material={materials.metal_frame} />
                     <mesh name="Cube004_3" geometry={nodes.Cube004_3.geometry} material={materials.SURFACE} />
 
-                    {tabInUse && <PositionalAudio
+                    {props.ready && tabInUse && <PositionalAudio
                         url='/audio/car-passing2.mp3'
                         distance={2}
                         autoplay
@@ -420,7 +418,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube007_2" geometry={nodes.Cube007_2.geometry} material={materials.taillights} />
                     <mesh name="Cube007_3" geometry={nodes.Cube007_3.geometry} material={materials.SURFACE} />
 
-                    {tabInUse && <PositionalAudio
+                    {props.ready && tabInUse && <PositionalAudio
                         url='/audio/car-passing1.mp3'
                         distance={2}
                         autoplay
@@ -429,7 +427,7 @@ export const NewAirportScene = (props) => {
                 </group>
 
                 <mesh name="tree3" geometry={nodes.tree3.geometry} material={materials.SURFACE} position={[47.24, 3.95, 29.79]}>
-                    {tabInUse && <PositionalAudio
+                    {props.ready && tabInUse && <PositionalAudio
                         url='/audio/cricket.mp3'
                         distance={1.5}
                         autoplay
@@ -445,7 +443,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube006_2" geometry={nodes.Cube006_2.geometry} material={materials.metal_frame} />
                     <mesh name="Cube006_3" geometry={nodes.Cube006_3.geometry} material={materials.SURFACE} />
 
-                    {tabInUse && <PositionalAudio
+                    {props.ready && tabInUse && <PositionalAudio
                         url='/audio/car-passing1.mp3'
                         distance={4}
                         autoplay

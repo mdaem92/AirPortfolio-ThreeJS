@@ -20,7 +20,6 @@ function App({ ready }) {
         canvasCtx.scene.background = new Color('#031138')
       }}
     >
-      <Stats />
       <Three ready={ready} />
     </Canvas>
   );
