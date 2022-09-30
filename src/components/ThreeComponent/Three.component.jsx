@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
-import { OrbitControls, PerspectiveCamera, Stars, Stats } from '@react-three/drei'
-import { AirportScene } from '../airport-scene/AirportScene.component'
+import { OrbitControls, PerspectiveCamera, Stars } from '@react-three/drei'
+import { NewAirportScene } from '../new-airport-scene/NewAirportScene.component'
 
 
 const Three = ({ ready }) => {
@@ -21,11 +21,10 @@ const Three = ({ ready }) => {
                 rotateSpeed={0.35}
                 enablePan={false}
             />
-            <ambientLight args={['#D5DAEB', 0.5]} />
+            <ambientLight args={['#D5DAEB', 0.6]} />
             <Stars radius={100} depth={200} count={3000} factor={4} saturation={0} fade speed={2} />
-            <AirportScene  orbitControlRef={orbitControlRef} ready={ready}/>
-            {/* <StaticItemsComponent/> */}
-
+            {/* <AirportScene  orbitControlRef={orbitControlRef} ready={ready}/> */}
+            <NewAirportScene  orbitControlRef={orbitControlRef} ready={ready}/>
         </>
     )
 }

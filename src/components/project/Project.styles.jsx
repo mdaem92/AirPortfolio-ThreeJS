@@ -50,11 +50,11 @@ export const ImagesContainer = styled.div`
     margin-top:20px ;
     /* margin-bottom:20px ; */
 
-    /* border:1px solid black ; */
     display: grid;
     grid-template-columns:1fr 1fr ;
     grid-template-rows:1fr 1fr ;
-    
+    /* grid-row-gap:5px ; */
+    grid-column-gap:5px ;
     grid-template-areas:
         "firstImage secondImage"
         "firstImage thirdImage";
@@ -64,15 +64,18 @@ export const Image1 = styled.img`
     height:15rem ;
     width:100%;
     /* padding:5px ; */
+    ::after{
+        content:'' ;
+        padding:unset ;
+    }
 
-    /* border:1px solid grey ; */
 
     grid-area: firstImage ;
 `
 export const Image2 = styled.img`
     height:7.5rem ;
     width:100%;
-    /* padding:5px ; */
+    padding-bottom:2.5px ;
 
     grid-area: secondImage ;
     /* border:1px solid grey ; */
@@ -81,7 +84,7 @@ export const Image2 = styled.img`
 export const Image3 = styled.img`
     height:7.5rem;
     width:100%;
-    /* padding:5px ; */
+    padding-top:2.5px ;
     /* border:1px solid grey ; */
 
     grid-area: thirdImage ;

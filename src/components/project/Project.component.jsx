@@ -31,7 +31,6 @@ const Project = ({ title, description, url, images, exitFocus, isMobile,gitUrl }
       <ButtonsContainer>
         {!!url && <CustomButton type='primary' shape='round' href={url} target="_blank">Live demo</CustomButton>}
         <CustomButton type='primary'  shape='round' href={gitUrl} target="_blank">GitHub</CustomButton>
-        {/* <GithubOutlined/> */}
       </ButtonsContainer>
 
 
