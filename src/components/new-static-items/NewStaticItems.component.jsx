@@ -57,7 +57,7 @@ const NewStaticItems = () => {
             </group>
 
 
-            <mesh name="engine1" geometry={nodes.engine1.geometry} material={materials.metal_frame} position={[-26.72, 3.02, 13.7]} rotation={[Math.PI / 2, 0, 0]} scale={[1.15,1.15,1.15]} />
+            <mesh name="engine1" geometry={nodes.engine1.geometry} material={materials.metal_frame} position={[-26.72, 3.02, 13.7]} rotation={[Math.PI / 2, 0, 0]} scale={[1.15, 1.15, 1.15]} />
 
             <group name="orangeRunwayCar2" position={[-52.85, 1.12, -14.27]}>
                 <mesh name="Cube185" geometry={nodes.Cube185.geometry} material={materials.headlights} />
@@ -222,9 +222,9 @@ const NewStaticItems = () => {
                 <mesh name="Cube239_1" geometry={nodes.Cube239_1.geometry} material={materials.html_red} />
                 <mesh name="Cube239_2" geometry={nodes.Cube239_2.geometry} material={materials.html_Red2} />
             </group>
-            <group name="threeJS" position={[-40.63, 1500, 1.46]} >
+            <group name="threeJS" position={[-40.63, 1500, 1.46]}>
                 <mesh name="Cone004" geometry={nodes.Cone004.geometry} material={materials.icon_white} />
-                <mesh name="Cone004_1" geometry={nodes.Cone004_1.geometry} material={materials['black.006']} />
+                <mesh name="Cone004_1" geometry={nodes.Cone004_1.geometry} material={nodes.Cone004_1.material} />
             </group>
             <mesh name="nodeJS" geometry={nodes.nodeJS.geometry} material={materials.nodeGreen} position={[-40.7, 200, 1.42]} />
             <mesh name="react" geometry={nodes.react.geometry} material={materials.react} position={[-40.8, 200, 1.49]} rotation={[0, -0.61, -Math.PI / 2]} />
