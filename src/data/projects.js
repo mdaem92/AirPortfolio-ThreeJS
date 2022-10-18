@@ -26,7 +26,7 @@ export const projects = [
     },
     {
         title:'Airportfolio',
-        description:'Here I tried to place my cv within my happy place. Using Blender and React Three Fiber I managed to do just that.',
+        description:'Here I decided to place my cv within my idea of a zen garden. All assets were modelled in blender and rendered using react-three-fiber renderer. ',
         images:[
             '/images/airport/apc3.png',
             '/images/airport/apc2.png',

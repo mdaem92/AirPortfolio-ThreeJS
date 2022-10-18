@@ -349,18 +349,17 @@ export const NewAirportScene = (props) => {
 
 
                 <group name="airplane" position={[-32.6, 5.02, 8.14]}>
-                    <mesh name="Cube034" geometry={nodes.Cube034.geometry} material={materials.metal_frame} />
-                    <mesh name="Cube034_1" geometry={nodes.Cube034_1.geometry} material={materials.airplane_interior_lights} />
-                    <mesh name="Cube034_2" geometry={nodes.Cube034_2.geometry} material={materials.metal_frame} />
-                    <mesh name="Cube034_3" geometry={nodes.Cube034_3.geometry} material={materials.SURFACE} />
-                    {tabInUse &&<PositionalAudio
+                    <mesh name="Cube034" geometry={nodes.Cube034.geometry} material={materials.airplane_interior_lights} />
+                    <mesh name="Cube034_1" geometry={nodes.Cube034_1.geometry} material={materials.metal_frame} />
+                    <mesh name="Cube034_2" geometry={nodes.Cube034_2.geometry} material={materials.SURFACE} />
+                    {tabInUse && <PositionalAudio
                         url='/audio/jet-idle.mp3'
                         distance={0.8}
                         autoplay
                         loop
                         ref={jetEngineSoundRef}
                     />}
-                    
+
                 </group>
 
                 <group name="police_car" position={[58.08, 200, 46.56]} >
@@ -370,7 +369,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube001_3" geometry={nodes.Cube001_3.geometry} material={materials.taillights} />
                     <mesh name="Cube001_4" geometry={nodes.Cube001_4.geometry} material={materials.metal_frame} />
                     <mesh name="Cube001_5" geometry={nodes.Cube001_5.geometry} material={materials.siren_blue} />
-                    { tabInUse && <group>
+                    {tabInUse && <group>
                         <PositionalAudio
                             url='/audio/police-siren.mp3'
                             distance={1}
@@ -384,7 +383,7 @@ export const NewAirportScene = (props) => {
                             loop
                         />
                     </group>}
-                    
+
                 </group>
 
                 <group name="turningTaxi" position={[54.24, 1.47, -34.57]} >
@@ -419,7 +418,7 @@ export const NewAirportScene = (props) => {
                         autoplay
                         loop
                     />}
-                    
+
                 </group>
 
                 <group name="blueMovingCar" position={[54.27, 200, -34.58]}  >
@@ -434,7 +433,7 @@ export const NewAirportScene = (props) => {
                         autoplay
                         loop
                     />}
-                    
+
                 </group>
 
                 <mesh name="tree3" geometry={nodes.tree3.geometry} material={materials.SURFACE} position={[47.24, 3.95, 29.79]}>
@@ -444,7 +443,7 @@ export const NewAirportScene = (props) => {
                         autoplay
                         loop
                     />}
-                    
+
                 </mesh>
 
                 <mesh name="billboard" geometry={nodes.billboard.geometry} material={materials.SURFACE} position={[52.25, 4.43, 10.49]} />
@@ -461,7 +460,7 @@ export const NewAirportScene = (props) => {
                         autoplay
                         loop
                     />}
-                    
+
                 </group>
 
                 <mesh name="billboardLCD" geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]} ref={billboardLCDRef} />
@@ -482,7 +481,7 @@ export const NewAirportScene = (props) => {
                         autoplay
                         loop
                     />}
-                    
+
                 </group>
                 <group name="creditsArea" position={[51.65, 3.86, -2.85]} onClick={handleClickArea} ref={creditsAreaRef}>
                     <mesh name="Cube014" geometry={nodes.Cube014.geometry} material={materials.SURFACE} />
@@ -503,7 +502,7 @@ export const NewAirportScene = (props) => {
                         autoplay
                         loop
                     />}
-                    
+
                 </group>
 
                 <group name="conveyor-truck" position={[-37.06, 2.21, 1.08]} ref={skillsScreenRef} >
@@ -520,7 +519,7 @@ export const NewAirportScene = (props) => {
                     }
                 </group>
 
-                
+
                 <mesh name="revolvingDoor" geometry={nodes.revolvingDoor.geometry} material={materials.SURFACE} position={[27.65, 2.67, 10.48]}>
                     {tabInUse && <PositionalAudio
                         url='/audio/airport-ambiance.mp3'
@@ -528,7 +527,7 @@ export const NewAirportScene = (props) => {
                         autoplay
                         loop
                     />}
-                    
+
                 </mesh>
 
                 <mesh name="infoDisplay1" geometry={nodes.infoDisplay1.geometry} material={materials.SURFACE} position={[29.25, 3.69, 20.61]} ref={aboutMeScreenRef} />
