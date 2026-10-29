@@ -1,4 +1,24 @@
-# Getting Started with Create React App
+# Airportfolio
+
+## Reproducible baseline setup
+
+Use Node **24.16.0** (also recorded in `.nvmrc`) and Yarn **1.22.22**.
+Keep `yarn.lock`; do not generate an npm lockfile during the baseline stage.
+
+```sh
+npx --yes yarn@1.22.22 install --frozen-lockfile --non-interactive
+npx --yes yarn@1.22.22 start
+npx --yes yarn@1.22.22 build
+```
+
+The development server defaults to http://localhost:3000. Production files are
+written to `build`, matching Firebase Hosting's configuration.
+
+See [the modernization plan](docs/modernization-plan.md) and
+[baseline results](docs/baseline.md). Changes must remain uncommitted and unpushed
+until Tommy's visual review and authorization.
+
+## Original Create React App documentation
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

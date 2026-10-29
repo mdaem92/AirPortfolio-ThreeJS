@@ -2,6 +2,11 @@
   "name": "portfolio-app",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": "24.16.0",
+    "yarn": "1.22.22"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@react-three/drei": "^9.31.1",
