@@ -47,7 +47,7 @@ export const AnchorContainer = styled.a`
     font-family: 'Teko', sans-serif;
     font-size:80px ;
 
-    :hover{
+    &:hover{
         color: #1790ff;
     }
 `

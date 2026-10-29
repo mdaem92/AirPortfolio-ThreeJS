@@ -7,13 +7,13 @@ const red = css`
 const green = css`
     fill:green;
 `
-export const HtmlContainer = styled(({audioPlaying,...otherProps})=><Html {...otherProps}/>)`
+export const HtmlContainer = styled(Html)`
 
     .anticon-sound{
         position:absolute ;
         font-size:50px ;
         svg{
-            ${props=>props.audioPlaying? red:green}
+            ${props=>props.$audioPlaying? red:green}
         }
        
         

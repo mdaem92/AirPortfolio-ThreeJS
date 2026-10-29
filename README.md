@@ -37,6 +37,9 @@ CI runs Vitest tests and a production build. The build runs ESLint with zero war
 Vite targets Chrome/Edge 111+, Firefox 114+, and Safari 16.4+. Check older-browser requirements before changing these targets.
 Firebase continues serving `build/` with the existing SPA rewrite. Review migration evidence in [step-three.md](docs/step-three.md).
 
+UI and renderer migration evidence is recorded in [step-four.md](docs/step-four.md)
+and [step-five.md](docs/step-five.md). The current 3D renderer requires WebGL2.
+
 ## Manual smoke check
 
 Start the app, enter the scene, open About/Projects/Skills and return using Escape

@@ -32,7 +32,7 @@ export const OverlayContainer = styled.div`
     background: #1890ff;
     height: 8px;
 }
-${props=>props.isMobile && mobileCss}
+${props=>props.$isMobile && mobileCss}
 
 `
 export const ItemContainer = styled.div`

@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-29",
+  "summary": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 10,
+      "high": 0,
+      "critical": 0
+    },
+    "dependencies": 396,
+    "devDependencies": 0,
+    "optionalDependencies": 0,
+    "totalDependencies": 396
+  },
+  "distinctAdvisories": [
+    {
+      "id": 1104000,
+      "module": "@babel/runtime",
+      "severity": "moderate",
+      "title": "Babel has inefficient RegExp complexity in generated code with .replace when transpiling named capturing groups",
+      "url": "https://github.com/advisories/GHSA-968p-4wvh-cqc8",
+      "paths": [
+        "@testing-library/dom>@babel/runtime",
+        "@testing-library/react>@babel/runtime",
+        "@react-three/fiber>@babel/runtime",
+        "antd>@ant-design/cssinjs>@babel/runtime",
+        "antd>@ant-design/cssinjs-utils>@ant-design/cssinjs>@babel/runtime",
+        "antd>@rc-component/select>@rc-component/overflow>@babel/runtime",
+        "antd>@rc-component/cascader>@rc-component/select>@rc-component/overflow>@babel/runtime",
+        "antd>@rc-component/collapse>@babel/runtime",
+        "antd>@rc-component/input-number>@rc-component/mini-decimal>@babel/runtime"
+      ]
+    },
+    {
+      "id": 1164784,
+      "module": "fflate",
+      "severity": "moderate",
+      "title": "fflate unzipSync can enter an infinite loop when parsing malformed ZIP64 archives",
+      "url": "https://github.com/advisories/GHSA-px8p-9vwx-vf98",
+      "paths": [
+        "@react-three/drei>three-stdlib>fflate"
+      ]
+    }
+  ]
+}

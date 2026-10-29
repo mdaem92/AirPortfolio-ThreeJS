@@ -18,7 +18,7 @@ const Project = ({ title, description, url, images, exitFocus, isMobile,gitUrl }
         </LogoAndTitleContainer>
 
       </TitleContainer>
-      {images.length > 0 && <ImagesContainer isMobile={isMobile}>
+      {images.length > 0 && <ImagesContainer $isMobile={isMobile}>
         <Image1 src={images[0]} />
         <Image2 src={images[1]} />
         <Image3 src={images[2]} />

@@ -10,11 +10,12 @@ export const ProjectContainer = styled.div`
     /* row-gap:10px ; */
     
     .anticon{
+        align-self: flex-start;
         
         svg{
             width:20px ;
             height:20px ;
-            :hover {
+            &:hover {
 	            fill: #7dc0ff;
             }
         }
@@ -58,13 +59,13 @@ export const ImagesContainer = styled.div`
     grid-template-areas:
         "firstImage secondImage"
         "firstImage thirdImage";
-    ${props=>props.isMobile && mobileCss}
+    ${props=>props.$isMobile && mobileCss}
 `
 export const Image1 = styled.img`
     height:15rem ;
     width:100%;
     /* padding:5px ; */
-    ::after{
+    &::after{
         content:'' ;
         padding:unset ;
     }

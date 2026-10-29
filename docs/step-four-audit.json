@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-29",
+  "summary": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 15,
+      "high": 4,
+      "critical": 0
+    },
+    "dependencies": 401,
+    "devDependencies": 0,
+    "optionalDependencies": 0,
+    "totalDependencies": 401
+  },
+  "distinctAdvisories": [
+    {
+      "id": 1104000,
+      "module": "@babel/runtime",
+      "severity": "moderate",
+      "title": "Babel has inefficient RegExp complexity in generated code with .replace when transpiling named capturing groups",
+      "url": "https://github.com/advisories/GHSA-968p-4wvh-cqc8",
+      "paths": [
+        "@testing-library/dom>@babel/runtime",
+        "@react-three/drei>three-stdlib>@babel/runtime",
+        "antd>@ant-design/cssinjs>@babel/runtime",
+        "antd>@ant-design/cssinjs-utils>@ant-design/cssinjs>@babel/runtime",
+        "antd>@rc-component/select>@rc-component/overflow>@babel/runtime",
+        "antd>@rc-component/cascader>@rc-component/select>@rc-component/overflow>@babel/runtime",
+        "antd>@rc-component/collapse>@babel/runtime",
+        "antd>@rc-component/input-number>@rc-component/mini-decimal>@babel/runtime"
+      ]
+    },
+    {
+      "id": 1115806,
+      "module": "lodash",
+      "severity": "high",
+      "title": "lodash vulnerable to Code Injection via `_.template` imports key names",
+      "url": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+      "paths": [
+        "@react-three/drei>three-stdlib>chevrotain>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/gast>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/cst-dts-gen>@chevrotain/gast>lodash"
+      ]
+    },
+    {
+      "id": 1115810,
+      "module": "lodash",
+      "severity": "moderate",
+      "title": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+      "url": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+      "paths": [
+        "@react-three/drei>three-stdlib>chevrotain>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/gast>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/cst-dts-gen>@chevrotain/gast>lodash"
+      ]
+    },
+    {
+      "id": 1120370,
+      "module": "lodash",
+      "severity": "moderate",
+      "title": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+      "url": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+      "paths": [
+        "@react-three/drei>three-stdlib>chevrotain>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/gast>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/cst-dts-gen>@chevrotain/gast>lodash"
+      ]
+    },
+    {
+      "id": 1164784,
+      "module": "fflate",
+      "severity": "moderate",
+      "title": "fflate unzipSync can enter an infinite loop when parsing malformed ZIP64 archives",
+      "url": "https://github.com/advisories/GHSA-px8p-9vwx-vf98",
+      "paths": [
+        "@react-three/drei>three-stdlib>fflate"
+      ]
+    },
+    {
+      "id": 1106907,
+      "module": "lodash.pick",
+      "severity": "high",
+      "title": "Prototype Pollution in lodash",
+      "url": "https://github.com/advisories/GHSA-p6mc-m468-83gw",
+      "paths": [
+        "@react-three/drei>lodash.pick"
+      ]
+    }
+  ]
+}

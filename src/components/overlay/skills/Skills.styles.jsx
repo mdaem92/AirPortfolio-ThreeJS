@@ -18,7 +18,7 @@ export const OverlayContainer = styled.div`
     padding:10px 20px 20px 20px ;
     font-family: 'Teko', sans-serif;
     font-size:40px ;
-    ${props=>props.isMobile && mobileCss}
+    ${props=>props.$isMobile && mobileCss}
 `
 export const TitleContainer = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ export const RowContainer = styled.div`
             width:20px ;
             height:20px ;
             fill:#1890ff;
-            :hover {
+            &:hover {
 	            fill: #7dc0ff;
             }
         }

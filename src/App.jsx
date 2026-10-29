@@ -1,8 +1,8 @@
 import { Canvas } from '@react-three/fiber'
 import Three from './components/ThreeComponent/Three.component';
 import './App.css'
-import { Color } from 'three';
-import "antd/dist/antd.min.css";
+import { ACESFilmicToneMapping, Color, SRGBColorSpace } from 'three';
+import "antd/dist/reset.css";
 
 
 
@@ -13,9 +13,11 @@ function App({ ready, onReady }) {
   return (
     <Canvas
       id='three-canvas-container'
+      gl={{ outputColorSpace: SRGBColorSpace, toneMapping: ACESFilmicToneMapping, toneMappingExposure: 1 }}
       onCreated={(canvasCtx) => {
-        canvasCtx.gl.physicallyCorrectLights = true
-        canvasCtx.scene.background = new Color('#031138')
+        // r143 cleared with raw linear RGB; compensate only the sky for the
+        // modern renderer's output conversion to preserve its original darkness.
+        canvasCtx.scene.background = new Color('#031138').convertSRGBToLinear()
         
       }}
     >

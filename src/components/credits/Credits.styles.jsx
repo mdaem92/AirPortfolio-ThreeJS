@@ -35,11 +35,11 @@ export const OverlayContainer = styled.div`
             width:20px ;
             height:20px ;
             fill:#1890ff;
-            :hover {
+            &:hover {
 	            fill: #7dc0ff;
             }
         }
     }
 
-    ${props => props.isMobile && mobileCss}
+    ${props => props.$isMobile && mobileCss}
 `

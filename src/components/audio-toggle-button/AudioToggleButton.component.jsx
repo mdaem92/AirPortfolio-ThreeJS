@@ -6,7 +6,7 @@ import { HtmlContainer } from './AudioToggleButton.styles';
 const AudioToggleButton = ({ toggleAudio, audioPlaying }) => {
   return (
 
-    <HtmlContainer audioPlaying={audioPlaying} fullscreen >
+    <HtmlContainer $audioPlaying={audioPlaying} fullscreen >
       <SoundOutlined onClick={toggleAudio} />
     </HtmlContainer>
   )

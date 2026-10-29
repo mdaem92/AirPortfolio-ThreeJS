@@ -13,7 +13,7 @@ const Credits = ({ exitFocus }) => {
     }
 
     return isShown && (
-        <OverlayContainer isMobile={isMobile}>
+        <OverlayContainer $isMobile={isMobile}>
             <ArrowLeftOutlined onClick={handleClick}/>
             <div>
                 <a href="https://icons8.com/icon/13441/python" target={'blank'}><span>Python</span></a> <span>icon by </span><a href="https://icons8.com" target={'blank'}><span>Icons8</span></a>

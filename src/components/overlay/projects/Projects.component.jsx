@@ -1,11 +1,11 @@
 import React from "react";
-import "antd/dist/antd.min.css";
-import { Carousel } from "antd";
+import { Carousel, ConfigProvider } from "antd";
 import { OverlayContainer } from "./Projects.styles";
 import Project from "../../project/Project.component";
 import { projects } from "../../../data/projects";
 import useDelayedMount from "../../../hooks/useDelayedMount";
 import useWindowWidth from "../../../hooks/useWindowWidth";
+import { portfolioTheme } from '../../../ui-theme';
 
 
 
@@ -16,13 +16,15 @@ const Projects = ({exitFocus}) => {
 
 
     return isShown &&
-        <OverlayContainer isMobile={isMobile} >
+        <OverlayContainer $isMobile={isMobile} >
+            <ConfigProvider theme={portfolioTheme}>
             <Carousel style={{ height: '37rem' }} >
                 {
                     projects.map((props, index) => <Project key={index} {...props} exitFocus={exitFocus} isMobile={isMobile} />)
                 }
 
             </Carousel>
+            </ConfigProvider>
         </OverlayContainer>
 
 };

@@ -42,12 +42,16 @@ Local implementation and verification are recorded in [step-three.md](step-three
 
 ## 4. Modernize UI libraries
 
+Implementation and verification are recorded in [step-four.md](step-four.md); Tommy authorized committing and pushing on 2026-10-29.
+
 - Upgrade styled-components separately; handle transient styling props such as `isMobile`.
 - Migrate Ant Design through its major-version guides; replace old CSS imports and validate carousel/button styling.
 - Update icons, spinner and test libraries with compatible peers.
 - Gate: desktop/mobile overlays match the baseline with no new DOM warnings.
 
 ## 5. Upgrade React and the 3D stack
+
+Implementation and verification are recorded in [step-five.md](step-five.md); Tommy authorized committing and pushing on 2026-10-29. Manual audio and device-performance checks remain documented follow-ups.
 
 - Use React 18.3 to expose migration warnings before React 19.
 - Upgrade React/React DOM, Fiber, Drei and Three as compatible sets, checking peer dependencies.

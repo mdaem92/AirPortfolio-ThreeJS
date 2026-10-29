@@ -14,7 +14,7 @@ const Skills = ({exitFocus}) => {
     }
 
     return isShown && (
-        <OverlayContainer isMobile={isMobile}>
+        <OverlayContainer $isMobile={isMobile}>
             <RowContainer>
                 <ArrowLeftOutlined onClick={handleClick}/>
                 <TitleContainer>
