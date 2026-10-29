@@ -2,21 +2,17 @@ import { useEffect } from "react"
 import { useState } from "react"
 
 const useTabInUse = () => {
-    const [tabFoucsed, setTabFocused] = useState(true)
+    const [tabFocused, setTabFocused] = useState(() => document.visibilityState === 'visible')
 
     useEffect(() => {
-        const listener = document.addEventListener('visibilitychange',()=>{
-            if (document.visibilityState==='visible'){
-                setTabFocused(true)
-            }else{
-                setTabFocused(false)
-            }
-        })
+        const listener = () => setTabFocused(document.visibilityState === 'visible')
+        document.addEventListener('visibilitychange', listener)
+        listener()
 
         return ()=>document.removeEventListener('visibilitychange',listener)
 
-    },[tabFoucsed])
-    return tabFoucsed
+    },[])
+    return tabFocused
 
 }
 

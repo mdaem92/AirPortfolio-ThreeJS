@@ -20,6 +20,8 @@ Date: 2026-10-29. Baseline: `112d70e` (2022-10-18).
 
 ## 2. Fix existing bugs and add focused checks
 
+Local implementation and verification are recorded in [step-two.md](step-two.md); visual approval is pending.
+
 - Fix the visibility listener's callback cleanup and repeated subscriptions.
 - Replace loading readiness based on Suspense fallback cleanup with explicit readiness.
 - Make audio activation consistent with Start and test hidden-tab behavior.

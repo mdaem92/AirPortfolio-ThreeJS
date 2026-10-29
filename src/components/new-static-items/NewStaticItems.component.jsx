@@ -2,7 +2,7 @@ import { useGLTF } from '@react-three/drei'
 import React from 'react'
 
 const NewStaticItems = () => {
-    const { nodes, materials, animations } = useGLTF('./models/scene/scene-transformed.glb')
+    const { nodes, materials } = useGLTF('./models/scene/scene-transformed.glb')
 
     return (
         <group>

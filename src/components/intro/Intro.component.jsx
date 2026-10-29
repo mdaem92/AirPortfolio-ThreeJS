@@ -1,29 +1,24 @@
-import { Suspense, cloneElement, useEffect, useState } from 'react'
+import { Suspense, cloneElement, useCallback, useState } from 'react'
 import { RotateLoader } from 'react-spinners'
 import { AnchorContainer, IntroContainer } from './Intro.styles'
-
-function Ready({ setReady }) {
-    useEffect(() => () => void setReady(true), [])
-    return null
-}
 
 export default function Intro({ children }) {
     const [clicked, setClicked] = useState(false)
     const [ready, setReady] = useState(false)
+    const handleReady = useCallback(() => setReady(true), [])
     return (
         <IntroContainer>
-            <Suspense fallback={<Ready setReady={setReady} />}>
-                {cloneElement(children, { ready: clicked && ready })}
+            <Suspense fallback={null}>
+                {cloneElement(children, { ready: clicked && ready, onReady: handleReady })}
             </Suspense>
             <div className={`fullscreen bg ${ready ? 'ready' : 'notready'} ${clicked && 'clicked'}`}>
                 <div className="stack">
                     
                     {ready?
-                    !clicked && <AnchorContainer href='#' onClick={() => setClicked(true)}>
-                        {!ready ? 'loading' : 'START'}
+                    !clicked && <AnchorContainer href='#' onClick={(event) => { event.preventDefault(); setClicked(true) }}>
+                        START
                     </AnchorContainer>
                     :
-                    // <Spinner/>
                     <RotateLoader color='#1790ff' loading={!ready}/>
                     }
                 </div>

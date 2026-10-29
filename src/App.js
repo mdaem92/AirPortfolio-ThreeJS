@@ -3,13 +3,11 @@ import Three from './components/ThreeComponent/Three.component';
 import './App.css'
 import { Color } from 'three';
 import "antd/dist/antd.min.css";
-import { Stats } from '@react-three/drei';
-import * as THREE from 'three'
 
 
 
 
-function App({ ready }) {
+function App({ ready, onReady }) {
 
 
   return (
@@ -17,12 +15,11 @@ function App({ ready }) {
       id='three-canvas-container'
       onCreated={(canvasCtx) => {
         canvasCtx.gl.physicallyCorrectLights = true
-        // canvasCtx.gl.toneMapping = THREE.NoToneMapping
         canvasCtx.scene.background = new Color('#031138')
         
       }}
     >
-      <Three ready={ready} />
+      <Three ready={ready} onReady={onReady} />
     </Canvas>
   );
 

@@ -1,10 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react'
-import { useGLTF, useAnimations, PositionalAudio } from '@react-three/drei'
+import React, { useRef, useEffect, useState, useCallback } from 'react'
+import { useGLTF, useAnimations } from '@react-three/drei'
 
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 
 import { Vector3 } from 'three';
-import { useKeyState } from 'use-key-state'
+import useEscapeKey from '../../hooks/useEscapeKey'
+import SceneAudio from '../scene-audio/SceneAudio.component'
 import Skills from '../overlay/skills/Skills.component';
 import Projects from '../overlay/projects/Projects.component';
 import { HtmlContainer } from '../audio-toggle-button/AudioToggleButton.styles';
@@ -15,10 +16,12 @@ import Credits from '../credits/Credits.component';
 import NewStaticItems from '../new-static-items/NewStaticItems.component';
 
 
+const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
+
 export const NewAirportScene = (props) => {
 
     const group = useRef()
-    const { scene } = useThree()
+
 
     const lightRef1 = useRef(null)
     const lightRef2 = useRef(null)
@@ -39,60 +42,33 @@ export const NewAirportScene = (props) => {
     const billboardLCDRef = useRef(null)
     const creditsAreaRef = useRef(null)
 
-    const jetEngineSoundRef = useRef(null)
+
 
     const { nodes, materials, animations } = useGLTF('./models/scene/scene-transformed.glb')
     const { actions } = useAnimations(animations, group)
-    const { esc } = useKeyState({ esc: "esc" })
-    const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
+    const { onReady } = props
+    useEffect(() => { onReady?.() }, [onReady])
 
-    // play main animations 
     useEffect(() => {
-        // infoLCD2Video.playsInline=true
-        // infoLCD2Video.flipY = false
+        const playing = Object.keys(actions).filter(key => !animationsList.includes(key)).map(key => actions[key]).filter(Boolean)
+        playing.forEach(action => action.play())
+        return () => playing.forEach(action => action.stop())
+    }, [actions])
 
-        Object.keys(actions).forEach((key) => {
-            if (!animationsList.includes(key)) {
-                actions[key].play()
-            }
-        })
+    useEffect(() => {
+        const lights = [lightRef1, lightRef2, lightRef3, lightRef4, lightRef5].map(ref => ref.current)
+        const targets = [targetRef1, targetRef2, targetRef3, targetRef4, targetRef5].map(ref => ref.current)
+        const previous = lights.map(light => light.target)
+        lights.forEach((light, index) => { light.target = targets[index] })
+        return () => lights.forEach((light, index) => { light.target = previous[index] })
     }, [])
-
-    // const angleToRadians = (ang) => (Math.PI / 180) * ang
-
-    // set the light references
-    useEffect(() => {
-        if (lightRef1.current) {
-            scene.add(lightRef1.current.target)
-            scene.add(lightRef2.current.target)
-            scene.add(lightRef3.current.target)
-            scene.add(lightRef4.current.target)
-            scene.add(lightRef5.current.target)
-
-            scene.add(targetRef1.current)
-            scene.add(targetRef2.current)
-            scene.add(targetRef3.current)
-            scene.add(targetRef4.current)
-            scene.add(targetRef5.current)
-
-            lightRef1.current.target = targetRef1.current
-            lightRef2.current.target = targetRef2.current
-            lightRef3.current.target = targetRef3.current
-            lightRef4.current.target = targetRef4.current
-            lightRef5.current.target = targetRef5.current
-        }
-
-
-    }, [scene])
-
-
 
     const [aboutMeclicked, setAboutMeClicked] = useState(false)
     const [projectsClicked, setProjectsClicked] = useState(false)
     const [skillsClicked, setSkillsClicked] = useState(false)
     // must be set to true initially
     const [mainScreenFocus, setMainScreenFocus] = useState(true)
-    const [exitFocusClicked, setExitFocusClicked] = useState(false)
+
     const [bingPlaying, setBingPlaying] = useState(false)
     const [creditsClicked, setCreditsClicked] = useState(false)
     const aboutMeScreenVector = new Vector3(36, 3.97, 21)
@@ -143,20 +119,12 @@ export const NewAirportScene = (props) => {
         }
     })
 
-    // activate skills animation when skills area is clicked/ stop it otherwise
     useEffect(() => {
-        if (skillsClicked) {
-            animationsList.forEach(key => {
-                actions[key].play()
-            })
-        } else {
-            animationsList.forEach(key => {
-                actions[key].stop()
-
-            })
-        }
-    }, [skillsClicked])
-
+        const skillActions = animationsList.map(key => actions[key]).filter(Boolean)
+        if (skillsClicked) skillActions.forEach(action => action.play())
+        else skillActions.forEach(action => action.stop())
+        return () => skillActions.forEach(action => action.stop())
+    }, [actions, skillsClicked])
 
     // // when credits is clicked
     useFrame(({ camera }) => {
@@ -177,7 +145,7 @@ export const NewAirportScene = (props) => {
 
     })
 
-    const switchToMainScreen = () => {
+    const switchToMainScreen = useCallback(() => {
 
         setProjectsClicked(false)
         setSkillsClicked(false)
@@ -185,22 +153,13 @@ export const NewAirportScene = (props) => {
         setMainScreenFocus(true)
         setCreditsClicked(false)
 
-    }
+    }, [])
 
-    // // when esc is clicked
-    useEffect(() => {
-
-        if (esc.down || exitFocusClicked) {
-            if (!mainScreenFocus) {
-                switchToMainScreen()
-
-            } else {
-                setMainScreenFocus(false)
-
-            }
-            return setExitFocusClicked(false)
-        }
-    }, [esc, exitFocusClicked, mainScreenFocus])
+    const toggleMainScreenFocus = useCallback(() => {
+        if (mainScreenFocus) setMainScreenFocus(false)
+        else switchToMainScreen()
+    }, [mainScreenFocus, switchToMainScreen])
+    useEscapeKey(toggleMainScreenFocus)
 
     // when main screen is in focus 
     useFrame(({ camera }) => {
@@ -213,9 +172,13 @@ export const NewAirportScene = (props) => {
 
     // // returns true if the current browser tab loses focus
     const tabInUse = useTabInUse()
+    const audioEnabled = props.ready && tabInUse
 
     // handles all click events
-    const handleClickArea = ({ eventObject: { name } }) => {
+    const handleClickArea = (event) => {
+        // A click on a 3D button must not also activate the billboard behind it.
+        event.stopPropagation()
+        const { eventObject: { name } } = event
         setBingPlaying(true)
 
         if (name === 'aboutmeArea' || name === 'infoLCD1') {
@@ -233,7 +196,7 @@ export const NewAirportScene = (props) => {
             return setProjectsClicked(true)
         }
         if (name === 'skillsArea') {
-            console.log('skills area');
+
             setMainScreenFocus(false)
             setProjectsClicked(false)
             setAboutMeClicked(false)
@@ -248,26 +211,28 @@ export const NewAirportScene = (props) => {
             return window.open('https://www.linkedin.com/in/mahyardaem', '_blank');
         }
         if (name === 'creditsArea') {
+            setProjectsClicked(false)
+            setSkillsClicked(false)
+            setAboutMeClicked(false)
             setMainScreenFocus(false)
             return setCreditsClicked(true)
         }
-        if (name === 'returnArea' || name === 'returnArea2') {
-            setProjectsClicked(false)
-            setAboutMeClicked(false)
-            setCreditsClicked(false)
-            setSkillsClicked(false)
-            return setExitFocusClicked(true)
+        if (name === 'returnArea') {
+            return toggleMainScreenFocus()
+        }
+        if (name === 'returnArea2') {
+            return switchToMainScreen()
         }
 
     }
 
-    const angleToRadians = (angle) => (angle / 180) * Math.PI
+
     // // <AudioToggleButton toggleAudio={toggleAudio} audioPlaying={audioPlaying} />
 
     return (
-        <group ref={group} {...props} dispose={null} >
+        <group ref={group} dispose={null} >
             {/* <Stats /> */}
-            <ButtonSoundEffect playing={props.ready && bingPlaying} />
+            <ButtonSoundEffect playing={audioEnabled && bingPlaying} onEnd={() => setBingPlaying(false)} />
             <group name="Scene">
                 <group name="backLight" position={[-75.87, 20.41, -34.92]} rotation={[0.29, -0.22, 1.45]}>
                     <directionalLight name="backLight_Orientation" intensity={3} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
@@ -352,12 +317,11 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube034" geometry={nodes.Cube034.geometry} material={materials.airplane_interior_lights} />
                     <mesh name="Cube034_1" geometry={nodes.Cube034_1.geometry} material={materials.metal_frame} />
                     <mesh name="Cube034_2" geometry={nodes.Cube034_2.geometry} material={materials.SURFACE} />
-                    {tabInUse && <PositionalAudio
+                    {audioEnabled && <SceneAudio ready={props.ready}
                         url='/audio/jet-idle.mp3'
                         distance={0.8}
                         autoplay
                         loop
-                        ref={jetEngineSoundRef}
                     />}
 
                 </group>
@@ -369,14 +333,14 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube001_3" geometry={nodes.Cube001_3.geometry} material={materials.taillights} />
                     <mesh name="Cube001_4" geometry={nodes.Cube001_4.geometry} material={materials.metal_frame} />
                     <mesh name="Cube001_5" geometry={nodes.Cube001_5.geometry} material={materials.siren_blue} />
-                    {tabInUse && <group>
-                        <PositionalAudio
+                    {audioEnabled && <group>
+                        <SceneAudio ready={props.ready}
                             url='/audio/police-siren.mp3'
                             distance={1}
                             autoplay
                         // loop
                         />
-                        <PositionalAudio
+                        <SceneAudio ready={props.ready}
                             url='/audio/car-passing2.mp3'
                             distance={1}
                             autoplay
@@ -392,13 +356,13 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube039_2" geometry={nodes.Cube039_2.geometry} material={materials.taillights} />
                     <mesh name="Cube039_3" geometry={nodes.Cube039_3.geometry} material={materials.taxi_sign} />
                     <mesh name="Cube039_4" geometry={nodes.Cube039_4.geometry} material={materials.SURFACE} />
-                    {props.ready && tabInUse && <PositionalAudio
+                    {audioEnabled && <SceneAudio ready={props.ready}
                         url='/audio/car-passing1.mp3'
                         distance={3}
                         autoplay
                         loop
                     />}
-                    {/* <PositionalAudio
+                    {/* <SceneAudio ready={props.ready}
                         url='/audio/car-passing1.mp3'
                         distance={3}
                         autoplay
@@ -412,7 +376,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube004_2" geometry={nodes.Cube004_2.geometry} material={materials.metal_frame} />
                     <mesh name="Cube004_3" geometry={nodes.Cube004_3.geometry} material={materials.SURFACE} />
 
-                    {tabInUse && <PositionalAudio
+                    {audioEnabled && <SceneAudio ready={props.ready}
                         url='/audio/car-passing2.mp3'
                         distance={2}
                         autoplay
@@ -427,7 +391,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube007_2" geometry={nodes.Cube007_2.geometry} material={materials.taillights} />
                     <mesh name="Cube007_3" geometry={nodes.Cube007_3.geometry} material={materials.SURFACE} />
 
-                    {tabInUse && <PositionalAudio
+                    {audioEnabled && <SceneAudio ready={props.ready}
                         url='/audio/car-passing1.mp3'
                         distance={2}
                         autoplay
@@ -437,7 +401,7 @@ export const NewAirportScene = (props) => {
                 </group>
 
                 <mesh name="tree3" geometry={nodes.tree3.geometry} material={materials.SURFACE} position={[47.24, 3.95, 29.79]}>
-                    {tabInUse && <PositionalAudio
+                    {audioEnabled && <SceneAudio ready={props.ready}
                         url='/audio/cricket.mp3'
                         distance={1.5}
                         autoplay
@@ -454,7 +418,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube006_2" geometry={nodes.Cube006_2.geometry} material={materials.metal_frame} />
                     <mesh name="Cube006_3" geometry={nodes.Cube006_3.geometry} material={materials.SURFACE} />
 
-                    {tabInUse && <PositionalAudio
+                    {audioEnabled && <SceneAudio ready={props.ready}
                         url='/audio/car-passing1.mp3'
                         distance={4}
                         autoplay
@@ -475,7 +439,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube003_3" geometry={nodes.Cube003_3.geometry} material={materials.headlights} />
                     <mesh name="Cube003_4" geometry={nodes.Cube003_4.geometry} material={nodes.Cube003_4.material} />
 
-                    {tabInUse && <PositionalAudio
+                    {audioEnabled && <SceneAudio ready={props.ready}
                         url='/audio/car-passing2.mp3'
                         distance={2}
                         autoplay
@@ -496,7 +460,7 @@ export const NewAirportScene = (props) => {
                     <mesh name="Cube010" geometry={nodes.Cube010.geometry} material={materials.radar_red} />
                     <mesh name="Cube010_1" geometry={nodes.Cube010_1.geometry} material={materials.radar_white} />
 
-                    {tabInUse && <PositionalAudio
+                    {audioEnabled && <SceneAudio ready={props.ready}
                         url={'/audio/radar.mp3'}
                         distance={2}
                         autoplay
@@ -521,7 +485,7 @@ export const NewAirportScene = (props) => {
 
 
                 <mesh name="revolvingDoor" geometry={nodes.revolvingDoor.geometry} material={materials.SURFACE} position={[27.65, 2.67, 10.48]}>
-                    {tabInUse && <PositionalAudio
+                    {audioEnabled && <SceneAudio ready={props.ready}
                         url='/audio/airport-ambiance.mp3'
                         distance={100}
                         autoplay
