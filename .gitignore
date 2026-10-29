@@ -22,3 +22,7 @@ scene_backup.glb
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Firebase local deployment cache and diagnostics
+.firebase/
+firebase-debug.log*

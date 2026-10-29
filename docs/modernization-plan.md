@@ -62,6 +62,8 @@ Implementation and verification are recorded in [step-five.md](step-five.md); To
 
 ## 6. Finish maintenance and release verification
 
+Local work and release acceptance are recorded in [step-six.md](step-six.md) and [release-checklist.md](release-checklist.md). Tommy confirmed audio and device acceptance, and the temporary Firebase preview is verified. Tommy authorized committing and pushing this stage on 2026-10-29; the first GitHub workflow run will be checked afterward.
+
 - Finish action upgrades, update setup documentation, and propose automated dependency updates.
 - Review remaining security findings by exposure and remediation options.
 - Verify a preview before any authorized production deployment; retain the known-good release for rollback.

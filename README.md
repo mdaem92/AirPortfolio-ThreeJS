@@ -33,12 +33,18 @@ CI runs Vitest tests and a production build. The build runs ESLint with zero war
 - `npm test`: run the test suite once; `npm run test:watch` for watch mode.
 - `npm run build`: lint and generate `build/`.
 - `npm run preview`: serve the built app locally at http://127.0.0.1:4173.
+- `npm run verify`: tests, lint/build, asset integrity and Firebase configuration checks.
 
 Vite targets Chrome/Edge 111+, Firefox 114+, and Safari 16.4+. Check older-browser requirements before changing these targets.
 Firebase continues serving `build/` with the existing SPA rewrite. Review migration evidence in [step-three.md](docs/step-three.md).
 
 UI and renderer migration evidence is recorded in [step-four.md](docs/step-four.md)
 and [step-five.md](docs/step-five.md). The current 3D renderer requires WebGL2.
+
+Final maintenance results are in [step-six.md](docs/step-six.md). Follow the
+[release checklist](docs/release-checklist.md) for audio/device and hosted-preview
+acceptance. The workflow verifies master pushes and pull requests; its preview
+channels expire after seven days. Dependabot proposes weekly updates for review.
 
 ## Manual smoke check
 
