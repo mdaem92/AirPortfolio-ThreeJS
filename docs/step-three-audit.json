@@ -1,0 +1,170 @@
+{
+  "date": "2026-10-29",
+  "summary": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 36,
+      "high": 7,
+      "critical": 1
+    },
+    "dependencies": 461,
+    "devDependencies": 0,
+    "optionalDependencies": 0,
+    "totalDependencies": 461
+  },
+  "distinctAdvisories": [
+    {
+      "id": 1094900,
+      "module": "@adobe/css-tools",
+      "severity": "moderate",
+      "title": "@adobe/css-tools Regular Expression Denial of Service (ReDOS) while Parsing CSS",
+      "url": "https://github.com/advisories/GHSA-hpx4-r86g-5jrg",
+      "paths": [
+        "@testing-library/jest-dom>@adobe/css-tools"
+      ]
+    },
+    {
+      "id": 1095241,
+      "module": "@adobe/css-tools",
+      "severity": "moderate",
+      "title": "@adobe/css-tools Improper Input Validation and Inefficient Regular Expression Complexity",
+      "url": "https://github.com/advisories/GHSA-prr3-c3m5-p7q2",
+      "paths": [
+        "@testing-library/jest-dom>@adobe/css-tools"
+      ]
+    },
+    {
+      "id": 1104000,
+      "module": "@babel/runtime",
+      "severity": "moderate",
+      "title": "Babel has inefficient RegExp complexity in generated code with .replace when transpiling named capturing groups",
+      "url": "https://github.com/advisories/GHSA-968p-4wvh-cqc8",
+      "paths": [
+        "@testing-library/jest-dom>@babel/runtime",
+        "@testing-library/react>@babel/runtime",
+        "@testing-library/react>@testing-library/dom>@babel/runtime",
+        "@testing-library/user-event>@babel/runtime",
+        "@ant-design/icons>@babel/runtime",
+        "antd>@ant-design/icons>@babel/runtime",
+        "antd>@babel/runtime",
+        "@ant-design/icons>rc-util>@babel/runtime",
+        "antd>@ant-design/icons>rc-util>@babel/runtime",
+        "antd>rc-select>rc-motion>rc-util>@babel/runtime",
+        "antd>rc-cascader>rc-select>rc-motion>rc-util>@babel/runtime",
+        "antd>rc-cascader>rc-select>rc-trigger>rc-motion>rc-util>@babel/runtime",
+        "@react-three/drei>@babel/runtime",
+        "@react-three/drei>three-stdlib>@babel/runtime",
+        "@react-three/fiber>@babel/runtime",
+        "antd>rc-cascader>@babel/runtime",
+        "antd>rc-image>@babel/runtime",
+        "antd>rc-steps>@babel/runtime",
+        "antd>rc-tabs>@babel/runtime",
+        "antd>rc-tooltip>@babel/runtime"
+      ]
+    },
+    {
+      "id": 1115549,
+      "module": "picomatch",
+      "severity": "moderate",
+      "title": "Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching",
+      "url": "https://github.com/advisories/GHSA-3v7f-55p6-f55p",
+      "paths": [
+        "styled-components>babel-plugin-styled-components>picomatch"
+      ]
+    },
+    {
+      "id": 1115552,
+      "module": "picomatch",
+      "severity": "high",
+      "title": "Picomatch has a ReDoS vulnerability via extglob quantifiers",
+      "url": "https://github.com/advisories/GHSA-c2c7-rcm5-vvqj",
+      "paths": [
+        "styled-components>babel-plugin-styled-components>picomatch"
+      ]
+    },
+    {
+      "id": 1115806,
+      "module": "lodash",
+      "severity": "high",
+      "title": "lodash vulnerable to Code Injection via `_.template` imports key names",
+      "url": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+      "paths": [
+        "@testing-library/jest-dom>lodash",
+        "antd>@ant-design/react-slick>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/gast>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/cst-dts-gen>@chevrotain/gast>lodash"
+      ]
+    },
+    {
+      "id": 1115810,
+      "module": "lodash",
+      "severity": "moderate",
+      "title": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+      "url": "https://github.com/advisories/GHSA-f23m-r3pf-42rh",
+      "paths": [
+        "@testing-library/jest-dom>lodash",
+        "antd>@ant-design/react-slick>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/gast>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/cst-dts-gen>@chevrotain/gast>lodash"
+      ]
+    },
+    {
+      "id": 1120370,
+      "module": "lodash",
+      "severity": "moderate",
+      "title": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+      "url": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
+      "paths": [
+        "@testing-library/jest-dom>lodash",
+        "antd>@ant-design/react-slick>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/gast>lodash",
+        "@react-three/drei>three-stdlib>chevrotain>@chevrotain/cst-dts-gen>@chevrotain/gast>lodash"
+      ]
+    },
+    {
+      "id": 1117420,
+      "module": "@babel/traverse",
+      "severity": "critical",
+      "title": "Babel vulnerable to arbitrary code execution when compiling specifically crafted malicious code",
+      "url": "https://github.com/advisories/GHSA-67hx-6x53-jw92",
+      "paths": [
+        "styled-components>@babel/traverse"
+      ]
+    },
+    {
+      "id": 1164784,
+      "module": "fflate",
+      "severity": "moderate",
+      "title": "fflate unzipSync can enter an infinite loop when parsing malformed ZIP64 archives",
+      "url": "https://github.com/advisories/GHSA-px8p-9vwx-vf98",
+      "paths": [
+        "@react-three/drei>three-stdlib>fflate"
+      ]
+    },
+    {
+      "id": 1240099,
+      "module": "moment",
+      "severity": "moderate",
+      "title": "moment vulnerable to Path Traversal via crafted non-string locale name",
+      "url": "https://github.com/advisories/GHSA-4p3w-j4w9-5jqw",
+      "paths": [
+        "antd>moment",
+        "antd>rc-picker>moment"
+      ]
+    },
+    {
+      "id": 1106907,
+      "module": "lodash.pick",
+      "severity": "high",
+      "title": "Prototype Pollution in lodash",
+      "url": "https://github.com/advisories/GHSA-p6mc-m468-83gw",
+      "paths": [
+        "@react-three/drei>lodash.pick"
+      ]
+    }
+  ]
+}

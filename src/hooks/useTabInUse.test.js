@@ -1,13 +1,14 @@
+import { vi } from 'vitest'
 import { act, renderHook } from '@testing-library/react'
 import useTabInUse from './useTabInUse'
 
-afterEach(() => { jest.restoreAllMocks(); delete document.visibilityState })
+afterEach(() => { vi.restoreAllMocks(); delete document.visibilityState })
 
 test('tracks visibility without accumulating listeners and cleans up on unmount', () => {
     let visibility = 'hidden'
     Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => visibility })
-    const add = jest.spyOn(document, 'addEventListener')
-    const remove = jest.spyOn(document, 'removeEventListener')
+    const add = vi.spyOn(document, 'addEventListener')
+    const remove = vi.spyOn(document, 'removeEventListener')
     const { result, unmount } = renderHook(useTabInUse)
     expect(result.current).toBe(false)
     for (const state of ['visible', 'hidden', 'visible']) {

@@ -1,7 +1,8 @@
+import { vi } from 'vitest'
 import { act, render, screen } from '@testing-library/react'
 import SceneAudio from './SceneAudio.component'
 
-jest.mock('@react-three/drei', () => ({ PositionalAudio: () => <span>sound mounted</span> }))
+vi.mock('@react-three/drei', () => ({ PositionalAudio: () => <span>sound mounted</span> }))
 
 afterEach(() => { delete document.visibilityState })
 

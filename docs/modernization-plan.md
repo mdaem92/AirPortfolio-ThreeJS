@@ -31,6 +31,8 @@ Local implementation and verification are recorded in [step-two.md](step-two.md)
 
 ## 3. Replace Create React App with Vite
 
+Local implementation and verification are recorded in [step-three.md](step-three.md); visual and hosted-preview acceptance are pending.
+
 - Keep application dependency versions stable during the tooling migration.
 - Move the HTML entry point, replace `%PUBLIC_URL%`, and handle JSX in `.js` files.
 - Configure explicit linting and testing; preserve Firebase's `build` output directory initially.

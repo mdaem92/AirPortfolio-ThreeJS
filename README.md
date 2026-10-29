@@ -1,9 +1,9 @@
 # Airportfolio
 
-## Reproducible baseline setup
+## Local setup
 
 Use Node **24.16.0** (also recorded in `.nvmrc`) and Yarn **1.22.22**.
-Keep `yarn.lock`; do not generate an npm lockfile during the baseline stage.
+Keep `yarn.lock`; do not generate an npm lockfile for this project.
 
 ```sh
 npx --yes yarn@1.22.22 install --frozen-lockfile --non-interactive
@@ -11,7 +11,7 @@ npx --yes yarn@1.22.22 start
 npx --yes yarn@1.22.22 build
 ```
 
-The development server defaults to http://localhost:3000. Production files are
+The development server uses http://127.0.0.1:3000. Production files are
 written to `build`, matching Firebase Hosting's configuration.
 
 See [the modernization plan](docs/modernization-plan.md) and
@@ -23,11 +23,19 @@ until Tommy's visual review and authorization.
 Run the focused lifecycle tests without watch mode:
 
 ```sh
-npm test -- --watchAll=false --runInBand
+npm test
 ```
 
-CI runs these tests and a strict production build. Source lint warnings fail that build.
-The current build tool remains Create React App; its replacement is planned in step 3.
+CI runs Vitest tests and a production build. The build runs ESLint with zero warnings allowed before Vite.
+
+- `npm start`: Vite development server (port 3000).
+- `npm run lint`: source and Hooks checks.
+- `npm test`: run the test suite once; `npm run test:watch` for watch mode.
+- `npm run build`: lint and generate `build/`.
+- `npm run preview`: serve the built app locally at http://127.0.0.1:4173.
+
+Vite targets Chrome/Edge 111+, Firefox 114+, and Safari 16.4+. Check older-browser requirements before changing these targets.
+Firebase continues serving `build/` with the existing SPA rewrite. Review migration evidence in [step-three.md](docs/step-three.md).
 
 ## Manual smoke check
 

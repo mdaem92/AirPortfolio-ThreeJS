@@ -1,9 +1,10 @@
+import { vi } from 'vitest'
 import { fireEvent, renderHook } from '@testing-library/react'
 import useEscapeKey from './useEscapeKey'
 
 test('handles one Escape press, ignores repeats, and uses the latest callback', () => {
-    const first = jest.fn()
-    const second = jest.fn()
+    const first = vi.fn()
+    const second = vi.fn()
     const { rerender, unmount } = renderHook(({ callback }) => useEscapeKey(callback), { initialProps: { callback: first } })
     fireEvent.keyDown(window, { key: 'Escape' })
     fireEvent.keyDown(window, { key: 'Escape', repeat: true })
