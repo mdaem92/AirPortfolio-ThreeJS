@@ -14,8 +14,9 @@
 - [x] Tommy confirmed on 2026-10-29 that the hosted preview works well on his device when asked to check loading, navigation, animation and audio. Device model/browser and individual interaction results were not recorded. The current build requires WebGL2.
 - [x] Firebase CLI sign-in completed; temporary preview deployed to `modernization-review`.
 - [x] Fresh browser preview check: model/image loading, Start, About/back, Projects/carousel, console and reload; all hosted asset bytes (including audio) match the verified build. Audible behavior was separately confirmed by Tommy locally.
-- [ ] Confirm the new workflow passes on GitHub after a reviewed push.
-- [ ] Obtain explicit production-release approval; record the currently deployed release before deploying a replacement.
+- [x] GitHub verification passed for `2cfa65d`: https://github.com/mdaem92/AirPortfolio-ThreeJS/actions/runs/40814548091
+- [x] Tommy explicitly authorized production deployment on 2026-10-29; the previous live release was recorded before promotion.
+- [x] Promoted the accepted preview version to production; hosted file integrity and routing checks pass. See [production-release.md](production-release.md) for release IDs and rollback information.
 
 Extended heat/battery behavior was not measured during this device acceptance check.
 

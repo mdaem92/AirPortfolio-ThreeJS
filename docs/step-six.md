@@ -1,6 +1,6 @@
 # Step six: final maintenance and release verification
 
-Status: local maintenance and the temporary Firebase preview are verified; Tommy confirmed device acceptance and authorized committing and pushing this stage on 2026-10-29. GitHub runner verification will follow the push. Production has not been deployed.
+Status: local maintenance, temporary preview and device acceptance are complete. Commit `2cfa65d` was pushed and GitHub verification passed. Tommy authorized production deployment on 2026-10-29; the accepted preview version is now live. Release and rollback details are recorded in [production-release.md](production-release.md).
 
 ## Compatible security fixes
 
@@ -28,7 +28,7 @@ No application-library major versions changed and no forced resolutions were int
 - ESLint: zero source warnings/errors.
 - Vite build: passed; large-chunk notice remains visible.
 - Build verification: all 21 public files match source SHA-256 values, the HTML references existing bundled JS/CSS, and Firebase serves `build` with the expected SPA rewrite.
-- Workflow and Dependabot files parse with js-yaml 4.3.2; the temporary validator was not added as a project dependency. Action metadata/input names were checked. Actual GitHub runner execution remains pending a reviewed push.
+- Workflow and Dependabot files parse with js-yaml 4.3.2; the temporary validator was not added as a project dependency. Action metadata/input names were checked. GitHub verification passed after the reviewed push: https://github.com/mdaem92/AirPortfolio-ThreeJS/actions/runs/40814548091
 - No application UI or asset changes in this stage; the generated production JS/CSS hashes match step five's final build.
 
 ## Remaining release checks
@@ -49,7 +49,7 @@ Tommy confirmed on 2026-10-29 that the hosted preview works well on his device w
 - Expires: 2026-11-05 at 04:40 CET (03:40 UTC).
 - Fresh `npm run verify` passed before deployment. All 24 hosted files match the local build by SHA-256, including 21 public model/audio/image files and the generated HTML/JS/CSS. An unknown path returns the same HTML through the SPA rewrite.
 - Fresh browser sessions loaded the scene after Start, rendered the models, and opened About; its back arrow returned to the welcome board. Projects opened and the carousel switched from Car Trades App to DBT Therapy App. Reloading the preview returned to Start and loaded the scene again. No console errors were captured; the known Three.Clock warning remains.
-- This temporary channel does not replace the production site.
+- After Tommy's explicit production approval, this exact preview version was promoted to the live channel on 2026-10-29. The preview remains available until its recorded expiry.
 
 ## References
 
