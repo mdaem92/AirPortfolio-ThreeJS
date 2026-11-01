@@ -1,0 +1,267 @@
+.welcome-departures {
+    box-sizing:border-box;
+    width:1034px;
+    height:602px;
+    position:relative;
+    overflow:hidden;
+    font-family:Bahnschrift,'Arial Narrow',Arial,sans-serif;
+    line-height:normal;
+    user-select:none;
+    backface-visibility:hidden
+}
+.welcome-departures * {
+    box-sizing:border-box
+}
+.welcome-departures .symbol {
+    width:26px;
+    height:26px;
+    display:inline-block;
+    vertical-align:middle;
+    flex-shrink:0
+}
+.welcome-departures .brand {
+    font-size:16px;
+    letter-spacing:2px;
+    display:flex;
+    align-items:center;
+    gap:12px
+}
+.welcome-departures .nav-arrow {
+    font-size:26px;
+    font-weight:300;
+    line-height:1
+}
+.welcome-departures .flight {
+    width:100%;
+    border:0;
+    text-align:left;
+    color:inherit;
+    font:inherit;
+    border-radius:0
+}
+.welcome-departures .footer {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:63px;
+    padding:0 32px;
+    font-size:12px;
+    letter-spacing:1px
+}
+.welcome-departures .footer button {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:none;
+    border:0;
+    color:inherit;
+    font:inherit;
+    letter-spacing:inherit;
+    cursor:pointer;
+    padding:12px 0
+}
+.welcome-departures .footer button:hover {
+    color:#f7c94b
+}
+.welcome-departures .footer button:focus-visible {
+    outline:2px solid #f7c94b;
+    outline-offset:5px
+}
+.welcome-departures .footer .symbol {
+    width:21px;
+    height:21px
+}
+@media(prefers-reduced-motion:reduce) {
+    .welcome-departures .flight .nav-arrow {
+        transition:none
+    }
+}
+.welcome-departures {
+    background:#111e2c;
+    color:#f1f4f6;
+    padding:28px 32px 0
+}
+.welcome-departures .topline {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#f7c94b
+}
+.welcome-departures .terminal {
+    font-size:12px;
+    color:#9dabb8;
+    letter-spacing:2px
+}
+.welcome-departures h1 {
+    font-size:49px;
+    font-weight:600;
+    letter-spacing:5px;
+    margin:23px 0 1px;
+    color:#f7c94b
+}
+.welcome-departures .subline {
+    color:#abb9c6;
+    font-size:16px;
+    margin:0 0 24px
+}
+.welcome-departures .columns,.welcome-departures .flight {
+    display:grid;
+    grid-template-columns:110px 1fr 80px 155px 20px;
+    align-items:center;
+    gap:18px
+}
+.welcome-departures .columns {
+    font-size:11px;
+    letter-spacing:2px;
+    color:#8f9fb0;
+    padding:0 12px 10px;
+    border-bottom:1px solid #3a4856
+}
+.welcome-departures .flight {
+    height:69px;
+    padding:0 12px;
+    border-bottom:1px solid #29394a;
+    background:linear-gradient(180deg,#182838 49%,#132231 50%)
+}
+.welcome-departures .flight:nth-child(odd) {
+    background:linear-gradient(180deg,#1b2b3a 49%,#162534 50%)
+}
+.welcome-departures .flight .code {
+    font:16px Consolas,monospace;
+    color:#a6b6c6
+}
+.welcome-departures .destination {
+    font-size:25px;
+    font-weight:600;
+    letter-spacing:2px
+}
+.welcome-departures .gate {
+    font:20px Consolas,monospace;
+    color:#e2e8ee
+}
+.welcome-departures .status {
+    color:#f7c94b;
+    font-size:12px;
+    letter-spacing:1px
+}
+.welcome-departures .footer {
+    background:#0b1622;
+    color:#c3cfdb;
+    border-top:1px solid #344251;
+    left:0
+}
+.welcome-departures .footer .symbol {
+    color:#f7c94b
+}
+.welcome-departures .flap-word {
+    display:flex;
+    gap:3px;
+    letter-spacing:0
+}
+.welcome-departures .flap {
+    --flap-width:23px;
+    --flap-height:40px;
+    --flap-font:26px;
+    --flap-upper:calc(var(--flap-height) * .5);
+    position:relative;
+    display:block;
+    width:var(--flap-width);
+    height:var(--flap-height);
+    flex:0 0 var(--flap-width);
+    perspective:150px;
+    border-radius:2px;
+    box-shadow:0 1px 0 #000c,0 0 0 1px #0b1420
+}
+.welcome-departures .flap:after {
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:var(--flap-upper);
+    height:1px;
+    background:#050d1799;
+    z-index:5;
+    pointer-events:none;
+    box-shadow:0 1px 0 #ffffff08
+}
+.welcome-departures .flap-half {
+    position:absolute;
+    left:0;
+    width:100%;
+    overflow:hidden;
+    backface-visibility:hidden;
+    transform-style:preserve-3d
+}
+.welcome-departures .flap-half.upper {
+    top:0;
+    height:var(--flap-upper);
+    background:linear-gradient(#263342,#1b2836);
+    border-radius:2px 2px 0 0;
+    transform-origin:50% 100%
+}
+.welcome-departures .flap-half.lower {
+    bottom:0;
+    height:calc(var(--flap-height) - var(--flap-upper));
+    background:linear-gradient(#142130,#1a2939);
+    border-radius:0 0 2px 2px;
+    transform-origin:50% 0
+}
+.welcome-departures .flap-glyph {
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:var(--flap-height);
+    font:600 var(--flap-font)/var(--flap-height) Consolas,'Courier New',monospace;
+    text-align:center;
+    letter-spacing:0;
+    color:inherit
+}
+.welcome-departures .lower .flap-glyph {
+    top:calc(-1 * var(--flap-upper))
+}
+.welcome-departures .flap-leaf {
+    z-index:3;
+    will-change:transform
+}
+.welcome-departures .flap-leaf.lower {
+    transform:rotateX(90deg)
+}
+.welcome-departures .status .flap {
+    --flap-width:11px;
+    --flap-height:26px;
+    --flap-font:13px
+}
+.welcome-departures .status .flap-word {
+    gap:2px
+}
+.welcome-departures .code .flap {
+    --flap-width:14px;
+    --flap-height:30px;
+    --flap-font:16px
+}
+.welcome-departures .code .flap-word {
+    gap:2px
+}
+.welcome-departures .gate .flap {
+    --flap-width:19px;
+    --flap-height:34px;
+    --flap-font:21px
+}
+.welcome-departures .flight {
+    cursor:pointer;
+    outline:none
+}
+.welcome-departures .flight:hover,.welcome-departures .flight:focus-visible {
+    background:#233548;
+    box-shadow:inset 3px 0 #f7c94b
+}
+.welcome-departures .flight .nav-arrow {
+    transition:transform .18s
+}
+.welcome-departures .flight:hover .nav-arrow {
+    transform:translate(2px,-2px)
+}

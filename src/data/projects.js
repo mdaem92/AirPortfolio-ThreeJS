@@ -15,9 +15,9 @@ export const projects = [
         title:'DBT Therapy App',
         description:'Dialectical Behavior Therapy is an approach in psychotherapy for treating personality disorders. This app allows patients to interact with and track progress of their DBT with their teammates from home. It uses a real time database and a simple notification system inspired by twitter',
         images:[
-            '/images/dbt/dbt1.png',
-            '/images/dbt/dbt2.png',
-            '/images/dbt/dbt3.png',
+            '/images/dbt/dbt1.PNG',
+            '/images/dbt/dbt2.PNG',
+            '/images/dbt/dbt3.PNG',
             '/images/dbt/logo.png'
         ],
         url:'https://dbt-bh.herokuapp.com',
@@ -31,7 +31,7 @@ export const projects = [
             '/images/airport/apc3.png',
             '/images/airport/apc2.png',
             '/images/airport/apc1.png',
-            '/images/airport/logo.png'
+            '/images/airport/logo.PNG'
         ],
         url:'',
         gitUrl:'https://github.com/mdaem92/car-trades-react'

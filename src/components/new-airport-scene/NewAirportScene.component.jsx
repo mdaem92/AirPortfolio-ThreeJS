@@ -1,39 +1,33 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react'
+import React, { useRef, useEffect, useLayoutEffect, useState, useCallback } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 
 import { useFrame } from '@react-three/fiber';
 
 import { Vector3 } from 'three';
 import useEscapeKey from '../../hooks/useEscapeKey'
+import WelcomeBoard from '../welcome-board/WelcomeBoard'
+import AboutBoard from '../about-board/AboutBoard'
 import SceneAudio from '../scene-audio/SceneAudio.component'
 import Skills from '../overlay/skills/Skills.component';
 import Projects from '../overlay/projects/Projects.component';
 import { HtmlContainer } from '../audio-toggle-button/AudioToggleButton.styles';
 import ButtonSoundEffect from '../button-sound-effect/ButtonSoundEffect.component';
 import useTabInUse from '../../hooks/useTabInUse';
-import useWindowWidth from '../../hooks/useWindowWidth';
 import Credits from '../credits/Credits.component';
 import NewStaticItems from '../new-static-items/NewStaticItems.component';
+import VehicleGrounding, { useVehicleGrounding } from '../airport-lighting/VehicleGrounding'
+import { configureSurfaceShadows } from '../airport-lighting/scene-shadows'
+import VehicleLighting, { useVehicleLighting } from '../airport-lighting/VehicleLighting'
 
 
 const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
+const trafficReview = import.meta.env.DEV && new URLSearchParams(window.location.search).has('trafficReview')
+const runwayReview = import.meta.env.DEV && new URLSearchParams(window.location.search).has('runwayReview')
 
-export const NewAirportScene = (props) => {
+export const NewAirportScene = React.memo((props) => {
 
     const group = useRef()
 
-
-    const lightRef1 = useRef(null)
-    const lightRef2 = useRef(null)
-    const lightRef3 = useRef(null)
-    const lightRef4 = useRef(null)
-    const lightRef5 = useRef(null)
-
-    const targetRef1 = useRef(null)
-    const targetRef2 = useRef(null)
-    const targetRef3 = useRef(null)
-    const targetRef4 = useRef(null)
-    const targetRef5 = useRef(null)
 
     const aboutMeScreenRef = useRef(null)
     const projectsScreenRef = useRef(null)
@@ -45,7 +39,15 @@ export const NewAirportScene = (props) => {
 
 
     const { nodes, materials, animations } = useGLTF('./models/scene/scene-transformed.glb')
-    const { actions } = useAnimations(animations, group)
+    const { actions, mixer } = useAnimations(animations, group)
+    const { animationsPaused } = props
+    useEffect(() => {
+        const previous = mixer.timeScale
+        mixer.timeScale = animationsPaused ? 0 : 1
+        return () => { mixer.timeScale = previous }
+    }, [mixer, animationsPaused])
+    const groundingRef = useVehicleGrounding(group)
+    useLayoutEffect(() => configureSurfaceShadows(group.current), [])
     const { onReady } = props
     useEffect(() => { onReady?.() }, [onReady])
 
@@ -55,59 +57,47 @@ export const NewAirportScene = (props) => {
         return () => playing.forEach(action => action.stop())
     }, [actions])
 
-    useEffect(() => {
-        const lights = [lightRef1, lightRef2, lightRef3, lightRef4, lightRef5].map(ref => ref.current)
-        const targets = [targetRef1, targetRef2, targetRef3, targetRef4, targetRef5].map(ref => ref.current)
-        const previous = lights.map(light => light.target)
-        lights.forEach((light, index) => { light.target = targets[index] })
-        return () => lights.forEach((light, index) => { light.target = previous[index] })
-    }, [])
-
     const [aboutMeclicked, setAboutMeClicked] = useState(false)
     const [projectsClicked, setProjectsClicked] = useState(false)
     const [skillsClicked, setSkillsClicked] = useState(false)
     // must be set to true initially
-    const [mainScreenFocus, setMainScreenFocus] = useState(true)
+    const [mainScreenFocus, setMainScreenFocus] = useState(!trafficReview && !runwayReview)
 
     const [bingPlaying, setBingPlaying] = useState(false)
+    const [soundEnabled, setSoundEnabled] = useState(true)
     const [creditsClicked, setCreditsClicked] = useState(false)
-    const aboutMeScreenVector = new Vector3(36, 3.97, 21)
-    const aboutMeScreenVectorPC = new Vector3(33, 3.97, 20.6)
+    const aboutMeScreenVector = useRef(new Vector3())
     const skillsScreenVector = new Vector3(-25.69, 3.78, -4.08)
     const projectsScreenVector = new Vector3(-27.58, 4.88, 25.66)
     const creditsScreenVector = new Vector3(40, 4, -8)
-    const mainScreenVector = new Vector3(64.6, 7.12, 10.46)
+    const mainScreenVector = useRef(new Vector3())
 
 
 
 
 
-    // // returns the current screen width
-    const width = useWindowWidth()
 
+    // Update camera focus after OrbitControls (-1), before Html projects the
+    // physical billboard (0), so the DOM and WebGL use the same camera pose.
     // when about me is clicked
-    useFrame(({ camera }) => {
+    useFrame(({ camera, size }) => {
         if (aboutMeclicked) {
-            camera.lookAt(aboutMeScreenRef.current.position)
-            if (width < 600) {
-                camera.position.lerp(aboutMeScreenVector, 0.05)
-
-
-            } else {
-                camera.position.lerp(aboutMeScreenVectorPC, 0.05)
-
-            }
+            const tangent = Math.tan(camera.fov * Math.PI / 360)
+            const distance = Math.max(3.015 / (2 * tangent * 0.82), 2.845 / (2 * tangent * size.width / size.height * 0.88))
+            aboutMeScreenVector.current.set(29.435 + distance, 3.94, 20.57)
+            camera.lookAt(29.435, 3.94, 20.57)
+            camera.position.lerp(aboutMeScreenVector.current, 0.05)
             // on mobile
             props.orbitControlRef.current.minDistance = 20
         }
         else {
-            if (props.orbitControlRef.current.minDistance < 60) {
+            if (!trafficReview && !runwayReview && props.orbitControlRef.current.minDistance < 60) {
                 return props.orbitControlRef.current.minDistance = 60
 
             }
 
         }
-    })
+    }, -0.5)
 
 
     // // when skills is clicked
@@ -117,7 +107,7 @@ export const NewAirportScene = (props) => {
             camera.position.lerp(skillsScreenVector, 0.1)
 
         }
-    })
+    }, -0.5)
 
     useEffect(() => {
         const skillActions = animationsList.map(key => actions[key]).filter(Boolean)
@@ -132,7 +122,7 @@ export const NewAirportScene = (props) => {
             camera.lookAt(creditsAreaRef.current.position)
             camera.position.lerp(creditsScreenVector, 0.08)
         }
-    })
+    }, -0.5)
 
     // when projects is clicked
     useFrame(({ camera }) => {
@@ -143,7 +133,7 @@ export const NewAirportScene = (props) => {
             }
         }
 
-    })
+    }, -0.5)
 
     const switchToMainScreen = useCallback(() => {
 
@@ -162,23 +152,31 @@ export const NewAirportScene = (props) => {
     useEscapeKey(toggleMainScreenFocus)
 
     // when main screen is in focus 
-    useFrame(({ camera }) => {
+    useFrame(({ camera, size }) => {
         if (mainScreenFocus) {
+            // Fit the physical board to the viewport, including narrow phones.
+            const screenWidth = Math.min(size.width * 0.88, size.height * 1.05, 760)
+            const distance = 5.905 * size.height / (2 * Math.tan(camera.fov * Math.PI / 360) * screenWidth)
+            mainScreenVector.current.set(52.43 + distance, 4.43 + distance * 0.22, 10.46)
             camera.lookAt(billboardLCDRef.current.position)
-            camera.position.lerp(mainScreenVector, 0.05)
+            camera.position.lerp(mainScreenVector.current, 0.05)
 
         }
-    })
+    }, -0.5)
 
     // // returns true if the current browser tab loses focus
     const tabInUse = useTabInUse()
-    const audioEnabled = props.ready && tabInUse
+    const audioEnabled = props.ready && tabInUse && soundEnabled
+    const vehicleLightingRef = useVehicleLighting(group, props.ready && tabInUse, props.vehicleLighting)
 
     // handles all click events
     const handleClickArea = (event) => {
         // A click on a 3D button must not also activate the billboard behind it.
         event.stopPropagation()
-        const { eventObject: { name } } = event
+        navigateToArea(event.eventObject.name)
+    }
+
+    const navigateToArea = (name) => {
         setBingPlaying(true)
 
         if (name === 'aboutmeArea' || name === 'infoLCD1') {
@@ -208,7 +206,7 @@ export const NewAirportScene = (props) => {
             setProjectsClicked(false)
             setAboutMeClicked(false)
             setCreditsClicked(false)
-            return window.open('https://www.linkedin.com/in/mahyardaem', '_blank');
+            return window.open('https://www.linkedin.com/in/mahyardaem', '_blank', 'noopener,noreferrer');
         }
         if (name === 'creditsArea') {
             setProjectsClicked(false)
@@ -234,72 +232,17 @@ export const NewAirportScene = (props) => {
             {/* <Stats /> */}
             <ButtonSoundEffect playing={audioEnabled && bingPlaying} onEnd={() => setBingPlaying(false)} />
             <group name="Scene">
-                <group name="backLight" position={[-75.87, 20.41, -34.92]} rotation={[0.29, -0.22, 1.45]}>
-                    <directionalLight name="backLight_Orientation" intensity={3} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
-                        <group position={[0, 0, -1]} />
-                    </directionalLight>
-                </group>
-                <group name="fillLight" position={[-63.23, 21.55, 7.1]} rotation={[0.53, -0.99, 1.84]}>
-                    <directionalLight name="fillLight_Orientation" intensity={3} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
-                        <group position={[0, 0, -1]} />
-                    </directionalLight>
-                </group>
-                <group name="keyLight" position={[51.84, 35.17, 67.67]} rotation={[1.3, 0.18, -0.58]}>
-                    <directionalLight name="keyLight_Orientation" intensity={5} color="#38464f" rotation={[-Math.PI / 2, 0, 0]}>
-                        <group position={[0, 0, -1]} />
-                    </directionalLight>
-                </group>
-
-                <group name="spotlight5" position={[59.6, 5.61, 44.36]} rotation={[0, 0, -0.07]} >
-                    <spotLight name="spotlight5_Orientation" intensity={500} angle={0.51} penumbra={0.23} decay={2} color="#ffebbf" rotation={[-Math.PI / 2, 0, 0]} ref={lightRef5}>
-                        <group position={[0, 0, -1]} />
-                    </spotLight>
-                </group>
-                <group name="spotlight4" position={[59.6, 5.61, 26.09]} rotation={[0, 0, -0.07]}>
-                    <spotLight name="spotlight4_Orientation" intensity={500} angle={0.51} penumbra={0.23} decay={2} color="#ffebbf" rotation={[-Math.PI / 2, 0, 0]} ref={lightRef4}>
-                        <group position={[0, 0, -1]} />
-                    </spotLight>
-                </group>
-                <group name="spotlight3" position={[59.6, 5.61, 4.51]} rotation={[0, 0, -0.07]}>
-                    <spotLight name="spotlight3_Orientation" intensity={500} angle={0.51} penumbra={0.23} decay={2} color="#ffebbf" rotation={[-Math.PI / 2, 0, 0]} ref={lightRef3}>
-                        <group position={[0, 0, -1]} />
-                    </spotLight>
-                </group>
-                <group name="spotlight2" position={[59.6, 5.61, -14.85]} rotation={[0, 0, -0.07]}>
-                    <spotLight name="spotlight2_Orientation" intensity={500} angle={0.51} penumbra={0.23} decay={2} color="#ffebbf" rotation={[-Math.PI / 2, 0, 0]} ref={lightRef2}>
-                        <group position={[0, 0, -1]} />
-                    </spotLight>
-                </group>
-                <group name="spotlight1" position={[59.6, 5.61, -33.89]} rotation={[0, 0, -0.07]}>
-                    <spotLight name="spotlight1_Orientation" intensity={500} angle={0.51} penumbra={0.23} decay={2} color="#ffebbf" rotation={[-Math.PI / 2, 0, 0]} ref={lightRef1}>
-                        <group position={[0, 0, -1]} />
-                    </spotLight>
-                </group>
-
-
                 <mesh name="lightPost1" geometry={nodes.lightPost1.geometry} material={materials.SURFACE} position={[59.47, 1.15, 48.16]} />
                 <mesh name="lightPost2" geometry={nodes.lightPost2.geometry} material={materials.SURFACE} position={[59.47, 1.15, 29.87]} />
                 <mesh name="lightPost3" geometry={nodes.lightPost3.geometry} material={materials.SURFACE} position={[60.23, 4.65, 4.56]} />
                 <mesh name="lightPost4" geometry={nodes.lightPost4.geometry} material={materials.SURFACE} position={[60.23, 4.65, -14.83]} />
                 <mesh name="lightPost5" geometry={nodes.lightPost5.geometry} material={materials.SURFACE} position={[60.23, 4.65, -33.8]} />
-
-
-                <mesh name="linkedinArea" geometry={nodes.linkedinArea.geometry} material={nodes.linkedinArea.material} position={[52.35, 4.26, 8.5]} visible={false} onClick={handleClickArea} />
-                <mesh name="aboutmeArea" geometry={nodes.aboutmeArea.geometry} material={nodes.aboutmeArea.material} position={[52.35, 4.26, 12.32]} visible={false} onClick={handleClickArea} />
-                <mesh name="projectsArea" geometry={nodes.projectsArea.geometry} material={nodes.projectsArea.material} position={[52.35, 4.26, 10.97]} visible={false} onClick={handleClickArea} />
-
-                <mesh name="skillsArea" geometry={nodes.skillsArea.geometry} material={nodes.skillsArea.material} position={[52.35, 4.26, 9.71]} visible={false} onClick={handleClickArea} />
-                <mesh name="returnArea" geometry={nodes.returnArea.geometry} material={nodes.returnArea.material} position={[52.4, 3.05, 10.4]} onClick={handleClickArea} visible={false} />
                 <mesh name="returnArea2" geometry={nodes.returnArea2.geometry} material={nodes.returnArea2.material} position={[29.4, 3.05, 19.54]} onClick={handleClickArea} visible={false} />
 
 
-                <mesh name="spotlightTarget3" geometry={nodes.spotlightTarget3.geometry} material={nodes.spotlightTarget3.material} position={[56.81, 1.05, 4.66]} ref={targetRef3} visible={false} />
-                <mesh name="spotlightTarget2" geometry={nodes.spotlightTarget2.geometry} material={nodes.spotlightTarget2.material} position={[56.81, 1.05, -14.44]} ref={targetRef2} visible={false} />
-                <mesh name="spotLightTarget1" geometry={nodes.spotLightTarget1.geometry} material={nodes.spotLightTarget1.material} position={[56.81, 1.05, -33.64]} ref={targetRef1} visible={false} />
-                <mesh name="spotlightTarget4" geometry={nodes.spotlightTarget4.geometry} material={nodes.spotlightTarget4.material} position={[56.81, 1.05, 26.35]} ref={targetRef4} visible={false} />
-                <mesh name="spotlightTarget5" geometry={nodes.spotlightTarget5.geometry} material={nodes.spotlightTarget5.material} position={[56.81, 1.05, 44.3]} ref={targetRef5} visible={false} />
-
-                <NewStaticItems />
+                <NewStaticItems groundLighting={props.groundLighting} lightingActive={props.ready && tabInUse} />
+                <VehicleGrounding meshRef={groundingRef} visible={props.shadowsEnabled} opacity={props.contactShadowOpacity} />
+                <VehicleLighting effectsRef={vehicleLightingRef} settings={props.vehicleLighting} />
 
                 <mesh name="engine2" geometry={nodes.engine2.geometry} material={materials.metal_frame} position={[-38.5, 3.02, 14.62]} rotation={[Math.PI / 2, 0, 0]} scale={[1.15, 1.15, 1.15]} ref={projectsScreenRef}>
                     {projectsClicked &&
@@ -427,10 +370,22 @@ export const NewAirportScene = (props) => {
 
                 </group>
 
-                <mesh name="billboardLCD" geometry={nodes.billboardLCD.geometry} material={materials.mainScreen} position={[52.43, 4.43, 10.43]} ref={billboardLCDRef} />
+                <mesh name="billboardLCD" geometry={nodes.billboardLCD.geometry} position={[52.43, 4.43, 10.43]} ref={billboardLCDRef}>
+                    <meshBasicMaterial color="#111e2c" />
+                </mesh>
+                <WelcomeBoard
+                    active={props.ready && !aboutMeclicked && !projectsClicked && !skillsClicked && !creditsClicked}
+                    focused={mainScreenFocus}
+                    soundEnabled={soundEnabled}
+                    onNavigate={navigateToArea}
+                    onLookAround={() => setMainScreenFocus(false)}
+                    onFocus={switchToMainScreen}
+                    onToggleSound={() => { setSoundEnabled(enabled => !enabled); setBingPlaying(false) }}
+                />
                 <mesh name="infoLCD2" geometry={nodes.infoLCD2.geometry} material={materials.departuresImage} position={[29.53, 4.43, -0.36]} />
 
-                <mesh name="infoLCD1" geometry={nodes.infoLCD1.geometry} material={materials.aboutMePage} position={[29.41, 3.94, 20.57]} onClick={handleClickArea} />
+                <mesh name="infoLCD1" geometry={nodes.infoLCD1.geometry} position={[29.41, 3.94, 20.57]} onClick={aboutMeclicked ? undefined : handleClickArea}><meshBasicMaterial color="#101c29" /></mesh>
+                <AboutBoard active={props.ready && !mainScreenFocus && !projectsClicked && !skillsClicked && !creditsClicked} onBack={switchToMainScreen} onFocus={aboutMeclicked ? undefined : () => navigateToArea('aboutmeArea')} />
 
                 <group name="straight_taxi" position={[58.15, 200, 46.47]}  >
                     <mesh name="Cube003" geometry={nodes.Cube003.geometry} material={materials.taillights} />
@@ -503,6 +458,6 @@ export const NewAirportScene = (props) => {
             </group>
         </group>
     )
-}
+})
 
 useGLTF.preload('./models/scene/scene-transformed.glb')

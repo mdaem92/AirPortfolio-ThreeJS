@@ -10,9 +10,9 @@ function LoadedScene({ ready, onReady }) {
 test('an already-loaded scene enables Start in StrictMode without activating audio early', () => {
     render(<StrictMode><Intro><LoadedScene /></Intro></StrictMode>)
     expect(screen.getByText('audio disabled')).toBeTruthy()
-    fireEvent.click(screen.getByRole('link', { name: 'START' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Start exploring →' }))
     expect(screen.getByText('audio enabled')).toBeTruthy()
-    expect(screen.queryByRole('link', { name: 'START' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Start exploring →' })).toBeNull()
 })
 
 test('Start is unavailable while the scene is suspended', async () => {
@@ -24,8 +24,8 @@ test('Start is unavailable while the scene is suspended', async () => {
         return <LoadedScene {...props} />
     }
     render(<Intro><LoadingScene /></Intro>)
-    expect(screen.queryByRole('link', { name: 'START' })).toBeNull()
+    expect(screen.getByRole('button', { name: 'Preparing your flight…' }).disabled).toBe(true)
     await act(async () => { loaded = true; resolve(); await pending })
-    expect(screen.getByRole('link', { name: 'START' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Start exploring →' }).disabled).toBe(false)
     expect(screen.getByText('audio disabled')).toBeTruthy()
 })

@@ -1,7 +1,12 @@
 import { useGLTF } from '@react-three/drei'
 import React from 'react'
+import RunwayGroundLighting from '../airport-lighting/RunwayGroundLighting'
+import RunwayMarkerLights from '../airport-lighting/RunwayMarkerLights'
 
-const NewStaticItems = () => {
+const redMarkerPosition = [-32.59, 0.99, 47.24]
+const greenMarkerPosition = [-32.57, 0.99, -35.33]
+
+const NewStaticItems = ({ groundLighting, lightingActive }) => {
     const { nodes, materials } = useGLTF('./models/scene/scene-transformed.glb')
 
     return (
@@ -186,9 +191,9 @@ const NewStaticItems = () => {
             <mesh name="signPostDepartureText" geometry={nodes.signPostDepartureText.geometry} material={materials.emissive_white} position={[51.43, 3.26, -2.99]} />
             <mesh name="signPostArrivalSign" geometry={nodes.signPostArrivalSign.geometry} material={materials.emissive_white} position={[51.9, 3.54, -2.99]} />
             <mesh name="signPostDepartureSign" geometry={nodes.signPostDepartureSign.geometry} material={materials.emissive_white} position={[51.89, 3.23, -2.99]} />
-            <mesh name="runway_lights_red" geometry={nodes.runway_lights_red.geometry} material={materials.taillights} position={[-32.59, 0.99, 47.24]} />
-            <mesh name="runway_lights_green" geometry={nodes.runway_lights_green.geometry} material={materials.nodeGreen} position={[-32.57, 0.99, -35.33]} />
-            <mesh name="runway_lights_white" geometry={nodes.runway_lights_white.geometry} material={materials.emissive_white} position={[-62.03, 0.99, 4.94]} />
+            <RunwayMarkerLights name="runway_lights_red" geometry={nodes.runway_lights_red.geometry} position={redMarkerPosition} color="#ff1838" coreColor="#ff8493" settings={groundLighting} />
+            <RunwayMarkerLights name="runway_lights_green" geometry={nodes.runway_lights_green.geometry} position={greenMarkerPosition} color="#24ff68" coreColor="#8cffb0" settings={groundLighting} />
+            <RunwayGroundLighting geometry={nodes.runway_lights_white.geometry} material={materials.emissive_white} settings={groundLighting} active={lightingActive} />
 
             <group name="speedLimitSign1" position={[52.21, 2.84, -19.39]}>
                 <mesh name="Cylinder002" geometry={nodes.Cylinder002.geometry} material={materials.metal_frame} />
