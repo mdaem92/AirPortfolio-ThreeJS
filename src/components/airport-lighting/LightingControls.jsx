@@ -109,13 +109,24 @@ export default function LightingControls({ settings, onChange, animationsPaused,
                 {toggle('Headlights enabled', ['vehicles', 'headlights', 'enabled'])}{slider('Headlight intensity', ['vehicles', 'headlights', 'intensity'], 0, 500, 5)}{color('Headlight color', ['vehicles', 'headlights', 'color'])}{beam('Headlight', ['vehicles', 'headlights'])}
                 {slider('Headlight glow', ['vehicles', 'headlights', 'glow'], 0, 1)}{slider('Road light pools', ['vehicles', 'headlights', 'poolOpacity'], 0, 1)}
             </details>
-            <details><summary>Emergency &amp; runway beacons</summary>
+            <details><summary>Emergency beacons (red &amp; blue)</summary>
                 <p>Every beacon gets real spill at 17. Lower counts prioritize nearby vehicles for speed.</p>
                 {slider('Real beacon light count', ['vehicles', 'police', 'maxLights'], 2, 17, 1)}
                 {toggle('Beacon lights enabled', ['vehicles', 'police', 'enabled'])}{slider('Beacon spill intensity', ['vehicles', 'police', 'intensity'], 0, 300, 5)}{slider('Beacon spill range', ['vehicles', 'police', 'distance'], 1, 30, 0.5)}
                 {slider('Beacon falloff', ['vehicles', 'police', 'decay'], 0, 3, 0.1)}{slider('Beacon flash cycle', ['vehicles', 'police', 'period'], 0.4, 4, 0.05, 's')}
                 {slider('Beacon halos', ['vehicles', 'police', 'halo'], 0, 1)}{slider('Beacon brightness', ['vehicles', 'police', 'emissive'], 0, 10, 0.1)}
-                {color('Red beacon', ['vehicles', 'police', 'red'])}{color('Blue beacon', ['vehicles', 'police', 'blue'])}{color('Amber beacon', ['vehicles', 'police', 'amber'])}
+                {color('Red beacon', ['vehicles', 'police', 'red'])}{color('Blue beacon', ['vehicles', 'police', 'blue'])}
+            </details>
+            <details><summary>Amber beacons</summary>
+                <p>Independent of red/blue emergency lights. Paired roof lamps continue alternating. The real beacon light count above is shared.</p>
+                {toggle('Amber beacons enabled', ['vehicles', 'amber', 'enabled'])}
+                {color('Amber beacon color', ['vehicles', 'amber', 'color'])}
+                {slider('Amber spill intensity', ['vehicles', 'amber', 'intensity'], 0, 300, 5)}
+                {slider('Amber spill range', ['vehicles', 'amber', 'distance'], 1, 30, 0.5)}
+                {slider('Amber falloff', ['vehicles', 'amber', 'decay'], 0, 3, 0.1)}
+                {slider('Amber flash cycle', ['vehicles', 'amber', 'period'], 0.4, 4, 0.05, 's')}
+                {slider('Amber halos', ['vehicles', 'amber', 'halo'], 0, 1)}
+                {slider('Amber brightness', ['vehicles', 'amber', 'emissive'], 0, 10, 0.1)}
             </details>
             <details><summary>Shadows</summary>
                 {toggle('Shadows enabled', ['shadows', 'enabled'])}

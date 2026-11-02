@@ -42,7 +42,8 @@ test('invalid saved values cannot produce zero flash periods or invalid textures
 })
 
 test('the approved export supplies complete defaults without browser storage', () => {
-    const expected = { ...approvedLighting, terminalInterior: terminalInteriorDefaults }
+    const { enabled, intensity, distance, decay, period, halo, emissive, amber: color } = approvedLighting.vehicles.police
+    const expected = { ...approvedLighting, terminalInterior: terminalInteriorDefaults, vehicles: { ...approvedLighting.vehicles, amber: { enabled, intensity, distance, decay, period, halo, emissive, color } } }
     expect(lightingDefaults).toEqual(expected)
     expect(loadLightingSettings()).toEqual(expected)
     expect(restoreLightingSettings(approvedLighting)).toEqual(expected)
@@ -50,4 +51,14 @@ test('the approved export supplies complete defaults without browser storage', (
     expect(lightingDefaults.environment.intensity).toBe(0.33)
     expect(lightingDefaults.shadows.enabled).toBe(true)
     expect(lightingDefaults.shadows.contactOpacity).toBe(0)
+})
+
+test('old beacon saves migrate amber tuning and independent amber edits persist', () => {
+    const migrated = restoreLightingSettings({ vehicles: { police: { enabled: false, period: 1.7, intensity: 70, amber: '#ffaa11' } } })
+    expect(migrated.vehicles.amber).toMatchObject({ enabled: false, period: 1.7, intensity: 70, color: '#ffaa11' })
+    const changed = updateLightingSetting(migrated, ['vehicles', 'amber', 'period'], 2.4)
+    saveLightingSettings(changed)
+    const restored = loadLightingSettings()
+    expect(restored.vehicles.amber.period).toBe(2.4)
+    expect(restored.vehicles.police.period).toBe(1.7)
 })

@@ -45,11 +45,7 @@ function Headlights({ configuration, halo, settings }) {
     const uniforms = useMemo(() => ({ opacity: { value: settings.poolOpacity } }), [settings.poolOpacity])
     return <group name={`vehicle-lights-${name}`} matrixAutoUpdate={false}>
         <group rotation={[0, configuration.heading ?? 0, 0]}>
-        {[-1, 1].map(side => <group key={side} position={[halfWidth * side, height, front]}>
-            <mesh raycast={() => null}>
-                <boxGeometry args={[0.23, 0.1, 0.07]} />
-                <meshBasicMaterial color={settings.color === vehicleLightingDefaults.headlights.color ? '#fff1ce' : settings.color} toneMapped={false} />
-            </mesh>
+        {[-1, 1].map(side => <group key={side} name={`headlight-lamp-${side}`} position={[halfWidth * side, height, front]}>
             <sprite position={[0, 0, forward * 0.05]} scale={[0.65, 0.4, 1]} raycast={() => null}>
                 <spriteMaterial map={halo} color={settings.color === vehicleLightingDefaults.headlights.color ? '#ffe6ad' : settings.color} blending={AdditiveBlending} transparent depthWrite={false} toneMapped={false} opacity={settings.glow} />
             </sprite>
@@ -100,7 +96,7 @@ export default function VehicleLighting({ effectsRef, settings }) {
                     <meshStandardMaterial color="#ffb83d" emissive="#ffb83d" />
                 </mesh>}
                 <sprite name={`runway-halo-${vehicle.name}-${index}`} scale={[0.65, 0.65, 1]} raycast={() => null}>
-                    <spriteMaterial map={halo} color={beacon.color === 'amber' ? settings.police.amber : settings.police[beacon.color]} blending={AdditiveBlending} transparent depthWrite={false} toneMapped={false} />
+                    <spriteMaterial map={halo} color={beacon.color === 'amber' ? (settings.amber?.color ?? settings.police.amber) : settings.police[beacon.color]} blending={AdditiveBlending} transparent depthWrite={false} toneMapped={false} />
                 </sprite>
             </group>)}
         </group>)}
@@ -109,11 +105,11 @@ export default function VehicleLighting({ effectsRef, settings }) {
             <spotLight name={`traffic-headlight-${index}`} visible={settings.headlights.enabled && index < (settings.headlights.maxLights ?? 17)} color={settings.headlights.color} intensity={0} distance={settings.headlights.distance} angle={settings.headlights.angle} penumbra={settings.headlights.penumbra} decay={settings.headlights.decay} />
         </group>)}
         {['red', 'blue'].map((name, index) => <group key={name}>
-            <pointLight name={`police-spill-${name}`} visible={settings.police.enabled && index < (settings.police.maxLights ?? 17)} color={settings.police[name]} intensity={0} distance={settings.police.distance} decay={settings.police.decay} />
+            <pointLight name={`police-spill-${name}`} visible={index < (settings.police.maxLights ?? 17)} color={settings.police[name]} intensity={0} distance={settings.police.distance} decay={settings.police.decay} />
             <sprite name={`police-halo-${name}`} scale={[0.9, 0.9, 1]} raycast={() => null}>
                 <spriteMaterial map={halo} color={settings.police[name]} blending={AdditiveBlending} transparent depthWrite={false} toneMapped={false} />
             </sprite>
         </group>)}
-        {Array.from({ length: vehicleLightingDefaults.police.maxLights - 2 }, (_, offset) => <pointLight key={`spill-${offset + 2}`} name={`vehicle-beacon-spill-${offset + 2}`} visible={settings.police.enabled && offset + 2 < (settings.police.maxLights ?? 17)} intensity={0} distance={settings.police.distance} decay={settings.police.decay} />)}
+        {Array.from({ length: vehicleLightingDefaults.police.maxLights - 2 }, (_, offset) => <pointLight key={`spill-${offset + 2}`} name={`vehicle-beacon-spill-${offset + 2}`} visible={offset + 2 < (settings.police.maxLights ?? 17)} intensity={0} distance={settings.police.distance} decay={settings.police.decay} />)}
     </group>
 }

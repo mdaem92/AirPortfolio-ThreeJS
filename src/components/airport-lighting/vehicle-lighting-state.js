@@ -3,6 +3,34 @@ import { vehicleLightingDefaults } from './lighting-settings'
 import { runwayLights } from './runway-lighting-config'
 
 const up = new Vector3(0, 1, 0)
+const beaconSettings = (settings, color) => color === 'amber' ? settings.amber ?? { ...settings.police, color: settings.police.amber } : settings.police
+
+// Sample the actual front lamp surfaces once, in the vehicle's heading frame.
+// Some models share this material with windows/trim, so only use its front band.
+export function headlightAnchors(vehicle, configuration) {
+    const points = []
+    vehicle.updateWorldMatrix(true, true)
+    const inverse = vehicle.matrixWorld.clone().invert()
+    vehicle.traverse(mesh => {
+        if (!mesh.isMesh || mesh.material?.name !== 'headlights') return
+        const transform = inverse.clone().multiply(mesh.matrixWorld)
+        const vertices = mesh.geometry.attributes.position
+        for (let index = 0; index < vertices.count; index += 1) points.push(new Vector3().fromBufferAttribute(vertices, index).applyMatrix4(transform).applyAxisAngle(up, -(configuration.heading ?? 0)))
+    })
+    if (!points.length) return null
+    const forward = configuration.forward
+    const front = Math.max(...points.map(point => point.z * forward))
+    const lenses = points.filter(point => point.z * forward >= front - 0.2)
+    const left = Math.min(...lenses.map(point => point.x))
+    const right = Math.max(...lenses.map(point => point.x))
+    const middle = (left + right) / 2
+    return [-1, 1].map(side => {
+        const min = new Vector3(Infinity, Infinity, Infinity)
+        const max = new Vector3(-Infinity, -Infinity, -Infinity)
+        lenses.filter(point => side === -1 ? point.x <= middle : point.x > middle).forEach(point => { min.min(point); max.max(point) })
+        return min.add(max).multiplyScalar(0.5)
+    })
+}
 
 function roofVertices(mesh) {
     mesh.geometry.computeBoundingBox()
@@ -96,6 +124,17 @@ export function createVehicleLightingState(scene, effects) {
         distance: 0,
         active: false,
     })).filter(entry => entry.vehicle && entry.effect)
+    vehicles.forEach(entry => {
+        if (entry.headlights === false) return
+        const anchors = headlightAnchors(entry.vehicle, entry)
+        entry.headlightOrigin = new Vector3(0, entry.height, entry.front)
+        if (!anchors) return
+        anchors.forEach((anchor, index) => entry.effect.getObjectByName(`headlight-lamp-${index === 0 ? -1 : 1}`)?.position.copy(anchor))
+        entry.headlightOrigin.copy(anchors[0]).add(anchors[1]).multiplyScalar(0.5)
+        const pool = entry.effect.getObjectByName('headlight-road-pool')
+        pool.position.x = entry.headlightOrigin.x
+        pool.position.z = entry.headlightOrigin.z
+    })
     const spots = Array.from({ length: vehicleLightingDefaults.headlights.maxLights }, (_, index) => {
         const light = effects.getObjectByName(`traffic-headlight-${index}`)
         const target = effects.getObjectByName(`traffic-headlight-target-${index}`)
@@ -158,7 +197,7 @@ export function updateVehicleLighting(state, cameraPosition, elapsed, enabled, s
         entry.vehicle.updateWorldMatrix(true, false)
         entry.vehicle.getWorldPosition(entry.position)
         entry.present = enabled && entry.position.y > 0 && entry.position.y < 20
-        entry.active = entry.present && settings.headlights.enabled
+        entry.active = entry.present && settings.headlights.enabled && entry.headlights !== false
         entry.effect.visible = entry.active
         entry.effect.matrix.copy(entry.vehicle.matrixWorld)
         entry.effect.matrixWorldNeedsUpdate = true
@@ -172,9 +211,9 @@ export function updateVehicleLighting(state, cameraPosition, elapsed, enabled, s
         const entry = nearest[index]
         light.intensity = entry ? settings.headlights.intensity : 0
         if (!entry) return
-        state.point.set(0, entry.height, entry.front + entry.forward * 0.12).applyAxisAngle(up, entry.heading ?? 0).applyMatrix4(entry.vehicle.matrixWorld)
+        state.point.copy(entry.headlightOrigin).applyAxisAngle(up, entry.heading ?? 0).applyMatrix4(entry.vehicle.matrixWorld)
         light.position.copy(state.point)
-        state.point.set(0, 1.05 - entry.position.y, entry.front + entry.forward * 8).applyAxisAngle(up, entry.heading ?? 0).applyMatrix4(entry.vehicle.matrixWorld)
+        state.point.set(entry.headlightOrigin.x, 1.05 - entry.position.y, entry.headlightOrigin.z + entry.forward * 8).applyAxisAngle(up, entry.heading ?? 0).applyMatrix4(entry.vehicle.matrixWorld)
         target.position.copy(state.point)
         target.updateMatrixWorld()
     })
@@ -207,27 +246,30 @@ export function updateVehicleLighting(state, cameraPosition, elapsed, enabled, s
     state.runway.forEach(vehicle => {
         const { entry, root, lamps, headMaterials, phase } = vehicle
         headMaterials.forEach(lamp => { lamp.material.emissiveIntensity = entry.active ? 2.5 : 0 })
-        const active = entry.present && settings.police.enabled
+        const active = entry.present && lamps.some(lamp => beaconSettings(settings, lamp.color).enabled)
         if (root) {
             root.visible = active
             root.matrix.copy(entry.vehicle.matrixWorld)
             root.matrixWorldNeedsUpdate = true
         }
         lamps.forEach((lamp, index) => {
+            const controls = beaconSettings(settings, lamp.color)
+            const lampActive = entry.present && controls.enabled
             const offset = lamp.color === 'amber' ? 0 : index * Math.PI
-            const wave = 0.5 + 0.5 * Math.sin(elapsed * Math.PI * 2 / settings.police.period + phase + offset)
-            const pairFirstOn = Math.sin(elapsed * Math.PI * 2 / settings.police.period + phase) >= 0
+            const wave = 0.5 + 0.5 * Math.sin(elapsed * Math.PI * 2 / controls.period + phase + offset)
+            const pairFirstOn = Math.sin(elapsed * Math.PI * 2 / controls.period + phase) >= 0
             lamp.strength = lamp.paired ? Number(lamp.side === (pairFirstOn ? 0 : 1)) : wave * wave
-            lamp.material.emissiveIntensity = active ? lamp.paired ? lamp.strength * (1 + settings.police.emissive) : 1 + lamp.strength * settings.police.emissive : 0
-            if (settings.police[lamp.color] === vehicleLightingDefaults.police[lamp.color]) lamp.material.emissive.copy(lamp.originalEmissive)
-            else lamp.material.emissive.set(settings.police[lamp.color])
-            lamp.halo.visible = active && (!lamp.paired || lamp.strength > 0)
+            lamp.material.emissiveIntensity = lampActive ? lamp.paired ? lamp.strength * (1 + controls.emissive) : 1 + lamp.strength * controls.emissive : 0
+            const color = lamp.color === 'amber' ? controls.color : controls[lamp.color]
+            if (color === vehicleLightingDefaults.police[lamp.color]) lamp.material.emissive.copy(lamp.originalEmissive)
+            else lamp.material.emissive.set(color)
+            lamp.halo.visible = lampActive && (!lamp.paired || lamp.strength > 0)
             lamp.halo.position.copy(lamp.location)
-            lamp.halo.material.opacity = (lamp.paired ? lamp.strength * 0.8 : 0.15 + lamp.strength * 0.65) * settings.police.halo
+            lamp.halo.material.opacity = (lamp.paired ? lamp.strength * 0.8 : 0.15 + lamp.strength * 0.65) * controls.halo
             lamp.world.copy(lamp.location).applyMatrix4(entry.vehicle.matrixWorld)
         })
     })
-    const sources = state.spillSources.filter(source => source.entry?.present && settings.police.enabled)
+    const sources = state.spillSources.filter(source => source.entry?.present && beaconSettings(settings, source.color).enabled)
         .sort((a, b) => a.entry.distance - b.entry.distance).slice(0, settings.police.maxLights ?? 17)
     sources.forEach(source => {
         source.world.copy(source.beacon.location).applyMatrix4(source.entry.vehicle.matrixWorld)
@@ -235,9 +277,12 @@ export function updateVehicleLighting(state, cameraPosition, elapsed, enabled, s
     })
     state.spillLights.forEach((light, index) => {
         const source = sources[index]
-        light.intensity = source ? settings.police.intensity * source.strength : 0
+        const controls = source ? beaconSettings(settings, source.color) : null
+        light.intensity = source ? controls.intensity * source.strength : 0
         if (!source) return
         light.position.copy(source.world)
-        light.color.set(settings.police[source.color])
+        light.color.set(source.color === 'amber' ? controls.color : controls[source.color])
+        light.distance = controls.distance
+        light.decay = controls.decay
     })
 }

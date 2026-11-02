@@ -1,8 +1,13 @@
 import { Html } from '@react-three/drei'
 import './about-board.css'
+import informationScreenConcept from '../../../output/design-concepts/about-me/01-information-screen.png'
 
 function TerminalMap() {
-    return <svg viewBox="0 0 340 300" fill="none" aria-hidden="true"><g stroke="currentColor" strokeWidth="2"><path d="M145 280V170L32 82l22-28 116 82L286 54l22 28-113 88v110ZM161 280V157L45 68M179 280V157L299 68M145 230h50M145 255h50" />{[0, 1, 2, 3].map(i => <g key={i}><path d={`M${59 + i * 23} ${75 + i * 17}l-19 25M${281 - i * 23} ${75 + i * 17}l19 25M${68 + i * 23} ${63 + i * 17}l13-18M${272 - i * 23} ${63 + i * 17}l-13-18`} /></g>)}</g><path d="M170 275V154L286 72" stroke="#f7c45c" strokeWidth="3" strokeDasharray="5 5" /><circle cx="286" cy="72" r="9" fill="#f7c45c" /><text x="255" y="35" fill="#f7c45c" fontSize="15" fontFamily="Arial">GATE A1</text></svg>
+    // Display the original concept's blueprint pixels, excluding its profile text.
+    return <svg viewBox="1068 142 545 574" fill="none" aria-hidden="true" focusable="false">
+        <defs><clipPath id="about-terminal-blueprint-clip"><path d="M1068 142H1613V716H1120V350H1068Z" /></clipPath></defs>
+        <image href={informationScreenConcept} width="1672" height="941" clipPath="url(#about-terminal-blueprint-clip)" />
+    </svg>
 }
 
 export function AboutInformation({ onBack, onFocus }) {

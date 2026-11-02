@@ -2,13 +2,16 @@ import approvedLighting from './lighting-defaults.json'
 import { terminalInteriorDefaults } from './terminal-interior'
 
 // Approved browser export: shared by production and fresh development sessions.
-export const lightingDefaults = { ...approvedLighting, terminalInterior: terminalInteriorDefaults }
+const { enabled, intensity, distance, decay, period, halo, emissive, amber: color } = approvedLighting.vehicles.police
+export const lightingDefaults = { ...approvedLighting, terminalInterior: terminalInteriorDefaults, vehicles: { ...approvedLighting.vehicles, amber: { enabled, intensity, distance, decay, period, halo, emissive, color } } }
 export const vehicleLightingDefaults = lightingDefaults.vehicles
 
 const storageKey = 'airportfolio-lighting-v1'
 
 // Accept only known keys, finite numbers and matching data types from storage.
 export function restoreLightingSettings(saved, defaults = lightingDefaults, path = []) {
+    // Older exports used one set of controls for every beacon color.
+    if (!path.length && saved?.vehicles?.police && !saved.vehicles.amber) saved = { ...saved, vehicles: { ...saved.vehicles, amber: { ...saved.vehicles.police, color: saved.vehicles.police.amber } } }
     if (Array.isArray(defaults)) return defaults.map((value, index) => restoreLightingSettings(saved?.[index], value, [...path, index]))
     if (defaults && typeof defaults === 'object') return Object.fromEntries(Object.entries(defaults).map(([key, value]) => [key, restoreLightingSettings(saved?.[key], value, [...path, key])]))
     if (typeof defaults === 'number') {

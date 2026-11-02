@@ -1,5 +1,5 @@
 import { BoxGeometry, Group, Mesh, MeshStandardMaterial, Object3D, PointLight, SpotLight, Sprite, SpriteMaterial, Vector3 } from 'three'
-import { createVehicleLightingState, trafficLights, updateVehicleLighting } from './vehicle-lighting-state'
+import { createVehicleLightingState, headlightAnchors, trafficLights, updateVehicleLighting } from './vehicle-lighting-state'
 import { vehicleLightingDefaults } from './lighting-settings'
 import { runwayLights } from './runway-lighting-config'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
@@ -87,7 +87,7 @@ test('headlights follow a turning car and hidden animation poses cannot light th
     const entry = state.vehicles.find(vehicle => vehicle.name === car.name)
     expect(entry.effect.visible).toBe(true)
     expect(entry.effect.matrix.equals(car.matrixWorld)).toBe(true)
-    const expected = new Vector3(0, entry.height, entry.front + 0.12).applyMatrix4(car.matrixWorld)
+    const expected = new Vector3(0, entry.height, entry.front).applyMatrix4(car.matrixWorld)
     expect(state.spots[0].light.position.distanceTo(expected)).toBeLessThan(0.00001)
     expect(state.spots[0].target.position.x).toBeGreaterThan(state.spots[0].light.position.x)
     expect(state.spots[0].target.position.y).toBeCloseTo(1.05)
@@ -98,6 +98,63 @@ test('headlights follow a turning car and hidden animation poses cannot light th
     updateVehicleLighting(state, new Vector3(), 0, true)
     expect(entry.effect.visible).toBe(false)
     expect(state.spots.every(({ light }) => light.intensity === 0)).toBe(true)
+    state.dispose()
+})
+
+test('headlight anchors follow asymmetric model lenses, excluding shared window geometry', () => {
+    const vehicle = new Group()
+    vehicle.position.set(17, 1.4, -8)
+    vehicle.rotation.y = 0.8
+    const heading = Math.PI / 2
+    const geometry = mergeGeometries([
+        new BoxGeometry(0.3, 0.12, 0.06).translate(-0.55, 0.23, 1.7),
+        new BoxGeometry(0.3, 0.12, 0.06).translate(0.75, 0.23, 1.7),
+        new BoxGeometry(1.4, 0.6, 0.1).translate(0, 1.2, 0.2),
+    ])
+    geometry.rotateY(heading)
+    vehicle.add(new Mesh(geometry, new MeshStandardMaterial({ name: 'headlights' })))
+    const anchors = headlightAnchors(vehicle, { forward: 1, heading })
+    expect(anchors[0].distanceTo(new Vector3(-0.55, 0.23, 1.7))).toBeLessThan(1e-6)
+    expect(anchors[1].distanceTo(new Vector3(0.75, 0.23, 1.7))).toBeLessThan(1e-6)
+})
+
+test('luggage trailer has no headlight glow or illumination while the support car keeps its lights', () => {
+    const { scene, state } = fixture(true)
+    scene.getObjectByName('luggageTrailer').position.set(-45, 1.4, -12)
+    scene.getObjectByName('orangeRunwayCar2').position.set(-52, 1.1, -14)
+    updateVehicleLighting(state, new Vector3(-45, 5, -12), 0.2, true)
+    const trailer = state.vehicles.find(entry => entry.name === 'luggageTrailer')
+    const car = state.vehicles.find(entry => entry.name === 'orangeRunwayCar2')
+    expect(trailer.present).toBe(true)
+    expect(trailer.active).toBe(false)
+    expect(trailer.effect.visible).toBe(false)
+    expect(car.effect.visible).toBe(true)
+    expect(state.spots.filter(({ light }) => light.intensity > 0)).toHaveLength(1)
+    state.dispose()
+})
+
+test('amber emission, halos and spill are independent of red/blue controls', () => {
+    const { scene, state } = fixture(true)
+    scene.getObjectByName('orangeRunwayCar2').position.set(-52, 1.1, -14)
+    scene.getObjectByName('police_car').position.set(58, 1.5, 10)
+    const settings = structuredClone(vehicleLightingDefaults)
+    settings.police.enabled = false
+    Object.assign(settings.amber, { intensity: 85, distance: 8, decay: 2.1, period: 2, halo: 0.2, color: '#ffcc22' })
+    updateVehicleLighting(state, new Vector3(), 0.2, true, settings)
+    const lamp = state.runway.find(vehicle => vehicle.entry.name === 'orangeRunwayCar2').lamps[0]
+    expect(lamp.halo.visible).toBe(true)
+    expect(lamp.material.emissive.getHexString()).toBe('ffcc22')
+    const lights = state.spillLights.filter(light => light.intensity > 0)
+    expect(lights).toHaveLength(1)
+    expect(lights[0].intensity).toBeCloseTo(85 * lamp.strength)
+    expect(lights[0].distance).toBe(8)
+    expect(lights[0].decay).toBe(2.1)
+    settings.amber.enabled = false
+    settings.police.enabled = true
+    updateVehicleLighting(state, new Vector3(), 0.13, true, settings)
+    expect(lamp.halo.visible).toBe(false)
+    expect(lamp.material.emissiveIntensity).toBe(0)
+    expect(state.spillLights.filter(light => light.intensity > 0)).toHaveLength(2)
     state.dispose()
 })
 
@@ -222,7 +279,7 @@ test('full real illumination survives foreground geometry and camera movement; r
         .map(light => [...light.position.toArray(), light.intensity, ...light.color.toArray()].map(value => value.toFixed(6)).join(','))
         .sort()
     updateVehicleLighting(state, new Vector3(0, 5, 8), 0.13, true, settings)
-    expect(state.spots.filter(({ light }) => light.intensity > 0)).toHaveLength(17)
+    expect(state.spots.filter(({ light }) => light.intensity > 0)).toHaveLength(16)
     expect(state.spillSources).toHaveLength(17)
     expect(state.spillLights.filter(light => light.intensity > 0)).toHaveLength(15)
     const before = snapshot()
