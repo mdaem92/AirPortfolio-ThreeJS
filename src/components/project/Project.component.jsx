@@ -13,15 +13,15 @@ const Project = ({ title, description, url, images, exitFocus, isMobile,gitUrl }
       <TitleContainer>
         <ArrowLeftOutlined onClick={handleClick} />
         <LogoAndTitleContainer>
-          <LogoContainer src={images[3]} />
+          <LogoContainer src={images[3]} alt={`${title} logo`} decoding="async" />
           <div>{title}</div>
         </LogoAndTitleContainer>
 
       </TitleContainer>
       {images.length > 0 && <ImagesContainer $isMobile={isMobile}>
-        <Image1 src={images[0]} />
-        <Image2 src={images[1]} />
-        <Image3 src={images[2]} />
+        <Image1 src={images[0]} alt={`${title} screenshot 1`} loading="lazy" decoding="async" />
+        <Image2 src={images[1]} alt={`${title} screenshot 2`} loading="lazy" decoding="async" />
+        <Image3 src={images[2]} alt={`${title} screenshot 3`} loading="lazy" decoding="async" />
 
 
       </ImagesContainer>}

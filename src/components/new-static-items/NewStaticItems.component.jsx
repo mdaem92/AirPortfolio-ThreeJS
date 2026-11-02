@@ -1,5 +1,6 @@
 import { useGLTF } from '@react-three/drei'
 import React from 'react'
+import '../new-airport-scene/draco-decoder'
 import RunwayGroundLighting from '../airport-lighting/RunwayGroundLighting'
 import TerminalGlass from '../airport-lighting/TerminalGlass'
 import RunwayMarkerLights from '../airport-lighting/RunwayMarkerLights'

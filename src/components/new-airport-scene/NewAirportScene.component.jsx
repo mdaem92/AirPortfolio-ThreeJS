@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useLayoutEffect, useState, useCallback } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
+import './draco-decoder'
 
 import useCameraNavigation from '../camera-navigation/useCameraNavigation'
 import useEscapeKey from '../../hooks/useEscapeKey'
