@@ -1,0 +1,27 @@
+{
+  "capturedAt":"2026-11-01T23:48:58.168Z",
+  "build":"index-DcyYlY4W.js / PerformanceBaseline-DIIBalsN.js",
+  "context":{"width":390,"height":844,"dpr":1,"shadows":false,"gpu":"NVIDIA GeForce RTX 3060 Ti via ANGLE D3D11"},
+  "physicalPhone":false,
+  "allSamplesContextChanged":false,
+  "allSamplesHiddenFrames":0,
+  "columns":["label","frames","p50Ms","p95Ms","p99Ms","maxMs","cpuP95Ms","cpuMaxMs","drawCallsP95","trianglesP95","over33Ms","over50Ms","programsFirst","programsLast","cameraEnd"],
+  "samples":[
+    ["scene-initial-5s",40,16.4,23,4351.1,4351.1,7.4,4350.8,264,932392,2,1,25,25,[69.54,7.91,10.34]],
+    ["start-first-5s",298,16.7,18.6,20.8,53.7,5.8,23.3,310,931670,1,1,29,29,[68,7.86,10.46]],
+    ["skills-1",280,16.6,18.5,27.3,381.6,4.4,371.8,184,928468,1,1,31,29,[-55.34,8.15,-8.8]],
+    ["main-1",301,16.7,18.4,19.6,27.7,5.2,13.9,310,928992,0,0,31,31,[68,7.86,10.46]],
+    ["projects-1",301,16.6,17.7,18.7,31.9,4,6.5,155,769860,0,0,31,29,[-42.76,7.57,39.8]],
+    ["main-2",300,16.7,18.2,19.1,25.9,5,11.1,293,954604,0,0,31,31,[68,7.86,10.46]]
+  ],
+  "loading":{"fcpMs":188,"sceneReadyMarkMs":542.5,"firstFrameFinishedApproxMs":4895.6,"firstRenderCpuMs":4350.8,"modelResponseEndMs":145.9,"modelTransferMs":21.4,"modelTransferBytes":300,"modelDecodedBytes":3220400,"jsTransferMs":21.9,"jsTransferBytes":300},
+  "longTasks":[{"startMs":544.6,"durationMs":4351},{"startMs":24290,"durationMs":373}],
+  "slowFrames":[
+    {"window":"skills-1","offsetMs":381.6,"frameMs":381.6,"cpuSubmissionMs":371.8,"programs":31},
+    {"window":"projects-1","offsetMs":1854.9,"frameMs":31.9,"cpuSubmissionMs":3.4},
+    {"window":"main-1","offsetMs":27.7,"frameMs":27.7,"cpuSubmissionMs":13.9},
+    {"window":"main-2","offsetMs":25.9,"frameMs":25.9,"cpuSubmissionMs":11.1}
+  ],
+  "overlayDelaysMs":{"skills":2014.9,"projects":1848.5},
+  "notes":["Narrow desktop viewport, not mobile hardware or touch emulation.","Desktop shadows are disabled by the existing responsive policy below 900px; lighting settings were not reduced for the benchmark.","Model and script reused cached response bodies after HTTP revalidation.","First Skills transition introduced two additional programs and a 373 ms long task; this alone does not identify the sole cause."]
+}

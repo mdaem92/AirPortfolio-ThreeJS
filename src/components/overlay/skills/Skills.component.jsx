@@ -1,11 +1,13 @@
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { baselineMark } from '../../../performance/baseline-markers'
 import useDelayedMount from '../../../hooks/useDelayedMount'
 import useWindowWidth from '../../../hooks/useWindowWidth'
 import { OverlayContainer, TitleContainer, ItemsContainer, RowContainer,Item } from './Skills.styles'
 const Skills = ({exitFocus}) => {
 
     const isShown = useDelayedMount(2000)
+    useEffect(() => { if (isShown) baselineMark('overlay-visible', { route: 'skills' }) }, [isShown])
     const isMobile = useWindowWidth() <=600
 
     const handleClick = ()=>{

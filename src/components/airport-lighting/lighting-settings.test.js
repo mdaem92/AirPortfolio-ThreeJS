@@ -1,5 +1,6 @@
 import { lightingDefaults, loadLightingSettings, restoreLightingSettings, saveLightingSettings, updateLightingSetting } from './lighting-settings'
 import approvedLighting from './lighting-defaults.json'
+import { terminalInteriorDefaults } from './terminal-interior'
 
 afterEach(() => localStorage.clear())
 
@@ -41,9 +42,10 @@ test('invalid saved values cannot produce zero flash periods or invalid textures
 })
 
 test('the approved export supplies complete defaults without browser storage', () => {
-    expect(lightingDefaults).toEqual(approvedLighting)
-    expect(loadLightingSettings()).toEqual(approvedLighting)
-    expect(restoreLightingSettings(approvedLighting)).toEqual(approvedLighting)
+    const expected = { ...approvedLighting, terminalInterior: terminalInteriorDefaults }
+    expect(lightingDefaults).toEqual(expected)
+    expect(loadLightingSettings()).toEqual(expected)
+    expect(restoreLightingSettings(approvedLighting)).toEqual(expected)
     expect(lightingDefaults.hemisphere.enabled).toBe(false)
     expect(lightingDefaults.environment.intensity).toBe(0.33)
     expect(lightingDefaults.shadows.enabled).toBe(true)

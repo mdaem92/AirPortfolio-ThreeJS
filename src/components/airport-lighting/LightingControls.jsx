@@ -19,8 +19,9 @@ export default function LightingControls({ settings, onChange, animationsPaused,
     const [status, setStatus] = useState('')
     const set = (path, value) => onChange(current => updateLightingSetting(current, path, value))
     const slider = (label, path, min = 0, max = 2, step = 0.01, unit) => <Slider key={path.join('.')} label={label} value={path.reduce((value, key) => value?.[key], settings) ?? path.reduce((value, key) => value[key], lightingDefaults)} onChange={value => set(path, value)} min={min} max={max} step={step} unit={unit} />
-    const toggle = (label, path) => <label className="lighting-toggle"><input type="checkbox" checked={path.reduce((value, key) => value[key], settings)} onChange={event => set(path, event.target.checked)} />{label}</label>
-    const color = (label, path) => <label className="lighting-color">{label}<input aria-label={label} type="color" value={path.reduce((value, key) => value[key], settings)} onChange={event => set(path, event.target.value)} /></label>
+    const valueAt = path => path.reduce((value, key) => value?.[key], settings) ?? path.reduce((value, key) => value[key], lightingDefaults)
+    const toggle = (label, path) => <label className="lighting-toggle"><input type="checkbox" checked={valueAt(path)} onChange={event => set(path, event.target.checked)} />{label}</label>
+    const color = (label, path) => <label className="lighting-color">{label}<input aria-label={label} type="color" value={valueAt(path)} onChange={event => set(path, event.target.value)} /></label>
     const vector = (label, path, min = -100, max = 100) => <fieldset className="lighting-vector"><legend>{label}</legend>{path.reduce((value, key) => value[key], settings).map((_, index) => slider(`${label} ${['X', 'Y', 'Z'][index]}`, [...path, index], min, max, 0.1))}</fieldset>
     const beam = (prefix, path) => <>
         {slider(`${prefix} range`, [...path, 'distance'], 1, 50, 0.5)}
@@ -74,6 +75,18 @@ export default function LightingControls({ settings, onChange, animationsPaused,
                         <details><summary>Position &amp; aim</summary>{vector(`${label} position`, [...path, 'position'])}{vector(`${label} target`, [...path, 'target'])}</details>
                     </details>
                 })}
+            </details>
+            <details><summary>Terminal interior</summary>
+                <p>Window controls apply to the terminal and control tower. Spill controls affect the terminal entrance.</p>
+                {toggle('Terminal interior enabled', ['terminalInterior', 'enabled'])}
+                {color('Interior light color', ['terminalInterior', 'color'])}
+                {slider('Window illumination', ['terminalInterior', 'windowBrightness'], 0, 4, 0.05)}
+                {slider('Ceiling light strips', ['terminalInterior', 'ceilingBrightness'], 0, 5, 0.05)}
+                {slider('Room brightness variation', ['terminalInterior', 'variation'], 0, 1)}
+                {slider('Glass transmission', ['terminalInterior', 'transmission'], 0, 0.4)}
+                {toggle('Entrance light spill', ['terminalInterior', 'spillEnabled'])}
+                {slider('Entrance spill intensity', ['terminalInterior', 'spillIntensity'], 0, 250, 5)}
+                {slider('Entrance spill range', ['terminalInterior', 'spillDistance'], 2, 25, 0.5)}
             </details>
             <details><summary>Street lights</summary>
                 {toggle('Street lights enabled', ['road', 'enabled'])}{slider('Street intensity', ['road', 'intensity'], 0, 1000, 5)}{color('Street color', ['road', 'color'])}{beam('Street', ['road'])}

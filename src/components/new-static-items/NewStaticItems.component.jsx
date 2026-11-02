@@ -1,12 +1,13 @@
 import { useGLTF } from '@react-three/drei'
 import React from 'react'
 import RunwayGroundLighting from '../airport-lighting/RunwayGroundLighting'
+import TerminalGlass from '../airport-lighting/TerminalGlass'
 import RunwayMarkerLights from '../airport-lighting/RunwayMarkerLights'
 
 const redMarkerPosition = [-32.59, 0.99, 47.24]
 const greenMarkerPosition = [-32.57, 0.99, -35.33]
 
-const NewStaticItems = ({ groundLighting, lightingActive }) => {
+const NewStaticItems = ({ groundLighting, lightingActive, terminalLighting }) => {
     const { nodes, materials } = useGLTF('./models/scene/scene-transformed.glb')
 
     return (
@@ -120,7 +121,7 @@ const NewStaticItems = ({ groundLighting, lightingActive }) => {
                 <mesh name="Plane001_1" geometry={nodes.Plane001_1.geometry} material={materials.surface_yellow} />
                 <mesh name="Plane001_2" geometry={nodes.Plane001_2.geometry} material={materials.emissive_white} />
                 <mesh name="Plane001_3" geometry={nodes.Plane001_3.geometry} material={materials.purple} />
-                <mesh name="Plane001_4" geometry={nodes.Plane001_4.geometry} material={materials['dark-glass']} />
+                <TerminalGlass geometry={nodes.Plane001_4.geometry} material={materials['dark-glass']} settings={terminalLighting} />
             </group>
             <group name="yellowparkingTaxi" position={[43.74, 1.48, 12.64]}>
                 <mesh name="Cube051" geometry={nodes.Cube051.geometry} material={materials.headlights} />

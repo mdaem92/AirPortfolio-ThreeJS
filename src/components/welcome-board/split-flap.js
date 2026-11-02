@@ -1,3 +1,5 @@
+import { baselineMark } from '../../performance/baseline-markers'
+
 // DOM animation keeps the flap leaves independent of the 3D render loop.
 export function animateDepartures(board) {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -9,6 +11,7 @@ export function animateDepartures(board) {
     const timers = new Map()
     let stopped = false
     let arriving = true
+    let started = false
 
     function half(character, side) {
         const element = document.createElement('span')
@@ -35,6 +38,7 @@ export function animateDepartures(board) {
 
     async function flip(cell, next, duration) {
         if (!canAnimate()) return
+        if (!started) { started = true; baselineMark('flaps-started') }
         const previous = cell.dataset.character
         const upper = half(previous, 'upper')
         const lower = half(next, 'lower')

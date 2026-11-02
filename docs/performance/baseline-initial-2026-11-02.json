@@ -1,0 +1,27 @@
+{
+  "description": "Initial production baseline; positional timing added in subsequent run. Source build index-D69fwKZ8.js / PerformanceBaseline-C2zNCSzq.js. First five samples at 1280x720; viewport then changed and those samples must not be compared directly; restored 1280x720 for samples 10 onward.",
+  "capturedAt": "2026-11-01T23:43:23.525Z",
+  "gpu": "NVIDIA GeForce RTX 3060 Ti via ANGLE D3D11",
+  "dpr": 1,
+  "columns": ["label", "width", "height", "shadows", "frames", "frameP50Ms", "frameP95Ms", "frameP99Ms", "frameMaxMs", "cpuSubmissionP95Ms", "cpuSubmissionMaxMs", "drawCallsP95", "trianglesP95", "over33Ms", "over50Ms", "programsFirst", "programsLast", "hiddenFrames", "startMs", "endMs"],
+  "samples": [
+    ["scene-initial-5s",1280,720,true,1,6922.5,6922.5,6922.5,6922.5,6894.5,6894.5,412,1442034,1,1,28,28,0,708.9,7631.5],
+    ["start-first-5s",1280,720,true,296,16.6,19,20.8,90.7,7.4,27.8,478,1419293,1,1,32,32,0,64136.1,69144.8],
+    ["skills-1",1280,720,true,301,16.6,18.5,23.6,28.1,6.9,8.7,506,1462656,0,0,32,30,0,95889.6,100892.6],
+    ["main-1",1280,720,true,299,16.6,18.7,20.5,50.2,7.3,35.7,459,1825993,1,1,32,32,0,122418.5,127425.4],
+    ["projects-1",1280,720,true,300,16.6,19,28.1,44,7.3,9.9,350,1267066,2,0,32,30,0,134330.4,139340.7],
+    ["main-2",521,1285,false,281,16.7,19,22.7,354.4,6.1,338.6,269,942502,1,1,52,52,0,153956.6,158973.1],
+    ["skills-2",521,1285,false,301,16.7,17.9,18.4,19.4,4.3,6,164,925676,0,0,52,50,0,165033.9,170039],
+    ["main-3",521,1285,false,300,16.7,19.1,20.6,31.8,5.2,15.7,280,926412,0,0,52,52,0,177306,182306.9],
+    ["projects-2",521,1285,false,301,16.6,17.7,17.9,22.2,3.6,4.6,141,757692,0,0,52,50,0,190264.3,195270.7],
+    ["main-4",1280,720,true,299,16.7,19.4,21.2,34.2,9.7,15.2,478,1431032,1,0,52,52,0,282792.5,287808.4],
+    ["skills-3",1280,720,true,301,16.6,18.3,19.4,21.1,8.6,10.9,518,1464519,0,0,52,50,0,295734.9,300740.4],
+    ["main-5",1280,720,true,301,16.7,19.2,20,29.3,8.2,15.5,465,1523844,0,0,52,52,0,311776.3,316790.7],
+    ["projects-3",1280,720,true,301,16.6,18.3,20.8,25.9,7.2,14.8,347,1265786,0,0,52,50,0,324616.9,329621.8],
+    ["main-6",1280,720,true,300,16.6,19.2,21.5,29.2,7.8,13.2,487,1433547,0,0,52,52,0,348509.2,353525.1]
+  ],
+  "loading": {"firstContentfulPaintMs":324,"sceneReadyMarkMs":733.1,"firstFrameFinishedMs":7631.5,"jsTransferMs":126.2,"jsTransferBytes":465065,"modelStartMs":217.5,"modelEndMs":308.6,"modelTransferMs":91.1,"modelTransferBytes":3220700,"modelDecodedBytes":3220400},
+  "longTasks": [{"startMs":157.2,"durationMs":74},{"startMs":736.9,"durationMs":6895},{"startMs":64135.8,"durationMs":62},{"startMs":149018.9,"durationMs":4318},{"startMs":153971.2,"durationMs":346}],
+  "overlayDelaysMs": {"skillsFirst":2023.8,"projectsFirst":1846.9,"skillsRepeat":2021.8,"projectsRepeat":1839.7},
+  "notes": ["First load uses same-origin network transfers, not a cleared GPU/driver cache.","4,318 ms long task coincides with viewport/shadow-policy change outside normal route windows; do not label it a navigation stall.","CPU submission is not GPU timing; triangle/draw-call counts aggregate render passes.","No physical phone tested."]
+}

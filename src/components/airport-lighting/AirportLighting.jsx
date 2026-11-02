@@ -2,6 +2,8 @@ import { memo, useLayoutEffect, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Environment, Helper, Lightformer } from '@react-three/drei'
 import { DirectionalLightHelper, Object3D, SpotLightHelper } from 'three'
+import TerminalInteriorLights from './TerminalInteriorLights'
+import { terminalInteriorDefaults } from './terminal-interior'
 
 const showHelpers = import.meta.env.DEV && new URLSearchParams(window.location.search).has('lightHelpers')
 
@@ -67,6 +69,7 @@ export default function AirportLighting({ desktopShadows, settings }) {
     }, [scene, gl, settings])
     return <>
         {settings.hemisphere.enabled && <hemisphereLight name="night-sky-fill" args={[settings.hemisphere.sky, settings.hemisphere.ground, settings.hemisphere.intensity]} />}
+        <TerminalInteriorLights settings={settings.terminalInterior ?? terminalInteriorDefaults} />
         {settings.directionals.map((configuration, index) =>
             <AimedDirectional key={configuration.name} configuration={configuration} shadow={settings.shadows} castShadow={desktopShadows && configuration.enabled && index === 0} />
         )}

@@ -108,3 +108,19 @@ The user supplied an exported airportfolio-lighting.json after visual tuning. It
 The approved settings include exposure 0.46, hemisphere disabled (stored strength 0.59), reflection strength 0.33, moon strength 0.87, street intensity 280, headlight intensity 130, beacon intensity 25 with a 0.8 second cycle, ground flash strength 10, and steady marker brightness/glow 3/1. Shadows are enabled in this export, with contact opacity 0; this intentionally supersedes the earlier temporary shadows-off default. All positions, colors, reflection-panel settings and remaining controls are retained exactly.
 
 Validation checks round-trip the entire preset without clamping or omitted fields. All 23 tests pass. The user authorized committing and pushing the reviewed lighting and board changes; no production deployment is part of that request.
+
+### Terminal interior lighting preview
+
+Added an uncommitted terminal-lighting trial. The original dark-glass GLTF material has approximately 6.36% transmission and is shared by terminal glazing and the tower cab. TerminalGlass clones that material, preserves its blue reflection/emission, and adds warm window illumination with stable per-bay brightness variation and horizontal ceiling-light bands. The added emission is restricted to vertical terminal glazing below 15.5 world units; the tower cab is excluded. This is an inexpensive suggested interior on the existing glazing, not additional interior rooms or furniture. Glass transmission is adjustable (default 0.12), and switching the effect off restores the original transmission and emission appearance. Generated material resources are explicitly disposed without disposing the cached model geometry/material.
+
+Two real spotlights flank the revolving-door entrance at Z 8.1 and 12.8, giving nearby surfaces a warm spill. They cast no shadows. Their light count remains constant and disabling them sets intensity to zero, avoiding whole-scene shader rebuilds during comparison. Window bands add no meshes, lights, textures or animation timers. The existing user-approved lighting-defaults.json is unchanged; experimental terminal defaults are layered on separately.
+
+Lighting controls > Terminal interior provides the main switch, color, window illumination, ceiling-strip brightness, room variation, glass transmission, and separate entrance-spill switch/intensity/range. Old browser saves receive the new controls without losing prior settings. New values save/export with the other settings. Development URL ?terminalReview opens a view of the terminal facade for comparison.
+
+Validation: all 25 tests pass, including shared-material preservation, disabling/restoration, disposal, old-save migration and control bounds. Lint, production build and asset verification pass. Browser checks confirm the visible on/off difference, window-brightness changes, independent entrance-spill toggling, saved-state persistence across reopening the preview, and no rendering errors. This trial remains uncommitted and undeployed pending visual review.
+
+### Shared control tower lighting
+
+The tower cab now receives the same warm window illumination, ceiling band and per-pane brightness variation as the terminal, using the existing Terminal interior controls and main switch. The ceiling band is fitted to the actual cab glazing bounds (Y 30.68257–32.43118), instead of repeating the terminal's floor spacing up the tower. Pane variation uses both horizontal axes around the cabin. No geometry, textures, lights or shadow passes were added for the tower. Entrance spill remains at the terminal doors. The original glass appearance is restored for both when the main interior switch is off.
+
+The earlier terminal-only height mask described above is superseded by this shared treatment. Development preview ?terminalReview=tower focuses the tower cabin for inspection on narrow screens. This extension remains uncommitted for review.

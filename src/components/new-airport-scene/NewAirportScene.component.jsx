@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useLayoutEffect, useState, useCallback } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 
-import { useFrame } from '@react-three/fiber';
-
-import { Vector3 } from 'three';
+import useCameraNavigation from '../camera-navigation/useCameraNavigation'
 import useEscapeKey from '../../hooks/useEscapeKey'
 import WelcomeBoard from '../welcome-board/WelcomeBoard'
 import AboutBoard from '../about-board/AboutBoard'
+import { baselineMark } from '../../performance/baseline-markers'
 import SceneAudio from '../scene-audio/SceneAudio.component'
 import Skills from '../overlay/skills/Skills.component';
 import Projects from '../overlay/projects/Projects.component';
@@ -22,6 +21,7 @@ import VehicleLighting, { useVehicleLighting } from '../airport-lighting/Vehicle
 
 const animationsList = ['threeJsAnimate', 'pythonAnimate', 'cssAnimate', 'cppAnimate', 'javascriptAnimate', 'htmlAnimate', 'nodeJSAnimate', 'reactAnimate', 'gatsbyAnimate', 'SuzanneAction']
 const trafficReview = import.meta.env.DEV && new URLSearchParams(window.location.search).has('trafficReview')
+const terminalReview = import.meta.env.DEV && new URLSearchParams(window.location.search).has('terminalReview')
 const runwayReview = import.meta.env.DEV && new URLSearchParams(window.location.search).has('runwayReview')
 
 export const NewAirportScene = React.memo((props) => {
@@ -61,54 +61,13 @@ export const NewAirportScene = React.memo((props) => {
     const [projectsClicked, setProjectsClicked] = useState(false)
     const [skillsClicked, setSkillsClicked] = useState(false)
     // must be set to true initially
-    const [mainScreenFocus, setMainScreenFocus] = useState(!trafficReview && !runwayReview)
+    const [mainScreenFocus, setMainScreenFocus] = useState(!trafficReview && !runwayReview && !terminalReview)
 
     const [bingPlaying, setBingPlaying] = useState(false)
     const [soundEnabled, setSoundEnabled] = useState(true)
     const [creditsClicked, setCreditsClicked] = useState(false)
-    const aboutMeScreenVector = useRef(new Vector3())
-    const skillsScreenVector = new Vector3(-25.69, 3.78, -4.08)
-    const projectsScreenVector = new Vector3(-27.58, 4.88, 25.66)
-    const creditsScreenVector = new Vector3(40, 4, -8)
-    const mainScreenVector = useRef(new Vector3())
-
-
-
-
-
-
-    // Update camera focus after OrbitControls (-1), before Html projects the
-    // physical billboard (0), so the DOM and WebGL use the same camera pose.
-    // when about me is clicked
-    useFrame(({ camera, size }) => {
-        if (aboutMeclicked) {
-            const tangent = Math.tan(camera.fov * Math.PI / 360)
-            const distance = Math.max(3.015 / (2 * tangent * 0.82), 2.845 / (2 * tangent * size.width / size.height * 0.88))
-            aboutMeScreenVector.current.set(29.435 + distance, 3.94, 20.57)
-            camera.lookAt(29.435, 3.94, 20.57)
-            camera.position.lerp(aboutMeScreenVector.current, 0.05)
-            // on mobile
-            props.orbitControlRef.current.minDistance = 20
-        }
-        else {
-            if (!trafficReview && !runwayReview && props.orbitControlRef.current.minDistance < 60) {
-                return props.orbitControlRef.current.minDistance = 60
-
-            }
-
-        }
-    }, -0.5)
-
-
-    // // when skills is clicked
-    useFrame(({ camera }) => {
-        if (skillsClicked) {
-            camera.lookAt(skillsScreenRef.current.position)
-            camera.position.lerp(skillsScreenVector, 0.1)
-
-        }
-    }, -0.5)
-
+    const cameraRoute = aboutMeclicked ? 'about' : projectsClicked ? 'projects' : skillsClicked ? 'skills' : creditsClicked ? 'credits' : mainScreenFocus ? 'main' : 'free'
+    const cameraArrived = useCameraNavigation(cameraRoute, props.orbitControlRef)
     useEffect(() => {
         const skillActions = animationsList.map(key => actions[key]).filter(Boolean)
         if (skillsClicked) skillActions.forEach(action => action.play())
@@ -116,26 +75,8 @@ export const NewAirportScene = React.memo((props) => {
         return () => skillActions.forEach(action => action.stop())
     }, [actions, skillsClicked])
 
-    // // when credits is clicked
-    useFrame(({ camera }) => {
-        if (creditsClicked) {
-            camera.lookAt(creditsAreaRef.current.position)
-            camera.position.lerp(creditsScreenVector, 0.08)
-        }
-    }, -0.5)
-
-    // when projects is clicked
-    useFrame(({ camera }) => {
-        if (projectsScreenRef.current) {
-            if (projectsClicked) {
-                camera.lookAt(projectsScreenRef.current.position)
-                camera.position.lerp(projectsScreenVector, 0.05)
-            }
-        }
-
-    }, -0.5)
-
     const switchToMainScreen = useCallback(() => {
+        baselineMark('route', { route: 'main' })
 
         setProjectsClicked(false)
         setSkillsClicked(false)
@@ -151,19 +92,6 @@ export const NewAirportScene = React.memo((props) => {
     }, [mainScreenFocus, switchToMainScreen])
     useEscapeKey(toggleMainScreenFocus)
 
-    // when main screen is in focus 
-    useFrame(({ camera, size }) => {
-        if (mainScreenFocus) {
-            // Fit the physical board to the viewport, including narrow phones.
-            const screenWidth = Math.min(size.width * 0.88, size.height * 1.05, 760)
-            const distance = 5.905 * size.height / (2 * Math.tan(camera.fov * Math.PI / 360) * screenWidth)
-            mainScreenVector.current.set(52.43 + distance, 4.43 + distance * 0.22, 10.46)
-            camera.lookAt(billboardLCDRef.current.position)
-            camera.position.lerp(mainScreenVector.current, 0.05)
-
-        }
-    }, -0.5)
-
     // // returns true if the current browser tab loses focus
     const tabInUse = useTabInUse()
     const audioEnabled = props.ready && tabInUse && soundEnabled
@@ -177,6 +105,8 @@ export const NewAirportScene = React.memo((props) => {
     }
 
     const navigateToArea = (name) => {
+        const route = { aboutmeArea: 'about', infoLCD1: 'about', projectsArea: 'projects', skillsArea: 'skills', creditsArea: 'credits' }[name]
+        if (route) baselineMark('route', { route })
         setBingPlaying(true)
 
         if (name === 'aboutmeArea' || name === 'infoLCD1') {
@@ -240,7 +170,7 @@ export const NewAirportScene = React.memo((props) => {
                 <mesh name="returnArea2" geometry={nodes.returnArea2.geometry} material={nodes.returnArea2.material} position={[29.4, 3.05, 19.54]} onClick={handleClickArea} visible={false} />
 
 
-                <NewStaticItems groundLighting={props.groundLighting} lightingActive={props.ready && tabInUse} />
+                <NewStaticItems groundLighting={props.groundLighting} terminalLighting={props.terminalLighting} lightingActive={props.ready && tabInUse} />
                 <VehicleGrounding meshRef={groundingRef} visible={props.shadowsEnabled} opacity={props.contactShadowOpacity} />
                 <VehicleLighting effectsRef={vehicleLightingRef} settings={props.vehicleLighting} />
 
@@ -375,6 +305,7 @@ export const NewAirportScene = React.memo((props) => {
                 </mesh>
                 <WelcomeBoard
                     active={props.ready && !aboutMeclicked && !projectsClicked && !skillsClicked && !creditsClicked}
+                    animationReady={mainScreenFocus && cameraArrived}
                     focused={mainScreenFocus}
                     soundEnabled={soundEnabled}
                     onNavigate={navigateToArea}

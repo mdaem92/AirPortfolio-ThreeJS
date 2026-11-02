@@ -20,11 +20,11 @@ function Icon({ name }) {
     return <svg className="symbol" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>
 }
 
-export function DeparturesBoard({ active, focused, soundEnabled, onNavigate, onLookAround, onFocus, onToggleSound }) {
+export function DeparturesBoard({ active, animationReady = true, focused, soundEnabled, onNavigate, onLookAround, onFocus, onToggleSound }) {
     const board = useRef(null)
     useEffect(() => {
-        if (active) return animateDepartures(board.current)
-    }, [active])
+        if (active && animationReady) return animateDepartures(board.current)
+    }, [active, animationReady])
 
     return <section ref={board} className="welcome-departures" aria-label="Mahyar International departures" inert={!active} style={{ visibility: active ? 'visible' : 'hidden' }} onPointerDown={event => event.stopPropagation()} onClick={event => event.stopPropagation()}>
         <div className="topline"><div className="brand"><Icon name="plane" />MAHYAR INTERNATIONAL</div><div className="terminal">TERMINAL M / INFORMATION</div></div>
@@ -54,7 +54,7 @@ export default function WelcomeBoard(props) {
     // Html's transform maps 400 CSS pixels to distanceFactor world units.
     // Blend through a depth-tested LCD-sized opening in the canvas. A center
     // ray test would hide the entire DOM board when any object crosses it.
-    return <Html transform position={[52.45, 4.43, 10.43]} rotation={[0, Math.PI / 2, 0]} scale={[1, 0.9644, 1]} distanceFactor={2.2845} occlude="blending" geometry={<planeGeometry args={[5.905, 3.316]} />} zIndexRange={[20, 0]} style={{ backfaceVisibility: 'hidden' }}>
+    return <Html transform wrapperClass="welcome-screen-surface" position={[52.45, 4.43, 10.43]} rotation={[0, Math.PI / 2, 0]} scale={[1, 0.9644, 1]} distanceFactor={2.2845} occlude="blending" geometry={<planeGeometry args={[5.905, 3.316]} />} zIndexRange={[20, 0]} style={{ backfaceVisibility: 'hidden' }}>
         <DeparturesBoard {...props} />
     </Html>
 }

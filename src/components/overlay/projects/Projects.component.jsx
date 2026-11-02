@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { baselineMark } from '../../../performance/baseline-markers'
 import { Carousel, ConfigProvider } from "antd";
 import { OverlayContainer } from "./Projects.styles";
 import Project from "../../project/Project.component";
@@ -12,6 +13,7 @@ import { portfolioTheme } from '../../../ui-theme';
 const Projects = ({exitFocus}) => {
 
     const isShown = useDelayedMount(1800)
+    useEffect(() => { if (isShown) baselineMark('overlay-visible', { route: 'projects' }) }, [isShown])
     const isMobile = useWindowWidth() <=600
 
 

@@ -38,6 +38,33 @@ test('reduced motion renders every flight field settled without starting animati
     for (const cell of container.querySelectorAll('.flap')) expect(cell.dataset.character).toBe(cell.dataset.final)
 })
 
+test('flips wait for camera arrival and cancel if the camera leaves again', async () => {
+    vi.useFakeTimers()
+    vi.stubGlobal('matchMedia', () => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
+    const pending = new Set()
+    const animate = vi.fn(() => {
+        let reject
+        const finished = new Promise((_, fail) => { reject = fail })
+        const animation = { finished, cancel: () => { pending.delete(animation); reject(new Error('cancelled')) } }
+        pending.add(animation)
+        return animation
+    })
+    Object.defineProperty(Element.prototype, 'animate', { configurable: true, value: animate })
+    try {
+        const { container, rerender } = render(<DeparturesBoard active animationReady={false} {...handlers()} />)
+        await act(async () => { await vi.advanceTimersByTimeAsync(5000) })
+        expect(animate).not.toHaveBeenCalled()
+        expect(vi.getTimerCount()).toBe(0)
+        rerender(<DeparturesBoard active animationReady {...handlers()} />)
+        await act(async () => { await vi.advanceTimersByTimeAsync(1) })
+        expect(animate).toHaveBeenCalled()
+        rerender(<DeparturesBoard active animationReady={false} {...handlers()} />)
+        expect(pending.size).toBe(0)
+        expect(vi.getTimerCount()).toBe(0)
+        expect(container.querySelectorAll('.flap-leaf')).toHaveLength(0)
+    } finally { delete Element.prototype.animate }
+})
+
 test('leaving the welcome board cancels flips and stagger timers, then restores final labels', async () => {
     vi.useFakeTimers()
     vi.stubGlobal('matchMedia', () => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }))

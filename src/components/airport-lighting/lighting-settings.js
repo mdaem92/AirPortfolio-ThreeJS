@@ -1,7 +1,8 @@
 import approvedLighting from './lighting-defaults.json'
+import { terminalInteriorDefaults } from './terminal-interior'
 
 // Approved browser export: shared by production and fresh development sessions.
-export const lightingDefaults = approvedLighting
+export const lightingDefaults = { ...approvedLighting, terminalInterior: terminalInteriorDefaults }
 export const vehicleLightingDefaults = lightingDefaults.vehicles
 
 const storageKey = 'airportfolio-lighting-v1'
@@ -13,6 +14,11 @@ export function restoreLightingSettings(saved, defaults = lightingDefaults, path
     if (typeof defaults === 'number') {
         if (typeof saved !== 'number' || !Number.isFinite(saved)) return defaults
         const key = path.at(-1)
+        if (path[0] === 'terminalInterior') {
+            const bounds = { windowBrightness: [0, 4], ceilingBrightness: [0, 5], variation: [0, 1], transmission: [0, 0.4], spillIntensity: [0, 250], spillDistance: [2, 25] }
+            const [min, max] = bounds[key] ?? [0, 1000]
+            return Math.max(min, Math.min(max, saved))
+        }
         if (path[0] === 'runwayGround' && key === 'steadyBrightness') return Math.max(0, Math.min(3, saved))
         if (path[0] === 'runwayGround' && key === 'steadyGlow') return Math.max(0, Math.min(1, saved))
         if (path[0] === 'runwayGround' && key === 'brightness') return Math.max(0, Math.min(10, saved))
@@ -42,6 +48,6 @@ export function updateLightingSetting(settings, path, value) {
     if (!path.length) return value
     const [key, ...remaining] = path
     const next = Array.isArray(settings) ? [...settings] : { ...settings }
-    next[key] = updateLightingSetting(settings[key], remaining, value)
+    next[key] = updateLightingSetting(settings?.[key] ?? lightingDefaults[key], remaining, value)
     return next
 }

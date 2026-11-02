@@ -1,0 +1,27 @@
+{
+  "capturedAt": "2026-11-01T23:46:48.139Z",
+  "build": "index-DcyYlY4W.js / PerformanceBaseline-DIIBalsN.js",
+  "context": { "width":1280,"height":720,"dpr":1,"shadows":true,"gpu":"NVIDIA GeForce RTX 3060 Ti via ANGLE D3D11" },
+  "allSamplesContextChanged":false,
+  "allSamplesHiddenFrames":0,
+  "columns":["label","frames","p50Ms","p95Ms","p99Ms","maxMs","cpuP95Ms","cpuMaxMs","drawCallsP95","trianglesP95","over33Ms","over50Ms","programsFirst","programsLast","cameraEnd"],
+  "samples":[
+    ["scene-initial-5s",137,16.7,18,61.7,2727.3,7.1,2727.1,408,1449544,2,2,28,28,[58.77,5.79,10.51]],
+    ["start-first-5s",298,16.6,19.1,22,69.5,8.8,31.8,487,1421807,1,1,32,32,[58.77,5.79,10.52]],
+    ["projects-1",300,16.6,18.3,23,53.7,6.2,13.8,351,1267068,1,1,32,30,[-42.76,7.57,39.8]],
+    ["main-1",300,16.6,18.5,19.5,38.9,6.7,24.4,465,1423232,1,0,32,32,[58.77,5.79,10.52]],
+    ["skills-1",301,16.6,17.6,18,18.8,6.9,9,506,1462654,0,0,32,30,[-55.35,8.14,-8.79]],
+    ["main-2",301,16.6,18.3,18.9,28.5,6.8,12.3,487,1523428,0,0,32,32,[58.77,5.79,10.52]],
+    ["idle-1",301,16.6,18.1,19.1,19.9,7.3,9.7,487,1421807,0,0,32,32,[58.77,5.79,10.52]]
+  ],
+  "slowFrames":[
+    {"window":"projects-1","offsetMs":1859.3,"frameMs":53.7,"cpuSubmissionMs":4.1,"calls":268,"triangles":1244546},
+    {"window":"main-1","offsetMs":38.9,"frameMs":38.9,"cpuSubmissionMs":24.4,"calls":395,"triangles":1493378},
+    {"window":"main-2","offsetMs":28.5,"frameMs":28.5,"cpuSubmissionMs":12.3,"calls":436,"triangles":1835084}
+  ],
+  "loading":{"fcpMs":132,"sceneReadyMarkMs":501.5,"firstFrameFinishedApproxMs":3230.4,"firstRenderCpuMs":2727.1,"modelTransferMs":29.2,"modelResponseEndMs":107.4,"modelTransferBytes":300,"modelDecodedBytes":3220400,"jsTransferMs":13,"jsTransferBytes":300},
+  "longTasks":[{"startMs":503.2,"durationMs":2727}],
+  "overlayDelaysMs":{"projects":1852.3,"skills":2010.8},
+  "requestedCameraPositions":{"projects":[-27.58,4.88,25.66],"skills":[-25.69,3.78,-4.08]},
+  "notes":["HTTP 304 revalidation: 300 bytes of headers, cached body reused. Not a cleared-driver-cache cold test.","CPU submission is not GPU timing. Counts sum render passes.","The five-second window includes the camera movement and its settling tail.","Projects spike occurs near the delayed overlay mount; correlation does not establish sole cause."]
+}

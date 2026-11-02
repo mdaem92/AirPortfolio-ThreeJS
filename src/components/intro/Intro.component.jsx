@@ -1,10 +1,11 @@
 import { Suspense, cloneElement, useCallback, useState } from 'react'
 import { IntroContainer } from './Intro.styles'
+import { baselineMark } from '../../performance/baseline-markers'
 
 export default function Intro({ children }) {
     const [clicked, setClicked] = useState(false)
     const [ready, setReady] = useState(false)
-    const handleReady = useCallback(() => setReady(true), [])
+    const handleReady = useCallback(() => { baselineMark('scene-ready'); setReady(true) }, [])
     return <IntroContainer>
         <Suspense fallback={null}>{cloneElement(children, { ready: clicked && ready, onReady: handleReady })}</Suspense>
         <div className={`fullscreen ${clicked ? 'clicked' : ''}`} inert={clicked}>
@@ -22,7 +23,7 @@ export default function Intro({ children }) {
                         <div><small>GATE</small><div className="ticket-gate">A1</div></div>
                         <div className="ticket-flight"><small>FLIGHT</small>MY 101</div>
                         <div className="ticket-barcode" aria-hidden="true" />
-                        <button className="boarding-start" type="button" disabled={!ready} onClick={() => setClicked(true)}>{ready ? 'Start exploring →' : 'Preparing your flight…'}</button>
+                        <button className="boarding-start" type="button" disabled={!ready} onClick={() => { baselineMark('start'); setClicked(true) }}>{ready ? 'Start exploring →' : 'Preparing your flight…'}</button>
                     </div>
                 </div>
                 <p className="boarding-note" role="status">{ready ? 'Ready to board · An interactive 3D experience with sound' : 'Loading the airport · Your flight will be ready shortly'}</p>

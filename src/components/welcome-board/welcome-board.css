@@ -1,3 +1,4 @@
+.welcome-screen-surface { overflow:clip !important; }
 .welcome-departures {
     box-sizing:border-box;
     width:1034px;
